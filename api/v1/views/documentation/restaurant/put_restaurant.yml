@@ -1,0 +1,24 @@
+summary: Update a restaurant
+description: Updates an existing restaurant by its ID.
+tags:
+  - Restaurants
+parameters:
+  - name: restaurant_id
+    in: path
+    required: true
+    type: integer
+    description: The ID of the restaurant to update.
+  - in: body
+    name: restaurant
+    required: true
+    schema:
+      $ref: '#/definitions/Restaurant'
+responses:
+  '200':
+    description: Restaurant updated successfully.
+    schema:
+      $ref: '#/definitions/Restaurant'
+  '400':
+    description: Invalid input, not a JSON or missing required field.
+  '404':
+    description: Restaurant not found.

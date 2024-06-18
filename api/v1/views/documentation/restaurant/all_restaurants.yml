@@ -1,0 +1,11 @@
+summary: List all restaurants
+description: Retrieves a list of all restaurants.
+tags:
+  - Restaurants
+responses:
+  '200':
+    description: An array of restaurants.
+    schema:
+      type: array
+      items:
+        $ref: '#/definitions/Restaurant'
