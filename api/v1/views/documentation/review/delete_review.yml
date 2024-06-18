@@ -1,0 +1,15 @@
+summary: Delete a review
+description: Deletes a review from the database.
+tags:
+  - Reviews
+parameters:
+  - name: review_id
+    in: path
+    required: true
+    type: integer
+    description: The ID of the review to delete.
+responses:
+  '200':
+    description: Review deleted successfully.
+  '404':
+    description: Review not found.
