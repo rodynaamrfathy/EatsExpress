@@ -1,0 +1,11 @@
+summary: List all orders
+description: Retrieve a list of all order objects from the database.
+tags:
+  - Orders
+responses:
+  '200':
+    description: A list of orders.
+    schema:
+      type: array
+      items:
+        $ref: '#/definitions/Order'

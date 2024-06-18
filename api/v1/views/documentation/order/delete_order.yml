@@ -1,0 +1,15 @@
+summary: Delete an order
+description: Deletes an order from the database.
+tags:
+  - Orders
+parameters:
+  - name: order_id
+    in: path
+    required: true
+    type: integer
+    description: The ID of the order to delete.
+responses:
+  '200':
+    description: Order deleted successfully.
+  '404':
+    description: Order not found.

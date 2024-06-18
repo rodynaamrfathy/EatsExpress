@@ -1,0 +1,18 @@
+summary: Create an order
+description: Create a new order entry in the database.
+tags:
+  - Orders
+parameters:
+  - in: body
+    name: order
+    description: Order object
+    required: true
+    schema:
+      $ref: '#/definitions/Order'
+responses:
+  '201':
+    description: Order created successfully.
+    schema:
+      $ref: '#/definitions/Order'
+  '400':
+    description: Invalid input.
