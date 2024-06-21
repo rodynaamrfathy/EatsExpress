@@ -1,0 +1,117 @@
+.base {
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.div {
+  flex: 1;
+  background-color: #ffffff;
+}
+
+.header {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.navigation {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 30px;
+}
+
+.logo {
+  display: flex;
+  left: 30px;
+}
+
+.eats-express {
+  font-family: "Poppins-Bold", Helvetica;
+  font-weight: 700;
+  color: #212832;
+  font-size: 24px;
+}
+
+.span {
+  font-family: "Inter-Bold", Helvetica;
+  font-weight: 700;
+  color: #ff7b29;
+}
+
+.button {
+  all: unset;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 153px;
+  height: 48px;
+  background-color: #ff7b29;
+  border-radius: 8px;
+}
+
+.text-wrapper-2 {
+  font-family: "Poppins-Medium", Helvetica;
+  font-weight: 500;
+  color: #ffffff;
+  font-size: 14px;
+  text-align: center;
+  letter-spacing: -0.14px;
+  line-height: 16px;
+  white-space: nowrap;
+}
+
+.menu {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-grow: 1;
+  gap: 34px;
+}
+
+.text-wrapper-3, .text-wrapper-4 {
+  font-family: "Poppins-Medium", Helvetica;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 16px;
+  white-space: nowrap;
+}
+
+.text-wrapper-3 {
+  color: #2d3134;
+}
+
+.text-wrapper-4 {
+  color: #696f77;
+}
+
+.nav-link, .footer-link {
+  text-decoration: none;
+  color: inherit; /* Keep the text color same as the surrounding text */
+  position: relative;
+  padding-bottom: 5px;
+}
+
+.nav-link:hover, .footer-link:hover, .nav-link.active {
+  text-decoration: none;
+  color: #2d3134; /* Same color as the text-wrapper-3 class */
+}
+
+.nav-link.active::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: #ff7b29; /* Orange color */
+}
