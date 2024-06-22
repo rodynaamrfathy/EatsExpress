@@ -25,19 +25,19 @@ class TestRestaurantDocs(unittest.TestCase):
         pep8s = pep8.StyleGuide(quiet=True)
         result = pep8s.check_files(['models/Restaurant.py'])
         self.assertEqual(result.total_errors, 0,
-                         "Found code style errors (and warnings).")
+                        "Found code style errors (and warnings).")
 
     def test_restaurant_module_docstring(self):
         """Test for the restaurant.py module docstring"""
         self.assertIsNot(restaurant.__doc__, None,
-                         "restaurant.py needs a docstring")
+                        "restaurant.py needs a docstring")
         self.assertTrue(len(restaurant.__doc__) >= 1,
                         "restaurant.py needs a docstring")
 
     def test_restaurant_class_docstring(self):
         """Test for the Restaurant class docstring"""
         self.assertIsNot(Restaurant.__doc__, None,
-                         "Restaurant class needs a docstring")
+                        "Restaurant class needs a docstring")
         self.assertTrue(len(Restaurant.__doc__) >= 1,
                         "Restaurant class needs a docstring")
 
@@ -45,7 +45,7 @@ class TestRestaurantDocs(unittest.TestCase):
         """Test for the presence of docstrings in Restaurant methods"""
         for func in self.restaurant_f:
             self.assertIsNot(func[1].__doc__, None,
-                             "{:s} method needs a docstring".format(func[0]))
+                            "{:s} method needs a docstring".format(func[0]))
             self.assertTrue(len(func[1].__doc__) >= 1,
                             "{:s} method needs a docstring".format(func[0]))
 
