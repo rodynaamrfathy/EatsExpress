@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="Styles/header+loggedin.css">
+  <link rel="stylesheet" href="Styles/footer.css">
+  <link rel="stylesheet" href="Styles/add_item_to_cart.css">
+  <title>Add Item to Cart - EatsExpress</title>
+</head>
+<body>
+  <header class="header">
+    <div w3-include-html="header.html"></div>
+  </header>
+
+  <main class="main">
+    <div class="add-item-container">
+      <img src="assets/menu-item-placeholder.png" alt="Menu Item">
+      <h1>Item name</h1>
+      <p>Description of the item goes here.</p>
+      <h2>$100</h2>
+      <div class="quantity-control">
+        <button>-</button>
+        <span>1</span>
+        <button>+</button>
+      </div>
+      <form>
+        <label for="addon1">
+          <input type="checkbox" id="addon1" name="addon1"> Add-on 1
+        </label>
+        <label for="addon2">
+          <input type="checkbox" id="addon2" name="addon2"> Add-on 2
+        </label>
+        <label for="addon3">
+          <input type="checkbox" id="addon3" name="addon3"> Add-on 3
+        </label>
+        <button type="submit">Add to cart</button>
+      </form>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div w3-include-html="footer.html"></div>
+  </footer>
+
+  <script src="https://www.w3schools.com/lib/w3.js"></script>
+  <script>
+    w3.includeHTML();
+  </script>
+</body>
+</html>

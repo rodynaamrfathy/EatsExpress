@@ -1,0 +1,25 @@
+.filter-container {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
+  }
+  
+  .restaurant-item {
+    display: flex;
+    padding: 10px;
+    background: #fff;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  }
+  
+  .restaurant-item img {
+    width: 100px;
+    height: 100px;
+    margin-right: 20px;
+  }
+  
+  .restaurant-details {
+    flex: 1;
+  }
+  

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="Styles/header+loggedin.css">
+  <link rel="stylesheet" href="Styles/footer.css">
+  <link rel="stylesheet" href="Styles/restaurant.css">
+  <title>Restaurant - EatsExpress</title>
+</head>
+<body>
+  <header class="header">
+    <div w3-include-html="header.html"></div>
+  </header>
+
+  <main class="main">
+    <div class="restaurant-container">
+      <img src="assets/restaurant-placeholder-large.png" alt="Restaurant Image">
+      <h1>Restaurant name</h1>
+      <div class="menu-item">
+        <img src="assets/menu-item-placeholder.png" alt="Menu Item">
+        <div class="menu-item-details">
+          <h2>Item name</h2>
+          <p>Description of the item goes here.</p>
+        </div>
+      </div>
+      <!-- Add more menu items as needed -->
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div w3-include-html="footer.html"></div>
+  </footer>
+
+  <script src="https://www.w3schools.com/lib/w3.js"></script>
+  <script>
+    w3.includeHTML();
+  </script>
+</body>
+</html>

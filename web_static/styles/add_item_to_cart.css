@@ -1,0 +1,56 @@
+.add-item-container {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    margin-top: 150px;
+    margin-bottom: 50px;
+  }
+  
+  .add-item-container img {
+    width: 100%;
+    height: auto;
+    margin-bottom: 20px;
+  }
+  
+  .quantity-control {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .quantity-control button {
+    padding: 5px 10px;
+    font-size: 1.2rem;
+    border: none;
+    background: #ff7b29;
+    color: #fff;
+    cursor: pointer;
+  }
+  
+  .quantity-control span {
+    margin: 0 10px;
+    font-size: 1.2rem;
+  }
+  
+  form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  form label {
+    margin-bottom: 10px;
+  }
+  
+  form button {
+    padding: 10px;
+    background: #ff7b29;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;
+  }
+  

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="Styles/header+loggedin.css">
+  <link rel="stylesheet" href="Styles/footer.css">
+  <link rel="stylesheet" href="Styles/filter.css">
+  <title>Filter - EatsExpress</title>
+</head>
+<body>
+  <header class="header">
+    <div w3-include-html="header.html"></div>
+  </header>
+
+  <main class="main">
+    <div class="filter-container">
+      <h1>Restaurants</h1>
+      <div class="restaurant-item">
+        <img src="assets/restaurant-placeholder.png" alt="Restaurant Image">
+        <div class="restaurant-details">
+          <h2>Pizza Hut</h2>
+          <p>Free delivery</p>
+          <p>10-15 min</p>
+          <p>3.5/5 (1000 reviews)</p>
+        </div>
+      </div>
+      <!-- Add more restaurant items as needed -->
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div w3-include-html="footer.html"></div>
+  </footer>
+
+  <script src="https://www.w3schools.com/lib/w3.js"></script>
+  <script>
+    w3.includeHTML();
+  </script>
+</body>
+</html>
