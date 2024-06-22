@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="Styles/header+loggedin.css">
+  <link rel="stylesheet" href="Styles/footer.css">
+  <link rel="stylesheet" href="Styles/viewcart.css">
+  <title>Cart - EatsExpress</title>
+</head>
+<body>
+  <header class="header">
+    <!-- Include the header+loggedin.html file -->
+    <div w3-include-html="header+loggedin.html"></div>
+  </header>
+
+  <main class="main" style="flex: 1;">
+    <div class="cart-container">
+      <h1>Cart</h1>
+      <div class="cart-item">
+        <div class="item-image"><img src="assets/item-placeholder.png" alt="Item image"></div>
+        <div class="item-details">
+          <h2>Item name</h2>
+          <p>The flavors of ranch dressing, chicken and our special pizza double cheese.</p>
+          <p><strong>Add ons</strong></p>
+          <p>Add on 1, Add on 2</p>
+        </div>
+        <div class="item-quantity">
+          <p>Quantity</p>
+          <div class="quantity-controls">
+            <button class="quantity-btn">-</button>
+            <span>1</span>
+            <button class="quantity-btn">+</button>
+          </div>
+        </div>
+      </div>
+      <div class="cart-item">
+        <div class="item-image"><img src="assets/item-placeholder.png" alt="Item image"></div>
+        <div class="item-details">
+          <h2>Item name</h2>
+          <p>The flavors of ranch dressing, chicken and our special pizza double cheese.</p>
+          <p><strong>Add ons</strong></p>
+          <p>Add on 1, Add on 2</p>
+        </div>
+        <div class="item-quantity">
+          <p>Quantity</p>
+          <div class="quantity-controls">
+            <button class="quantity-btn">-</button>
+            <span>1</span>
+            <button class="quantity-btn">+</button>
+          </div>
+        </div>
+      </div>
+      <div class="cart-item">
+        <div class="item-image"><img src="assets/item-placeholder.png" alt="Item image"></div>
+        <div class="item-details">
+          <h2>Item name</h2>
+          <p>The flavors of ranch dressing, chicken and our special pizza double cheese.</p>
+          <p><strong>Add ons</strong></p>
+          <p>Add on 1, Add on 2</p>
+        </div>
+        <div class="item-quantity">
+          <p>Quantity</p>
+          <div class="quantity-controls">
+            <button class="quantity-btn">-</button>
+            <span>1</span>
+            <button class="quantity-btn">+</button>
+          </div>
+        </div>
+      </div>
+      <a href="complete_order.html">
+        <button class="complete-order-btn">Complete order</button>
+      </a>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <!-- Include the footer.html file -->
+    <div w3-include-html="footer.html"></div>
+  </footer>
+
+  <script src="https://www.w3schools.com/lib/w3.js"></script>
+  <script>
+    w3.includeHTML();
+  </script>
+</body>
+</html>

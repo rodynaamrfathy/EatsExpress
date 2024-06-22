@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="Styles/header+loggedin.css">
+  <link rel="stylesheet" href="Styles/footer.css">
+  <link rel="stylesheet" href="Styles/add_address.css">
+  <title>Add Address - EatsExpress</title>
+</head>
+<body>
+  <header class="header">
+    <!-- Include the header+loggedin.html file -->
+    <div w3-include-html="header.html"></div>
+  </header>
+
+  <main class="main" style="flex: 1;">
+    <div class="add-address-container">
+      <h1>Add New Address</h1>
+      <form>
+        <label for="address-line1">Address Line 1:</label>
+        <input type="text" id="address-line1" name="address-line1" required>
+        
+        <label for="address-line2">Address Line 2:</label>
+        <input type="text" id="address-line2" name="address-line2">
+        
+        <label for="city">City:</label>
+        <input type="text" id="city" name="city" required>
+        
+        <label for="state">State/Province:</label>
+        <input type="text" id="state" name="state" required>
+        
+        <label for="zip">ZIP/Postal Code:</label>
+        <input type="text" id="zip" name="zip" required>
+        
+        <label for="country">Country:</label>
+        <input type="text" id="country" name="country" required>
+        
+        <button type="submit">Save Address</button>
+      </form>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <!-- Include the footer.html file -->
+    <div w3-include-html="footer.html"></div>
+  </footer>
+
+  <script src="https://www.w3schools.com/lib/w3.js"></script>
+  <script>
+    w3.includeHTML();
+  </script>
+</body>
+</html>
