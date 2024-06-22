@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="Styles/header.css">
   <link rel="stylesheet" href="Styles/main.css">
   <link rel="stylesheet" href="Styles/global.css">
+  <link rel="stylesheet" href="Styles/modal.css">
   <title>EatsExpress</title>
 </head>
 <body>
@@ -14,13 +15,15 @@
     <header class="header">
       <!-- Include the header.html file -->
       <div w3-include-html="header+navigation.html"></div>
+      <div class="login-button-container">
+        <a href="login.html" class="login-button">Login</a>
+      </div>
     </header>
 
-    <main class="main">
+    <main class="main" style="flex: 1;">
       <section id="home">
-        <!-- Content for Home -->
         <div class="home-banner">
-          <img src="assets/main/banner-img-1-2.png" alt="Salad Image">
+          <img src="assets/main/banner-img-1-2.png" alt="Salad Image" class="banner1">
           <div class="home-text">
             <h1>Order food online in Egypt</h1>
             <p>Order food and grocery delivery online from hundreds of restaurants and shops nearby.</p>
@@ -29,68 +32,201 @@
               <button>Let's go</button>
             </div>
           </div>
-          <img src="assets/main/banner-img-2-1.png" alt="Pasta Image">
+          <img src="assets/main/banner-img-2-1.png" alt="Pasta Image" class="banner2">
         </div>
       </section>
-      <section id="offers">
-        <!-- Content for Offers -->
-        <div class="offers-container">
-            <a href="#burger" class="offer-item">
-              <div class="icon-wrapper">
-                <img src="assets/main/Burger.png" alt="Burger">
-              </div>
-              <p>Burger</p>
-            </a>
-            <a href="#pizza" class="offer-item">
-              <div class="icon-wrapper">
-                <img src="assets/main/image-874.png" alt="Pizza">
-              </div>
-              <p>Pizza</p>
-            </a>
-            <a href="#donut" class="offer-item">
-              <div class="icon-wrapper">
-                <img src="assets/main/image-876.png" alt="Donut">
-              </div>
-              <p>Donut</p>
-            </a>
-            <a href="#asian" class="offer-item">
-              <div class="icon-wrapper">
-                <img src="assets/main/image-878.png" alt="Asian">
-              </div>
-              <p>Asian</p>
-            </a>
-            <a href="#cake" class="offer-item">
-              <div class="icon-wrapper">
-                <img src="assets/main/image-879.png" alt="Cake">
-              </div>
-              <p>Cake</p>
-            </a>
-            <a href="#pasta" class="offer-item">
-              <div class="icon-wrapper">
-                <img src="assets/main/image-877.png" alt="Pasta">
-              </div>
-              <p>Pasta</p>
-            </a>
-            <a href="#mexican" class="offer-item">
-              <div class="icon-wrapper">
-                <img src="assets/main/image-881.png" alt="Mexican">
-              </div>
-              <p>Mexican</p>
-            </a>
-          </div>
+      
+      <section id="categories">
+        <div class="categories-container">
+          <a href="#burger" class="category-item">
+            <div class="icon-wrapper">
+              <img src="assets/main/Burger.png" alt="Burger">
+            </div>
+            <p>Burger</p>
+          </a>
+          <a href="#pizza" class="category-item">
+            <div class="icon-wrapper">
+              <img src="assets/main/image-874.png" alt="Pizza">
+            </div>
+            <p>Pizza</p>
+          </a>
+          <a href="#donut" class="category-item">
+            <div class="icon-wrapper">
+              <img src="assets/main/image-876.png" alt="Donut">
+            </div>
+            <p>Donut</p>
+          </a>
+          <a href="#asian" class="category-item">
+            <div class="icon-wrapper">
+              <img src="assets/main/image-878.png" alt="Asian">
+            </div>
+            <p>Asian</p>
+          </a>
+          <a href="#cake" class="category-item">
+            <div class="icon-wrapper">
+              <img src="assets/main/image-879.png" alt="Cake">
+            </div>
+            <p>Cake</p>
+          </a>
+          <a href="#pasta" class="category-item">
+            <div class="icon-wrapper">
+              <img src="assets/main/image-877.png" alt="Pasta">
+            </div>
+            <p>Pasta</p>
+          </a>
+          <a href="#mexican" class="category-item">
+            <div class="icon-wrapper">
+              <img src="assets/main/image-881.png" alt="Mexican">
+            </div>
+            <p>Mexican</p>
+          </a>
+        </div>
       </section>
+      
       <section id="restaurants">
-        <!-- Content for Restaurants -->
+        <div class="items-container">
+          <a href="#garnell" class="item">
+            <div class="item-content">
+              <div class="item-logo">
+                <img src="assets/main/images-10.png" alt="Garnell">
+              </div>
+              <h2>Garnell</h2>
+              <div class="item-details">
+                <img src="assets/main/image-892.png" alt="Delivery Icon">
+                <span>Free delivery</span>
+                <img src="assets/main/image-893.png" alt="Time Icon">
+                <span>10-15 min</span>
+              </div>
+              <div class="item-tags">
+                <span>Japanese</span>
+                <span>Asian</span>
+              </div>
+            </div>
+          </a>
+          <a href="#romapizza" class="item">
+            <div class="item-content">
+              <div class="item-logo">
+                <img src="assets/main/images-9.png" alt="Roma Pizza">
+              </div>
+              <h2>Roma pizza</h2>
+              <div class="item-details">
+                <img src="assets/main/image-892.png" alt="Delivery Icon">
+                <span>$20 delivery</span>
+                <img src="assets/main/image-893.png" alt="Time Icon">
+                <span>20-25 min</span>
+              </div>
+              <div class="item-tags">
+                <span>Italian</span>
+                <span>Pizza</span>
+              </div>
+            </div>
+          </a>
+          <a href="#vinnyspizza" class="item">
+            <div class="item-content">
+              <div class="item-logo">
+                <img src="assets/main/images-8.png" alt="Vinny's Pizza">
+              </div>
+              <h2>vinny's pizza</h2>
+              <div class="item-details">
+                <img src="assets/main/image-892.png" alt="Delivery Icon">
+                <span>$20 delivery</span>
+                <img src="assets/main/image-893.png" alt="Time Icon">
+                <span>20-25 min</span>
+              </div>
+              <div class="item-tags">
+                <span>Italian</span>
+                <span>Pizza</span>
+              </div>
+            </div>
+          </a>
+        </div>
       </section>
+
       <section id="beverages">
-        <h1>Beverages</h1>
-        <!-- Content for Beverages -->
+        <div class="items-container">
+          <a href="#coffee" class="item">
+            <div class="item-content">
+              <div class="item-logo">
+                <img src="assets/main/coffee.png" alt="Coffee">
+              </div>
+              <h2>Coffee</h2>
+            </div>
+          </a>
+          <a href="#softdrinks" class="item">
+            <div class="item-content">
+              <div class="item-logo">
+                <img src="assets/main/softdrinks.png" alt="Soft Drinks">
+              </div>
+              <h2>Soft Drinks</h2>
+            </div>
+          </a>
+          <a href="#juice" class="item">
+            <div class="item-content">
+              <div class="item-logo">
+                <img src="assets/main/juice.png" alt="Juice">
+              </div>
+              <h2>Juice</h2>
+            </div>
+          </a>
+        </div>
       </section>
+
       <section id="cuisines">
-        <!-- Content for Cuisines -->
+        <div class="items-container">
+          <a href="#italian" class="item">
+            <div class="item-content">
+              <div class="item-logo">
+                <img src="assets/main/italian.png" alt="Italian">
+              </div>
+              <h2>Italian</h2>
+            </div>
+          </a>
+          <a href="#japanese" class="item">
+            <div class="item-content">
+              <div class="item-logo">
+                <img src="assets/main/japanese.png" alt="Japanese">
+              </div>
+              <h2>Japanese</h2>
+            </div>
+          </a>
+          <a href="#egyptian" class="item">
+            <div class="item-content">
+              <div class="item-logo">
+                <img src="assets/main/egyptian.png" alt="Egyptian">
+              </div>
+              <h2>Egyptian</h2>
+            </div>
+          </a>
+        </div>
       </section>
+
       <section id="breakfast">
-        <!-- Content for Breakfast -->
+        <div class="items-container">
+          <a href="#orientalbreakfast" class="item">
+            <div class="item-content">
+              <div class="item-logo">
+                <img src="assets/main/orientalbreakfast.png" alt="Oriental Breakfast">
+              </div>
+              <h2>Oriental Breakfast</h2>
+            </div>
+          </a>
+          <a href="#americanbreakfast" class="item">
+            <div class="item-content">
+              <div class="item-logo">
+                <img src="assets/main/americanbreakfast.png" alt="American Breakfast">
+              </div>
+              <h2>American Breakfast</h2>
+            </div>
+          </a>
+          <a href="#bakeries" class="item">
+            <div class="item-content">
+              <div class="item-logo">
+                <img src="assets/main/bakeries.png" alt="Bakeries">
+              </div>
+              <h2>Bakeries</h2>
+            </div>
+          </a>
+        </div>
       </section>
     </main>
 
@@ -99,6 +235,52 @@
       <div w3-include-html="footer.html"></div>
     </footer>
   </div>
+
+  <!-- Modal Structure -->
+  <div id="loginModal" class="modal">
+    <div class="modal-content">
+      <span id="closeBtn" class="close">&times;</span>
+      <h2>Welcome back!</h2>
+      <form>
+        <input type="text" placeholder="Email, username" required>
+        <input type="password" placeholder="Password" required>
+        <button type="submit">Login</button>
+        <p class="create-account"><a href="#">Create a new account?</a></p>
+      </form>
+    </div>
+  </div>
+
+  <script src="https://www.w3schools.com/lib/w3.js"></script>
+  <script>
+    w3.includeHTML();
+
+    // JavaScript for modal
+    document.addEventListener('DOMContentLoaded', function() {
+      const loginBtn = document.querySelector('.login-button');
+      const modal = document.getElementById('loginModal');
+      const closeBtn = document.getElementById('closeBtn');
+      const mainContent = document.querySelector('.main');
+
+      loginBtn.addEventListener('click', () => {
+        modal.style.display = 'block';
+        mainContent.classList.add('blur');
+      });
+
+      closeBtn.addEventListener('click', () => {
+        modal.style.display = 'none';
+        mainContent.classList.remove('blur');
+      });
+
+      window.addEventListener('click', (e) => {
+        if (e.target == modal) {
+          modal.style.display = 'none';
+          mainContent.classList.remove('blur');
+        }
+      });
+    });
+  </script>
+</body>
+</html>
 
   <script src="https://www.w3schools.com/lib/w3.js"></script>
   <script>
@@ -132,3 +314,4 @@
   </script>
 </body>
 </html>
+
