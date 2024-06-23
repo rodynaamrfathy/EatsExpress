@@ -1,21 +1,26 @@
-# models/__init__.py
-
+#!/usr/bin/python3
+"""create a unique FileStorage or DBStorage instance for your application"""
 import os
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, scoped_session
 
+from models.base_model import Base
+
 storage_t = os.getenv('STORAGE_TYPE', 'db')
+
 if storage_t == 'db':
-    engine = create_engine('sqlite:///eatexpress.db')
-    Session = scoped_session(sessionmaker(bind=engine))
+    from models.engine.db_storage import DBStorage
+    storage = DBStorage()
 else:
-    # Code for file storage or other types of storage
-    Session = None
+    from models.engine.file_storage import FileStorage
+    storage = FileStorage()
 
 def init_db():
     """Initialize the database"""
-    import models.base_model
-    import models.user
-    import models.order
-    import models.review
-    Base.metadata.create_all(engine)
+    if storage_t == 'db':
+        import models.user
+        import models.order
+        import models.review
+        Base.metadata.create_all(storage.engine)
+
+storage.reload()
