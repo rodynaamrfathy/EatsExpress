@@ -19,9 +19,12 @@ class DBStorage:
         db_type = os.getenv('DB_TYPE', 'sqlite')
 
         if db_type == 'mysql':
-            self.__engine = create_engine(f'mysql+mysqldb://{user}:{password}@{host}/{db}')
+            # Include echo=True if you want to see the SQL statements
+            self.__engine = create_engine(f'mysql+mysqldb://{user}:{password}@{host}/{db}', echo=True)
         else:
-            self.__engine = create_engine('sqlite:///eatexpress.db')
+            # Ensure the SQLite URL is dynamic based on the environment variable or use a default value
+            sqlite_url = f'sqlite:///{db}.db' if db else 'sqlite:///eatexpress.db'
+            self.__engine = create_engine(sqlite_url, echo=True)
 
     def all(self, cls=None):
         """Query on the current database session"""
@@ -48,11 +51,15 @@ class DBStorage:
             self.__session.delete(obj)
 
     def reload(self):
-        """Reload all tables"""
-        Base.metadata.create_all(self.__engine)
+        """Reload all tables and initialize the session factory"""
+        Base.metadata.create_all(self.__engine)  # Create all tables based on your models
         session_factory = sessionmaker(bind=self.__engine, expire_on_commit=False)
-        self.__session = scoped_session(session_factory)
+        self.___session = scoped_session(session_factory)
 
     def close(self):
         """Close the current session"""
         self.__session.remove()
+
+# Ensure reload is called after initialization to set up tables and session
+db_storage = DBStorage()
+db_storage.reload()
