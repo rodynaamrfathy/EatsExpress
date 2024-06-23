@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/}}header+loggedin.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/header+loggedin.css') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/footer.css') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/complete_order.css') }}">
   <title>{{ title }}</title>
@@ -11,7 +11,7 @@
 <body>
   <header class="header">
     <!-- Include the header+loggedin.html file -->
-    <div w3-include-html="header+loggedin.html"></div>
+    {% include 'header+loggedin.html' %}
   </header>
 
   <main class="main" style="flex: 1;">
@@ -19,7 +19,7 @@
       <h1>Order Summary</h1>
       <div class="order-summary">
         <div class="order-item">
-          <div class="item-image"><img src="assets/item-placeholder.png" alt="Item image"></div>
+          <div class="item-image"><img src="{{ url_for('static', filename='css/assets/item-placeholder.png') }}" alt="Item image"></div>
           <div class="item-details">
             <h2>Item name</h2>
             <p>The flavors of ranch dressing, chicken and our special pizza double cheese.</p>
@@ -32,7 +32,7 @@
           </div>
         </div>
         <div class="order-item">
-          <div class="item-image"><img src="assets/item-placeholder.png" alt="Item image"></div>
+          <div class="item-image"><img src="{{ url_for('static', filename='css/assets/item-placeholder.png') }}" alt="Item image"></div>
           <div class="item-details">
             <h2>Item name</h2>
             <p>The flavors of ranch dressing, chicken and our special pizza double cheese.</p>
@@ -45,7 +45,7 @@
           </div>
         </div>
         <div class="order-item">
-          <div class="item-image"><img src="assets/item-placeholder.png" alt="Item image"></div>
+          <div class="item-image"><img src="{{ url_for('static', filename='css/assets/item-placeholder.png') }}" alt="Item image"></div>
           <div class="item-details">
             <h2>Item name</h2>
             <p>The flavors of ranch dressing, chicken and our special pizza double cheese.</p>
@@ -81,12 +81,7 @@
 
   <footer class="footer">
     <!-- Include the footer.html file -->
-    <div w3-include-html="footer.html"></div>
+    {% include 'footer.html' %}
   </footer>
-
-  <script src="https://www.w3schools.com/lib/w3.js"></script>
-  <script>
-    w3.includeHTML();
-  </script>
 </body>
 </html>

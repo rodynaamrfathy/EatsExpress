@@ -10,12 +10,13 @@
 </head>
 <body>
   <header class="header">
-    <div w3-include-html="header.html"></div>
+    <!-- Include the header+loggedin.html file -->
+    {% include 'header+loggedin.html' %}
   </header>
 
   <main class="main">
     <div class="add-item-container">
-      <img src="assets/menu-item-placeholder.png" alt="Menu Item">
+      <img src="{{ url_for('static', filename='css/assets/menu-item-placeholder.png') }}" alt="Menu Item">
       <h1>Item name</h1>
       <p>Description of the item goes here.</p>
       <h2>$100</h2>
@@ -40,12 +41,8 @@
   </main>
 
   <footer class="footer">
-    <div w3-include-html="footer.html"></div>
+    <!-- Include the footer.html file -->
+    {% include 'footer.html' %}
   </footer>
-
-  <script src="https://www.w3schools.com/lib/w3.js"></script>
-  <script>
-    w3.includeHTML();
-  </script>
 </body>
 </html>

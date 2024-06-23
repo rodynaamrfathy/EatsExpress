@@ -11,14 +11,14 @@
 <body>
   <header class="header">
     <!-- Include the header+loggedin.html file -->
-    <div w3-include-html="header+loggedin.html"></div>
+    {% include 'header+loggedin.html' %}
   </header>
 
   <main class="main" style="flex: 1;">
     <div class="cart-container">
       <h1>Cart</h1>
       <div class="cart-item">
-        <div class="item-image"><img src="assets/item-placeholder.png" alt="Item image"></div>
+        <div class="item-image"><img src="{{ url_for('static', filename='css/assets/item-placeholder.png') }}" alt="Item image"></div>
         <div class="item-details">
           <h2>Item name</h2>
           <p>The flavors of ranch dressing, chicken and our special pizza double cheese.</p>
@@ -35,7 +35,7 @@
         </div>
       </div>
       <div class="cart-item">
-        <div class="item-image"><img src="assets/item-placeholder.png" alt="Item image"></div>
+        <div class="item-image"><img src="{{ url_for('static', filename='css/assets/item-placeholder.png') }}" alt="Item image"></div>
         <div class="item-details">
           <h2>Item name</h2>
           <p>The flavors of ranch dressing, chicken and our special pizza double cheese.</p>
@@ -52,7 +52,7 @@
         </div>
       </div>
       <div class="cart-item">
-        <div class="item-image"><img src="assets/item-placeholder.png" alt="Item image"></div>
+        <div class="item-image"><img src="{{ url_for('static', filename='css/assets/item-placeholder.png') }}" alt="Item image"></div>
         <div class="item-details">
           <h2>Item name</h2>
           <p>The flavors of ranch dressing, chicken and our special pizza double cheese.</p>
@@ -76,12 +76,7 @@
 
   <footer class="footer">
     <!-- Include the footer.html file -->
-    <div w3-include-html="footer.html"></div>
+    {% include 'footer.html' %}
   </footer>
-
-  <script src="https://www.w3schools.com/lib/w3.js"></script>
-  <script>
-    w3.includeHTML();
-  </script>
 </body>
 </html>

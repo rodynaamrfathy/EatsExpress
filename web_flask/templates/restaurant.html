@@ -10,15 +10,16 @@
 </head>
 <body>
   <header class="header">
-    <div w3-include-html="header.html"></div>
+    <!-- Include the header+loggedin.html file -->
+    {% include 'header+loggedin.html' %}
   </header>
 
   <main class="main">
     <div class="restaurant-container">
-      <img src="assets/restaurant-placeholder-large.png" alt="Restaurant Image">
+      <img src="{{ url_for('static', filename='css/assets/restaurant-placeholder-large.png') }}" alt="Restaurant Image">
       <h1>Restaurant name</h1>
       <div class="menu-item">
-        <img src="assets/menu-item-placeholder.png" alt="Menu Item">
+        <img src="{{ url_for('static', filename='css/assets/menu-item-placeholder.png') }}" alt="Menu Item">
         <div class="menu-item-details">
           <h2>Item name</h2>
           <p>Description of the item goes here.</p>
@@ -29,12 +30,8 @@
   </main>
 
   <footer class="footer">
-    <div w3-include-html="footer.html"></div>
+    <!-- Include the footer.html file -->
+    {% include 'footer.html' %}
   </footer>
-
-  <script src="https://www.w3schools.com/lib/w3.js"></script>
-  <script>
-    w3.includeHTML();
-  </script>
 </body>
 </html>

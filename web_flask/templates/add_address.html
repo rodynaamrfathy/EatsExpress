@@ -11,7 +11,7 @@
 <body>
   <header class="header">
     <!-- Include the header+loggedin.html file -->
-    <div w3-include-html="header.html"></div>
+    {% include 'header+loggedin.html' %}
   </header>
 
   <main class="main" style="flex: 1;">
@@ -43,12 +43,7 @@
 
   <footer class="footer">
     <!-- Include the footer.html file -->
-    <div w3-include-html="footer.html"></div>
+    {% include 'footer.html' %}
   </footer>
-
-  <script src="https://www.w3schools.com/lib/w3.js"></script>
-  <script>
-    w3.includeHTML();
-  </script>
 </body>
 </html>
