@@ -8,6 +8,7 @@ from sqlalchemy.orm import relationship
 class Restaurant(BaseModel, Base):
     """ Representation of a Restaurant """
     __tablename__ = 'restaurants'
+    id = Column(Integer, primary_key=True)
     name = Column(String(128), nullable=False)
     location = Column(String(256), nullable=True)
     cuisine_type = Column(String(128), nullable=True)

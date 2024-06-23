@@ -7,6 +7,7 @@ from sqlalchemy.orm import relationship
 class Order(BaseModel, Base):
     """Representation of an order"""
     __tablename__ = 'orders'
+    id = Column(Integer, primary_key=True)
     user_id = Column(Integer, ForeignKey('users.id'), nullable=False)
     product_name = Column(String(128), nullable=False)
     quantity = Column(Integer, nullable=False)
