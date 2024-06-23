@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="Styles/header+loggedin.css">
-  <link rel="stylesheet" href="Styles/footer.css">
-  <link rel="stylesheet" href="Styles/restaurant.css">
-  <title>Restaurant - EatsExpress</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/header+loggedin.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/footer.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/restaurant.css') }}">
+  <title>{{ title }}</title>
 </head>
 <body>
   <header class="header">
