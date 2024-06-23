@@ -2,7 +2,12 @@
 
 from models.base_model import BaseModel, Base
 from sqlalchemy import Column, String, Integer, ForeignKey
+<<<<<<< HEAD
 from sqlalchemy.orm import relationship
+=======
+from sqlalchemy.orm import relationship  # Import relationship
+from models.user import User  # Ensure User is imported
+>>>>>>> 3b8364c (s)
 
 class Review(BaseModel, Base):
     """Representation of a review"""
