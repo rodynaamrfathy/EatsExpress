@@ -2,6 +2,7 @@
 
 from models.base_model import BaseModel, Base
 from sqlalchemy import Column, String, Integer, ForeignKey
+from sqlalchemy.orm import relationship
 
 class Review(BaseModel, Base):
     """Representation of a review"""

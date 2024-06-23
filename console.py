@@ -4,11 +4,12 @@
 import cmd
 import models
 from models.engine import db_storage
-from models import User
-from models import Order
-from models import Review
-from models.restaurant import Restaurant
-import shlex  # for splitting the line along spaces except in double quotes
+from models.User import User
+from models.Order import Order
+from models.Review import Review
+from models.Restaurant import Restaurant
+import shlex  # for splitting the line along spaces except in double quotes
+
 
 classes = {"User": User, "Order": Order, "Review": Review, "Restaurant": Restaurant}
 
