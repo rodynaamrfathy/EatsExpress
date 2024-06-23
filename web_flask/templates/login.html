@@ -39,7 +39,7 @@
         <form>
           <input type="text" placeholder="Email, username">
           <input type="password" placeholder="password">
-          <button type="submit">Login</button>
+          <a href="{{ url_for('main_loggedin') }}"><button type="submit">Login</button></a>
         </form>
         <p><a href="{{ url_for('create_account') }}">Create a new account?</a></p>
       </div>

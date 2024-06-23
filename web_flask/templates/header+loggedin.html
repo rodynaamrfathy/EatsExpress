@@ -12,9 +12,11 @@
       <a href="#breakfast" class="nav-link text-wrapper-4">Breakfast</a>
     </div>
     <div class="user-info">
-      <img src="assets/profile.png" alt="Profile Icon" class="profile-icon">
-      <span class="user-greeting">Hello, User!</span>
-      <a href="viewcart.html">
+      <a href="{{ url_for('main.view_account') }}">
+        <img src="assets/profile.png" alt="Profile Icon" class="profile-icon">
+        <span class="user-greeting">Hello, {{ current_user.first_name }}!</span>
+      </a>
+      <a href="{{ url_for('main.view_cart') }}">
         <img src="assets/cart.png" alt="Cart Icon" class="cart-icon">
       </a>
     </div>
