@@ -2,10 +2,10 @@
 """This is the file storage class for your system"""
 import json
 from models.base_model import BaseModel
-from models.user import User
-from models.restaurant import Restaurant
-from models.review import Review
-from models.order import Order
+from models.User import User
+from models.Restaurant import Restaurant
+from models.Review import Review
+from models.Order import Order
 import shlex
 
 # Class dictionary for mapping class names to classes
@@ -76,10 +76,10 @@ class FileStorage:
 """This is the file storage class for your system"""
 import json
 from models.base_model import BaseModel
-from models.user import User
-from models.restaurant import Restaurant
-from models.review import Review
-from models.order import Order
+from models.User import User
+from models.Restaurant import Restaurant
+from models.Review import Review
+from models.Order import Order
 import shlex
 
 # Class dictionary for mapping class names to classes

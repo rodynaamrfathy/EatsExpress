@@ -8,6 +8,7 @@ import sqlalchemy
 from sqlalchemy import Column, String, Integer
 from sqlalchemy.orm import relationship
 from hashlib import md5
+import os
 
 
 class User(BaseModel, Base):
@@ -33,7 +34,10 @@ class User(BaseModel, Base):
         address = ""
 
     def __init__(self, *args, **kwargs):
-        """initializes user"""
+        # Access environment variable directly or ensure it's passed correctly
+        if os.getenv('STORAGE_TYPE', 'db') == 'db':
+            # Initialize DB specific stuff
+            pass
         super().__init__(*args, **kwargs)
 
     def __setattr__(self, name, value):
