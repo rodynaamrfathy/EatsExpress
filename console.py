@@ -2,11 +2,13 @@
 """ console """
 
 import cmd
-from models import storage
+from datetime import datetime
+import models
+from models.base_model import BaseModel
 from models.User import User
 from models.Order import Order
-from models.Review import Review
 from models.Restaurant import Restaurant
+from models.Review import Review
 import shlex  # for splitting the line along spaces except in double quotes
 
 classes = {"User": User, "Order": Order, "Review": Review, "Restaurant": Restaurant}
@@ -43,30 +45,40 @@ class YourCommand(cmd.Cmd):
             print("** class doesn't exist **")
 
     def do_show(self, arg):
-        """Prints an instance based on the class name and id"""
+        """Prints an instance as a string based on the class and id"""
         args = shlex.split(arg)
-        if len(args) < 2:
-            print("** class name or id missing **")
+        if len(args) == 0:
+            print("** class name missing **")
             return False
-        class_name, id = args[0], args[1]
-        instance = storage.get(class_name, id)
-        if instance:
-            print(instance)
+        if args[0] in classes:
+            if len(args) > 1:
+                key = args[0] + "." + args[1]
+                if key in models.storage.all():
+                    print(models.storage.all()[key])
+                else:
+                    print("** no instance found **")
+            else:
+                print("** instance id missing **")
         else:
-            print("** no instance found **")
+            print("** class doesn't exist **")
 
     def do_destroy(self, arg):
-        """Deletes an instance based on class name and id"""
+        """Deletes an instance based on the class and id"""
         args = shlex.split(arg)
-        if len(args) < 2:
-            print("** class name or id missing **")
-            return False
-        class_name, id = args[0], args[1]
-        result = storage.delete(class_name, id)
-        if result:
-            print("** instance deleted **")
+        if len(args) == 0:
+            print("** class name missing **")
+        elif args[0] in classes:
+            if len(args) > 1:
+                key = args[0] + "." + args[1]
+                if key in models.storage.all():
+                    models.storage.all().pop(key)
+                    models.storage.save()
+                else:
+                    print("** no instance found **")
+            else:
+                print("** instance id missing **")
         else:
-            print("** no instance found **")
+            print("** class doesn't exist **")
 
     def do_update(self, arg):
         """Updates an instance based on class name, id, attribute name, and attribute value"""
@@ -75,7 +87,7 @@ class YourCommand(cmd.Cmd):
             print("** class name, id, attribute name, or value missing **")
             return False
         class_name, id, attr_name, attr_value = args[0], args[1], args[2], args[3]
-        instance = storage.get(class_name, id)
+        instance = models.storage.get(class_name, id)
         if instance:
             setattr(instance, attr_name, attr_value)
             instance.save()
@@ -87,9 +99,9 @@ class YourCommand(cmd.Cmd):
         """Shows all instances of a class or all classes if no class specified"""
         args = shlex.split(arg)
         if args and args[0] in classes:
-            objects = storage.all(args[0])
+            objects = models.storage.all(args[0])
         else:
-            objects = storage.all()
+            objects = models.storage.all()
         for obj in objects:
             print(obj)
 

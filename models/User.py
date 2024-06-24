@@ -8,14 +8,12 @@ import sqlalchemy
 from sqlalchemy import Column, String, Integer
 from sqlalchemy.orm import relationship
 from hashlib import md5
-import os
 
 
 class User(BaseModel, Base):
     """Representation of a user for EatExpress"""
     if models.storage_t == 'db':
         __tablename__ = 'users'
-        id = Column(Integer, primary_key=True)
         email = Column(String(128), nullable=False)
         password = Column(String(128), nullable=False)
         first_name = Column(String(128), nullable=True)
@@ -34,10 +32,7 @@ class User(BaseModel, Base):
         address = ""
 
     def __init__(self, *args, **kwargs):
-        # Access environment variable directly or ensure it's passed correctly
-        if os.getenv('STORAGE_TYPE', 'db') == 'db':
-            # Initialize DB specific stuff
-            pass
+        """initializes user"""
         super().__init__(*args, **kwargs)
 
     def __setattr__(self, name, value):

@@ -1,41 +1,59 @@
 # engine/db_storage.py
 
-import os
-from sqlalchemy import create_engine
+import models
 from sqlalchemy.orm import sessionmaker, scoped_session
+from sqlalchemy import (create_engine)
+from sqlalchemy.ext.declarative import declarative_base
 from models.base_model import Base
+from models.User import User
+from models.Order import Order
+from models.Review import Review
+from models.Restaurant import Restaurant
+from os import getenv
+import sqlalchemy
 
+classes = {"Restaurant": Restaurant  , "Review": Review, "Order": Order, "User": User}
 class DBStorage:
     """Interacts with the SQLAlchemy ORM"""
     __engine = None
     __session = None
 
     def __init__(self):
-        """Instantiate a DBStorage object"""
-        user = os.getenv('DB_USER')
-        password = os.getenv('DB_PASSWORD')
-        host = os.getenv('DB_HOST')
-        db = os.getenv('DB_NAME')
-        db_type = os.getenv('DB_TYPE', 'sqlite')
+        EatExpress_MYSQL_USER = getenv("EatExpress_MYSQL_USER")
+        EatExpress_MYSQL_PWD = getenv("EatExpress_MYSQL_PWD")
+        EatExpress_MYSQL_DB = getenv("EatExpress_MYSQL_DB")
+        EatExpress_MYSQL_HOST = getenv("EatExpress_MYSQL_HOST")
+        EatExpress_ENV = getenv("EatExpress_ENV")
 
-        if db_type == 'mysql':
-            # Include echo=True if you want to see the SQL statements
-            self.__engine = create_engine(f'mysql+mysqldb://{user}:{password}@{host}/{db}', echo=True)
-        else:
-            # Ensure the SQLite URL is dynamic based on the environment variable or use a default value
-            sqlite_url = f'sqlite:///{db}.db' if db else 'sqlite:///eatexpress.db'
-            self.__engine = create_engine(sqlite_url, echo=True)
+        self.__engine = create_engine('mysql+mysqldb://{}:{}@{}/{}'
+                                    .format(EatExpress_MYSQL_USER, EatExpress_MYSQL_PWD, EatExpress_MYSQL_HOST, EatExpress_MYSQL_DB),
+                                    pool_pre_ping=True)
+
+        if EatExpress_ENV == "test":
+            Base.metadata.drop_all(self.__engine)
 
     def all(self, cls=None):
-        """Query on the current database session"""
+        """returns a dictionary
+        Return:
+            returns a dictionary of __object
+        """
+        dic = {}
         if cls:
-            objs = self.__session.query(cls).all()
+            if type(cls) is str:
+                cls = eval(cls)
+            query = self.__session.query(cls)
+            for elem in query:
+                key = "{}.{}".format(type(elem).__name__, elem.id)
+                dic[key] = elem
         else:
-            objs = []
-            for class_name in Base._decl_class_registry.values():
-                if isinstance(class_name, type):
-                    objs.extend(self.__session.query(class_name).all())
-        return {obj.__class__.__name__ + '.' + str(obj.id): obj for obj in objs}
+            lista = [ User, Order, Review, Restaurant]
+            for clase in lista:
+                query = self.__session.query(clase)
+                for elem in query:
+                    key = "{}.{}".format(type(elem).__name__, elem.id)
+                    dic[key] = elem
+        return (dic)
+    
 
     def new(self, obj):
         """Add the object to the current database session"""
@@ -50,16 +68,50 @@ class DBStorage:
         if obj:
             self.__session.delete(obj)
 
+
     def reload(self):
-        """Reload all tables and initialize the session factory"""
-        Base.metadata.create_all(self.__engine)  # Create all tables based on your models
-        session_factory = sessionmaker(bind=self.__engine, expire_on_commit=False)
-        self.___session = scoped_session(session_factory)
+        """configuration
+        """
+        Base.metadata.create_all(self.__engine)
+        sec = sessionmaker(bind=self.__engine, expire_on_commit=False)
+        Session = scoped_session(sec)
+        self.__session = Session()
 
     def close(self):
         """Close the current session"""
         self.__session.remove()
 
-# Ensure reload is called after initialization to set up tables and session
-db_storage = DBStorage()
-db_storage.reload()
+
+    
+    def get(self, cls, id):
+        """
+        Returns the object based on the class name and its ID, or
+        None if not found
+        """
+        if cls not in classes.values():
+            return None
+
+        all_cls = models.storage.all(cls)
+        for value in all_cls.values():
+            if (value.id == id):
+                return value
+
+        return None
+    
+    
+    def count(self, cls=None):
+        """
+        count the number of objects in storage
+        """
+        all_class = classes.values()
+
+        if not cls:
+            count = 0
+            for clas in all_class:
+                count += len(models.storage.all(clas).values())
+        else:
+            count = len(models.storage.all(cls).values())
+
+        return count
+
+
