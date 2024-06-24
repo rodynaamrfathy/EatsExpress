@@ -11,15 +11,13 @@
 </head>
 <body>
   <header class="header">
-    <!-- Include the header.html file -->
     {% include 'header.html' %}
   </header>
-
   <main class="main">
     <div class="blurry-background">
       <section id="home">
         <div class="home-banner">
-          <img src="{{ url_for('static', filename='css/assets/banner-img-1-2.png') }}" alt="Salad Image" class="banner1">
+          <img src="{{ url_for('static', filename='assets/banner-img-1-2.png') }}" alt="Salad Image" class="banner1">
           <div class="home-text">
             <h1>Order food online in Egypt</h1>
             <p>Order food and grocery delivery online from hundreds of restaurants and shops nearby.</p>
@@ -28,26 +26,23 @@
               <button>Let's go</button>
             </div>
           </div>
-          <img src="{{ url_for('static', filename='css/assets/banner-img-2-1.png') }}" alt="Pasta Image" class="banner2">
+          <img src="{{ url_for('static', filename='assets/banner-img-2-1.png') }}" alt="Pasta Image" class="banner2">
         </div>
       </section>
     </div>
-    
     <div class="login-container">
       <div class="login-box">
         <h1>Welcome back!</h1>
-        <form>
-          <input type="text" placeholder="Email, username">
-          <input type="password" placeholder="password">
-          <a href="{{ url_for('main_loggedin') }}"><button type="submit">Login</button></a>
+        <form method="POST" action="{{ url_for('login') }}">
+          <input type="text" name="username" placeholder="Email, username">
+          <input type="password" name="password" placeholder="password">
+          <button type="submit">Login</button>
         </form>
-        <p><a href="{{ url_for('create_account') }}">Create a new account?</a></p>
+        <p><a href="{{ url_for('register') }}">Create a new account?</a></p>
       </div>
     </div>
   </main>
-
   <footer class="footer">
-    <!-- Include the footer.html file -->
     {% include 'footer.html' %}
   </footer>
 </body>

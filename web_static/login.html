@@ -6,18 +6,20 @@
   <link rel="stylesheet" href="{{ url_for('static', filename='css/footer.css') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/header.css') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/create_account.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
   <title>{{ title }}</title>
 </head>
 <body>
   <header class="header">
+    <!-- Include the header.html file -->
     {% include 'header.html' %}
   </header>
+
   <main class="main">
     <div class="blurry-background">
       <section id="home">
         <div class="home-banner">
-          <img src="{{ url_for('static', filename='assets/banner-img-1-2.png') }}" alt="Salad Image" class="banner1">
+          <img src="{{ url_for('static', filename='css/assets/main/banner-img-1-2.png') }}" alt="Salad Image" class="banner1">
           <div class="home-text">
             <h1>Order food online in Egypt</h1>
             <p>Order food and grocery delivery online from hundreds of restaurants and shops nearby.</p>
@@ -26,23 +28,26 @@
               <button>Let's go</button>
             </div>
           </div>
-          <img src="{{ url_for('static', filename='assets/banner-img-2-1.png') }}" alt="Pasta Image" class="banner2">
+          <img src="{{ url_for('static', filename='css/assets/main/banner-img-2-1.png') }}" alt="Pasta Image" class="banner2">
         </div>
       </section>
     </div>
-    <div class="register-container">
-      <div class="register-box">
-        <h1>Create an Account</h1>
-        <form method="POST" action="{{ url_for('register') }}">
-          <input type="text" name="username" placeholder="Username">
-          <input type="email" name="email" placeholder="Email">
-          <input type="password" name="password" placeholder="Password">
-          <button type="submit">Register</button>
+    
+    <div class="login-container">
+      <div class="login-box">
+        <h1>Welcome back!</h1>
+        <form action="{{ url_for('home_loggedin') }}" method="get">
+          <input type="text" placeholder="Email, username">
+          <input type="password" placeholder="password">
+          <button type="submit">Login</button>
         </form>
+        <p><a href="{{ url_for('register') }}">Create a new account?</a></p>
       </div>
     </div>
   </main>
+
   <footer class="footer">
+    <!-- Include the footer.html file -->
     {% include 'footer.html' %}
   </footer>
 </body>

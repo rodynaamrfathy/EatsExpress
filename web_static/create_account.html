@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/header.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/footer.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/create_account.css') }}">
+  <title>{{ title }}</title>
+</head>
+<body>
+  <header class="header">
+    <!-- Include the header.html file -->
+    {% include 'header.html' %}
+  </header>
+
+  <main>
+    <div class="form-container">
+      <form action="#" method="post">
+          <div class="input-group">
+              <input type="text" name="firstname" placeholder="Firstname">
+              <input type="text" name="lastname" placeholder="Lastname">
+          </div>
+          <div class="input-group">
+              <select name="country_code">
+                  <option value="+1">+1</option>
+                  <option value="+44">+44</option>
+                  <option value="+91">+91</option>
+                  <option value="+20">+20</option>
+              </select>
+              <input type="text" name="phone_number" placeholder="Phone Number">
+          </div>
+          <input type="email" name="email" placeholder="Email">
+          <input type="email" name="confirm_email" placeholder="Rewrite your email">
+          <input type="password" name="password" placeholder="Password">
+          <input type="text" name="username" placeholder="Username">
+          <a href="{{ url_for('main_loggedin') }}"> <button type="submit">Register</button> </a>          
+      </form>
+  </div>
+  </main>
+
+  <footer class="footer">
+    <!-- Include the footer.html file -->
+    {% include 'footer.html' %}
+  </footer>
+</body>
+</html>

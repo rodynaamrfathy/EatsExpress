@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/footer.css') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/header.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/header+loggedin.css') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/global.css') }}">
   <title>{{ title }}</title>
@@ -12,14 +13,14 @@
 <body>
   <div class="base">
     <header class="header">
-      <!-- Include the header.html file -->
-      {% include 'header.html' %}
+      <!-- Include the header+loggedin.html file -->
+      {% include 'header+loggedin.html' %}
     </header>
 
     <main class="main" style="flex: 1;">
       <section id="home">
         <div class="home-banner">
-          <img src="{{ url_for('static', filename='assets/banner-img-1-2.png') }}" alt="Salad Image" class="banner1">
+          <img src="{{ url_for('static', filename='css/assets/banner-img-1-2.png') }}" alt="Salad Image" class="banner1">
           <div class="home-text">
             <h1>Order food online in Egypt</h1>
             <p>Order food and grocery delivery online from hundreds of restaurants and shops nearby.</p>
@@ -28,69 +29,68 @@
               <button>Let's go</button>
             </div>
           </div>
-          <img src="{{ url_for('static', filename='assets/banner-img-2-1.png') }}" alt="Pasta Image" class="banner2">
+          <img src="{{ url_for('static', filename='css/assets/banner-img-2-1.png') }}" alt="Pasta Image" class="banner2">
         </div>
       </section>
       
-      <section id="offers">
-        <div class="offers-container">
-          <a href="#burger" class="offer-item">
+      <section id="categories">
+        <div class="categories-container">
+          <a href="#burger" class="category-item">
             <div class="icon-wrapper">
-              <img src="{{ url_for('static', filename='assets/Burger.png') }}" alt="Burger">
+              <img src="{{ url_for('static', filename='css/assets/Burger.png') }}" alt="Burger">
             </div>
             <p>Burger</p>
           </a>
-          <a href="#pizza" class="offer-item">
+          <a href="#pizza" class="category-item">
             <div class="icon-wrapper">
-              <img src="{{ url_for('static', filename='assets/image-874.png') }}" alt="Pizza">
+              <img src="{{ url_for('static', filename='css/assets/image-874.png') }}" alt="Pizza">
             </div>
             <p>Pizza</p>
           </a>
-          <a href="#donut" class="offer-item">
+          <a href="#donut" class="category-item">
             <div class="icon-wrapper">
-              <img src="{{ url_for('static', filename='assets/image-876.png') }}" alt="Donut">
+              <img src="{{ url_for('static', filename='css/assets/image-876.png') }}" alt="Donut">
             </div>
             <p>Donut</p>
           </a>
-          <a href="#asian" class="offer-item">
+          <a href="#asian" class="category-item">
             <div class="icon-wrapper">
-              <img src="{{ url_for('static', filename='assets/image-878.png') }}" alt="Asian">
+              <img src="{{ url_for('static', filename='css/assets/image-878.png') }}" alt="Asian">
             </div>
             <p>Asian</p>
           </a>
-          <a href="#cake" class="offer-item">
+          <a href="#cake" class="category-item">
             <div class="icon-wrapper">
-              <img src="{{ url_for('static', filename='assets/image-879.png') }}" alt="Cake">
+              <img src="{{ url_for('static', filename='css/assets/image-879.png') }}" alt="Cake">
             </div>
             <p>Cake</p>
           </a>
-          <a href="#pasta" class="offer-item">
+          <a href="#pasta" class="category-item">
             <div class="icon-wrapper">
-              <img src="{{ url_for('static', filename='assets/image-877.png') }}" alt="Pasta">
+              <img src="{{ url_for('static', filename='css/assets/image-877.png') }}" alt="Pasta">
             </div>
             <p>Pasta</p>
           </a>
-          <a href="#mexican" class="offer-item">
+          <a href="#mexican" class="category-item">
             <div class="icon-wrapper">
-              <img src="{{ url_for('static', filename='assets/image-881.png') }}" alt="Mexican">
+              <img src="{{ url_for('static', filename='css/assets/image-881.png') }}" alt="Mexican">
             </div>
             <p>Mexican</p>
           </a>
         </div>
       </section>
-      
       <section id="restaurants">
         <div class="items-container">
           <a href="#garnell" class="item">
             <div class="item-content">
               <div class="item-logo">
-                <img src="{{ url_for('static', filename='assets/images-10.png') }}" alt="Garnell">
+                <img src="{{ url_for('static', filename='css/assets/images-10.png') }}" alt="Garnell">
               </div>
               <h2>Garnell</h2>
               <div class="item-details">
-                <img src="{{ url_for('static', filename='assets/image-892.png') }}" alt="Delivery Icon">
+                <img src="{{ url_for('static', filename='css/assets/image-892.png') }}" alt="Delivery Icon">
                 <span>Free delivery</span>
-                <img src="{{ url_for('static', filename='assets/image-893.png') }}" alt="Time Icon">
+                <img src="{{ url_for('static', filename='css/assets/image-893.png') }}" alt="Time Icon">
                 <span>10-15 min</span>
               </div>
               <div class="item-tags">
@@ -102,13 +102,13 @@
           <a href="#romapizza" class="item">
             <div class="item-content">
               <div class="item-logo">
-                <img src="{{ url_for('static', filename='assets/images-9.png') }}" alt="Roma Pizza">
+                <img src="{{ url_for('static', filename='css/assets/images-9.png') }}" alt="Roma Pizza">
               </div>
               <h2>Roma pizza</h2>
               <div class="item-details">
-                <img src="{{ url_for('static', filename='assets/image-892.png') }}" alt="Delivery Icon">
+                <img src="{{ url_for('static', filename='css/assets/image-892.png') }}" alt="Delivery Icon">
                 <span>$20 delivery</span>
-                <img src="{{ url_for('static', filename='assets/image-893.png') }}" alt="Time Icon">
+                <img src="{{ url_for('static', filename='css/assets/image-893.png') }}" alt="Time Icon">
                 <span>20-25 min</span>
               </div>
               <div class="item-tags">
@@ -120,13 +120,13 @@
           <a href="#vinnyspizza" class="item">
             <div class="item-content">
               <div class="item-logo">
-                <img src="{{ url_for('static', filename='assets/images-8.png') }}" alt="Vinny's Pizza">
+                <img src="{{ url_for('static', filename='css/assets/images-8.png') }}" alt="Vinny's Pizza">
               </div>
               <h2>vinny's pizza</h2>
               <div class="item-details">
-                <img src="{{ url_for('static', filename='assets/image-892.png') }}" alt="Delivery Icon">
+                <img src="{{ url_for('static', filename='css/assets/image-892.png') }}" alt="Delivery Icon">
                 <span>$20 delivery</span>
-                <img src="{{ url_for('static', filename='assets/image-893.png') }}" alt="Time Icon">
+                <img src="{{ url_for('static', filename='css/assets/image-893.png') }}" alt="Time Icon">
                 <span>20-25 min</span>
               </div>
               <div class="item-tags">
@@ -137,13 +137,12 @@
           </a>
         </div>
       </section>
-
       <section id="beverages">
         <div class="items-container">
           <a href="#coffee" class="item">
             <div class="item-content">
               <div class="item-logo">
-                <img src="{{ url_for('static', filename='assets/coffee.png') }}" alt="Coffee">
+                <img src="{{ url_for('static', filename='css/assets/coffee.png') }}" alt="Coffee">
               </div>
               <h2>Coffee</h2>
             </div>
@@ -151,7 +150,7 @@
           <a href="#softdrinks" class="item">
             <div class="item-content">
               <div class="item-logo">
-                <img src="{{ url_for('static', filename='assets/softdrinks.png') }}" alt="Soft Drinks">
+                <img src="{{ url_for('static', filename='css/assets/softdrinks.png') }}" alt="Soft Drinks">
               </div>
               <h2>Soft Drinks</h2>
             </div>
@@ -159,20 +158,19 @@
           <a href="#juice" class="item">
             <div class="item-content">
               <div class="item-logo">
-                <img src="{{ url_for('static', filename='assets/juice.png') }}" alt="Juice">
+                <img src="{{ url_for('static', filename='css/assets/juice.png') }}" alt="Juice">
               </div>
               <h2>Juice</h2>
             </div>
           </a>
         </div>
       </section>
-
       <section id="cuisines">
         <div class="items-container">
           <a href="#italian" class="item">
             <div class="item-content">
               <div class="item-logo">
-                <img src="{{ url_for('static', filename='assets/italian.png') }}" alt="Italian">
+                <img src="{{ url_for('static', filename='css/assets/italian.png') }}" alt="Italian">
               </div>
               <h2>Italian</h2>
             </div>
@@ -180,7 +178,7 @@
           <a href="#japanese" class="item">
             <div class="item-content">
               <div class="item-logo">
-                <img src="{{ url_for('static', filename='assets/japanese.png') }}" alt="Japanese">
+                <img src="{{ url_for('static', filename='css/assets/japanese.png') }}" alt="Japanese">
               </div>
               <h2>Japanese</h2>
             </div>
@@ -188,20 +186,19 @@
           <a href="#egyptian" class="item">
             <div class="item-content">
               <div class="item-logo">
-                <img src="{{ url_for('static', filename='assets/egyptian.png') }}" alt="Egyptian">
+                <img src="{{ url_for('static', filename='css/assets/egyptian.png') }}" alt="Egyptian">
               </div>
               <h2>Egyptian</h2>
             </div>
           </a>
         </div>
       </section>
-
       <section id="breakfast">
         <div class="items-container">
           <a href="#orientalbreakfast" class="item">
             <div class="item-content">
               <div class="item-logo">
-                <img src="{{ url_for('static', filename='assets/orientalbreakfast.png') }}" alt="Oriental Breakfast">
+                <img src="{{ url_for('static', filename='css/assets/orientalbreakfast.png') }}" alt="Oriental Breakfast">
               </div>
               <h2>Oriental Breakfast</h2>
             </div>
@@ -209,7 +206,7 @@
           <a href="#americanbreakfast" class="item">
             <div class="item-content">
               <div class="item-logo">
-                <img src="{{ url_for('static', filename='assets/americanbreakfast.png') }}" alt="American Breakfast">
+                <img src="{{ url_for('static', filename='css/assets/americanbreakfast.png') }}" alt="American Breakfast">
               </div>
               <h2>American Breakfast</h2>
             </div>
@@ -217,7 +214,7 @@
           <a href="#bakeries" class="item">
             <div class="item-content">
               <div class="item-logo">
-                <img src="{{ url_for('static', filename='assets/bakeries.png') }}" alt="Bakeries">
+                <img src="{{ url_for('static', filename='css/assets/bakeries.png') }}" alt="Bakeries">
               </div>
               <h2>Bakeries</h2>
             </div>
@@ -231,35 +228,5 @@
       {% include 'footer.html' %}
     </footer>
   </div>
-
-  <script src="https://www.w3schools.com/lib/w3.js"></script>
-  <script>
-    w3.includeHTML();
-  </script>
-  <script>
-    document.addEventListener("DOMContentLoaded", function() {
-      const sections = document.querySelectorAll("section");
-      const navLinks = document.querySelectorAll(".nav-link");
-
-      window.addEventListener("scroll", function() {
-        let current = "";
-
-        sections.forEach(section => {
-          const sectionTop = section.offsetTop;
-          const sectionHeight = section.clientHeight;
-          if (pageYOffset >= (sectionTop - sectionHeight / 3)) {
-            current = section.getAttribute("id");
-          }
-        });
-
-        navLinks.forEach(link => {
-          link.classList.remove("active");
-          if (link.getAttribute("href").includes(current)) {
-            link.classList.add("active");
-          }
-        });
-      });
-    });
-  </script>
 </body>
 </html>

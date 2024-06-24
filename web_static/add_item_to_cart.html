@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/header+loggedin.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/footer.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/add_item_to_cart.css') }}">
+  <title>{{ title }}</title>
+</head>
+<body>
+  <header class="header">
+    <!-- Include the header+loggedin.html file -->
+    {% include 'header+loggedin.html' %}
+  </header>
+
+  <main class="main">
+    <div class="add-item-container">
+      <img src="{{ url_for('static', filename='css/assets/menu-item-placeholder.png') }}" alt="Menu Item">
+      <h1>Item name</h1>
+      <p>Description of the item goes here.</p>
+      <h2>$100</h2>
+      <div class="quantity-control">
+        <button>-</button>
+        <span>1</span>
+        <button>+</button>
+      </div>
+      <form>
+        <label for="addon1">
+          <input type="checkbox" id="addon1" name="addon1"> Add-on 1
+        </label>
+        <label for="addon2">
+          <input type="checkbox" id="addon2" name="addon2"> Add-on 2
+        </label>
+        <label for="addon3">
+          <input type="checkbox" id="addon3" name="addon3"> Add-on 3
+        </label>
+        <button type="submit">Add to cart</button>
+      </form>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <!-- Include the footer.html file -->
+    {% include 'footer.html' %}
+  </footer>
+</body>
+</html>

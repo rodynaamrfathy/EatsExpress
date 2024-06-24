@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/header+loggedin.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/footer.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/complete_order.css') }}">
+  <title>{{ title }}</title>
+</head>
+<body>
+  <header class="header">
+    <!-- Include the header+loggedin.html file -->
+    {% include 'header+loggedin.html' %}
+  </header>
+
+  <main class="main" style="flex: 1;">
+    <div class="complete-order-container">
+      <h1>Order Summary</h1>
+      <div class="order-summary">
+        <div class="order-item">
+          <div class="item-image"><img src="{{ url_for('static', filename='css/assets/item-placeholder.png') }}" alt="Item image"></div>
+          <div class="item-details">
+            <h2>Item name</h2>
+            <p>The flavors of ranch dressing, chicken and our special pizza double cheese.</p>
+            <p><strong>Add ons</strong></p>
+            <p>Add on 1, Add on 2</p>
+          </div>
+          <div class="item-quantity">
+            <p>Quantity</p>
+            <span>1</span>
+          </div>
+        </div>
+        <div class="order-item">
+          <div class="item-image"><img src="{{ url_for('static', filename='css/assets/item-placeholder.png') }}" alt="Item image"></div>
+          <div class="item-details">
+            <h2>Item name</h2>
+            <p>The flavors of ranch dressing, chicken and our special pizza double cheese.</p>
+            <p><strong>Add ons</strong></p>
+            <p>Add on 1, Add on 2</p>
+          </div>
+          <div class="item-quantity">
+            <p>Quantity</p>
+            <span>1</span>
+          </div>
+        </div>
+        <div class="order-item">
+          <div class="item-image"><img src="{{ url_for('static', filename='css/assets/item-placeholder.png') }}" alt="Item image"></div>
+          <div class="item-details">
+            <h2>Item name</h2>
+            <p>The flavors of ranch dressing, chicken and our special pizza double cheese.</p>
+            <p><strong>Add ons</strong></p>
+            <p>Add on 1, Add on 2</p>
+          </div>
+          <div class="item-quantity">
+            <p>Quantity</p>
+            <span>1</span>
+          </div>
+        </div>
+      </div>
+      <div class="choose-address">
+        <h2>Choose Delivery Address</h2>
+        <form>
+          <label for="address">Select Address:</label>
+          <select id="address" name="address">
+            <option value="home">Home - 123 Main St, City, Country</option>
+            <option value="work">Work - 456 Office Rd, City, Country</option>
+            <option value="other">Other - 789 Other Ave, City, Country</option>
+          </select>
+          <a href="{{ url_for('add_address') }}">
+            <button type="button" class="add-address-btn">Add New Address</button>
+          </a>
+        </form>
+      </div>
+      <div class="total-price">
+        <h2>Total: $XX.XX</h2>
+      </div>
+        <button class="place-order-btn">Place Order</button>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <!-- Include the footer.html file -->
+    {% include 'footer.html' %}
+  </footer>
+</body>
+</html>

@@ -1,13 +1,13 @@
 #!/usr/bin/python3
 """ holds class User"""
 
-import models
 from models.base_model import BaseModel, Base
 from os import getenv
 import sqlalchemy
 from sqlalchemy import Column, String, Integer
 from sqlalchemy.orm import relationship
 from hashlib import md5
+<<<<<<< HEAD
 
 
 class User(BaseModel, Base):
@@ -33,6 +33,23 @@ class User(BaseModel, Base):
 
     def __init__(self, *args, **kwargs):
         """initializes user"""
+=======
+
+class User(BaseModel, Base):
+    """Representation of a user for EatExpress"""
+    __tablename__ = 'users'
+    id = Column(Integer, primary_key=True)
+    email = Column(String(128), nullable=False)
+    password = Column(String(128), nullable=False)
+    first_name = Column(String(128), nullable=True)
+    last_name = Column(String(128), nullable=True)
+    phone_number = Column(String(20), nullable=True)
+    address = Column(String(256), nullable=True)
+    orders = relationship("Order", back_populates="user")
+    reviews = relationship("Review", back_populates="user")
+
+    def __init__(self, *args, **kwargs):
+>>>>>>> 865b44a (‘V2’)
         super().__init__(*args, **kwargs)
 
     def __setattr__(self, name, value):
