@@ -3,6 +3,13 @@ from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 import os
 import sys
+from models.base_model import Base
+from models.User import User
+from models.Order import Order
+from models.Review import Review
+from models.Restaurant import Restaurant
+from models.MenuItem import MenuItem
+from models.Cart import Cart
 
 # Adding the project root to the sys.path
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))

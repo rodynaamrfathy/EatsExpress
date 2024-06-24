@@ -7,10 +7,12 @@ from models.User import User
 from models.Restaurant import Restaurant
 from models.Order import Order
 from models.Review import Review
+from models.Cart import Cart
+from models.MenuItem import MenuItem
 import shlex
 from hashlib import md5
 
-classes = {"Restaurant": Restaurant  , "Review": Review, "Order": Order, "User": User}
+classes = {"User": User, "Order": Order, "Review": Review, "Restaurant": Restaurant, "Cart":Cart ,"MenuItem": MenuItem}
 
 class FileStorage:
     """serializes instances to a JSON file & deserializes back to instances"""

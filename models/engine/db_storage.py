@@ -9,10 +9,12 @@ from models.User import User
 from models.Order import Order
 from models.Review import Review
 from models.Restaurant import Restaurant
+from models.Cart import Cart
+from models.MenuItem import MenuItem
 from os import getenv
 import sqlalchemy
 
-classes = {"Restaurant": Restaurant  , "Review": Review, "Order": Order, "User": User}
+classes = {"User": User, "Order": Order, "Review": Review, "Restaurant": Restaurant, "Cart":Cart ,"MenuItem": MenuItem}
 class DBStorage:
     """Interacts with the SQLAlchemy ORM"""
     __engine = None
