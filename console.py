@@ -2,14 +2,12 @@
 """ console """
 
 import cmd
-import models
-from models.engine import db_storage
+from models import storage
 from models.User import User
 from models.Order import Order
 from models.Review import Review
 from models.Restaurant import Restaurant
-import shlex  # for splitting the line along spaces except in double quotes
-
+import shlex  # for splitting the line along spaces except in double quotes
 
 classes = {"User": User, "Order": Order, "Review": Review, "Restaurant": Restaurant}
 
@@ -51,7 +49,7 @@ class YourCommand(cmd.Cmd):
             print("** class name or id missing **")
             return False
         class_name, id = args[0], args[1]
-        instance = db_storage.get(class_name, id)
+        instance = storage.get(class_name, id)
         if instance:
             print(instance)
         else:
@@ -64,7 +62,7 @@ class YourCommand(cmd.Cmd):
             print("** class name or id missing **")
             return False
         class_name, id = args[0], args[1]
-        result = db_storage.delete(class_name, id)
+        result = storage.delete(class_name, id)
         if result:
             print("** instance deleted **")
         else:
@@ -77,7 +75,7 @@ class YourCommand(cmd.Cmd):
             print("** class name, id, attribute name, or value missing **")
             return False
         class_name, id, attr_name, attr_value = args[0], args[1], args[2], args[3]
-        instance = db_storage.get(class_name, id)
+        instance = storage.get(class_name, id)
         if instance:
             setattr(instance, attr_name, attr_value)
             instance.save()
@@ -89,9 +87,9 @@ class YourCommand(cmd.Cmd):
         """Shows all instances of a class or all classes if no class specified"""
         args = shlex.split(arg)
         if args and args[0] in classes:
-            objects = db_storage.all(args[0])
+            objects = storage.all(args[0])
         else:
-            objects = db_storage.all()
+            objects = storage.all()
         for obj in objects:
             print(obj)
 
