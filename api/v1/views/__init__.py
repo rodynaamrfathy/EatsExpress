@@ -8,3 +8,5 @@ from api.v1.views.user import *
 from api.v1.views.order import *
 from api.v1.views.restaurant import *
 from api.v1.views.review import *
+from api.v1.views.cart import *
+from api.v1.views.menuItem import *
