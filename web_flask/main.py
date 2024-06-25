@@ -8,7 +8,6 @@ from models.User import User
 from models.Cart import Cart
 from models.Restaurant import Restaurant
 from models.MenuItem import MenuItem
-from models.init_db import init_db
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'your_secret_key'
@@ -121,7 +120,4 @@ def add_address():
 
 
 if __name__ == "__main__":
-    with app.app_context():
-        from models import init_db
-        init_db()
     app.run(debug=True, port=5001)
