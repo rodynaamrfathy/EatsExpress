@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """ Objects that handle all default RestFul API actions for Restaurants """
-from models.restaurant import Restaurant
+from models.Restaurant import Restaurant
 from models import storage
 from api.v1.views import app_views
 from flask import abort, jsonify, make_response, request

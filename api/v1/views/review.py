@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """ Objects that handle all default RestFul API actions for Reviews """
-from models.review import Review
+from models.Review import Review
 from models import storage
 from api.v1.views import app_views
 from flask import abort, jsonify, make_response, request

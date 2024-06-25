@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """ Objects that handle all default RestFul API actions for Orders """
-from models.order import Order
+from models.Order import Order
 from models import storage
 from api.v1.views import app_views
 from flask import abort, jsonify, make_response, request
