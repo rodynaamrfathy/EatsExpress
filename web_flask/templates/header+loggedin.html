@@ -12,10 +12,10 @@
       <a href="#breakfast" class="nav-link text-wrapper-4">Breakfast</a>
     </div>
     <div class="user-info">
-        <img src="assets/profile.png" alt="Profile Icon" class="profile-icon">
+        <img src="{{ url_for('static', filename='css/assets/profile.png') }}" alt="Profile Icon" class="profile-icon">
         <span class="user-greeting">Hello</span>
       <a href="{{ url_for('cart') }}">
-        <img src="assets/cart.png" alt="Cart Icon" class="cart-icon">
+        <img src="{{ url_for('static', filename='css/assets/cart.png') }}" alt="Cart Icon" class="cart-icon">
       </a>
     </div>
   </div>

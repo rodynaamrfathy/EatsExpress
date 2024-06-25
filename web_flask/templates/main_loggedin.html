@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/footer.css') }}">
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/header_loggedin.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/header+loggedin.css') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/global.css') }}">
   <title>{{ title }}</title>
@@ -12,7 +12,7 @@
 <body>
   <div class="base">
     <header class="header">
-      <!-- Include the header_loggedin.html file -->
+      <!-- Include the header.html file -->
       {% include 'header+loggedin.html' %}
     </header>
 
@@ -79,7 +79,6 @@
         </div>
       </section>
       
-      <!-- Copy the other sections from main.html -->
       <section id="restaurants">
         <div class="items-container">
           <a href="#garnell" class="item">
@@ -134,6 +133,93 @@
                 <span>Italian</span>
                 <span>Pizza</span>
               </div>
+            </div>
+          </a>
+        </div>
+      </section>
+
+      <section id="beverages">
+        <div class="items-container">
+          <a href="#coffee" class="item">
+            <div class="item-content">
+              <div class="item-logo">
+                <img src="{{ url_for('static', filename='css/assets/beverages/coffee.png') }}" alt="Coffee">
+              </div>
+              <h2>Coffee</h2>
+            </div>
+          </a>
+          <a href="#softdrinks" class="item">
+            <div class="item-content">
+              <div class="item-logo">
+                <img src="{{ url_for('static', filename='css/assets/beverages/softdrinks.png') }}" alt="Soft Drinks">
+              </div>
+              <h2>Soft Drinks</h2>
+            </div>
+          </a>
+          <a href="#juice" class="item">
+            <div class="item-content">
+              <div class="item-logo">
+                <img src="{{ url_for('static', filename='css/assets/beverages/juice.png') }}" alt="Juice">
+              </div>
+              <h2>Juice</h2>
+            </div>
+          </a>
+        </div>
+      </section>
+
+      <section id="cuisines">
+        <div class="items-container">
+          <a href="#italian" class="item">
+            <div class="item-content">
+              <div class="item-logo">
+                <img src="{{ url_for('static', filename='css/assets/cuisines/italian.png') }}" alt="Italian">
+              </div>
+              <h2>Italian</h2>
+            </div>
+          </a>
+          <a href="#japanese" class="item">
+            <div class="item-content">
+              <div class="item-logo">
+                <img src="{{ url_for('static', filename='css/assets/cuisines/japanese.png') }}" alt="Japanese">
+              </div>
+              <h2>Japanese</h2>
+            </div>
+          </a>
+          <a href="#egyptian" class="item">
+            <div class="item-content">
+              <div class="item-logo">
+                <img src="{{ url_for('static', filename='css/assets/cuisines/egyptian.png') }}" alt="Egyptian">
+              </div>
+              <h2>Egyptian</h2>
+            </div>
+          </a>
+        </div>
+      </section>
+
+      <section id="breakfast">
+        <div class="items-container">
+          <a href="#orientalbreakfast" class="item">
+            <div class="item-content">
+              <div class="item-logo">
+                <img src="{{ url_for('static', filename='css/assets/breakfast/orientalbreakfast.png') }}" alt="Oriental Breakfast">
+              </div>
+              <h2>Oriental Breakfast</h2>
+            </div>
+          </a>
+          <a href="#americanbreakfast" class="item">
+            <div class="item-content">
+              <div class="item-logo">
+                <img src="{{ url_for('static', filename='css/assets/breakfast/americanbreakfast.png') }}" alt="American Breakfast">
+              </div>
+              <h2>American Breakfast</h2>
+            </div>
+          </a>
+          <a href="#bakeries" class="item">
+            <div class="item-content">
+              <div class="item-logo">
+                <img src="{{ url_for('static', filename='css/assets/breakfast/bakeries.png') }}" alt="Bakeries">
+              </div>
+              <h2>Bakeries</h2>
             </div>
           </a>
         </div>
