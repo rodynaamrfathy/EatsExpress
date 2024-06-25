@@ -12,7 +12,6 @@ from models.MenuItem import MenuItem
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'your_secret_key'
 
-
 @app.route('/')
 def home():
     return render_template('main.html', title="EatsExpress - Home")
