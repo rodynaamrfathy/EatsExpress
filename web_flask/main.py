@@ -1,6 +1,3 @@
-#!/usr/bin/python3
-""" Starts a Flask Web Application """
-import os
 from flask import Flask, render_template, request, redirect, url_for, flash, session
 from hashlib import md5
 from models import storage
@@ -8,11 +5,9 @@ from models.User import User
 from models.Cart import Cart
 from models.Restaurant import Restaurant
 from models.MenuItem import MenuItem
-import time
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'your_secret_key'
-
 
 @app.route('/')
 def main():
@@ -27,18 +22,12 @@ def login():
         # Hash the entered password
         hashed_password = md5(password.encode()).hexdigest()
 
-        user = None
-        for u in storage.all(User).values():
-            if u.username == username and u.password == hashed_password:
-                user = u
-                break
+        user = next((u for u in storage.all(User).values() if u.username == username and u.password == hashed_password), None)
         if user:
             session['user_id'] = user.id
-            
             flash('Logged in successfully!', 'success')
-            return redirect(url_for('home_loggedin'))
+            return redirect(url_for('home'))
         else:
-            
             flash('Invalid credentials, please try again.', 'danger')
             return redirect(url_for('login'))
     
@@ -52,21 +41,16 @@ def register():
         password = request.form['password']
 
         # Check if email already exists
-        for u in storage.all(User).values():
-            if u.email == email:
-                flash('Email already exists. Please log in.', 'warning')
-                return redirect(url_for('login'))
+        existing_user = next((u for u in storage.all(User).values() if u.email == email), None)
+        if existing_user:
+            flash('Email already exists. Please log in.', 'warning')
+            return redirect(url_for('login'))
 
         # Create a new user
-        new_user = User(username=username, email=email, password=password)
+        hashed_password = md5(password.encode()).hexdigest()
+        new_user = User(username=username, email=email, password=hashed_password)
         storage.new(new_user)
         storage.save()
-
-        # Check if the user was saved
-        if storage.get(User, new_user.id) is not None:
-            print("User saved successfully:", new_user)
-        else:
-            print("Failed to save user:", new_user)
 
         flash('Account created successfully!', 'success')
         return redirect(url_for('login'))
@@ -77,7 +61,7 @@ def add_to_cart(item_id):
     item = storage.get(MenuItem, item_id)
     if not item:
         flash('Item not found', 'danger')
-        return redirect(url_for('home_loggedin'))
+        return redirect(url_for('home'))
     if 'user_id' in session:
         new_cart_item = Cart(user_id=session['user_id'], item_id=item.id, quantity=1)
         storage.new(new_cart_item)
@@ -87,15 +71,14 @@ def add_to_cart(item_id):
     else:
         flash('Please login first', 'danger')
         return redirect(url_for('login'))
-    
+
 @app.route('/restaurant/<int:restaurant_id>')
 def restaurant(restaurant_id):
     restaurant = storage.get(Restaurant, restaurant_id)
     if not restaurant:
         flash('Restaurant not found', 'danger')
-        return redirect(url_for('home_loggedin'))
-    menu_items = storage.all(MenuItem).values()
-    menu_items = [item for item in menu_items if item.restaurant_id == restaurant_id]
+        return redirect(url_for('home'))
+    menu_items = [item for item in storage.all(MenuItem).values() if item.restaurant_id == restaurant_id]
     return render_template('restaurant.html', restaurant=restaurant, menu_items=menu_items, title="EatsExpress - Restaurant")
 
 @app.route('/home')
@@ -117,7 +100,6 @@ def addaddress():
 @app.route('/completeorder')
 def completeorder():
     return render_template('complete_order.html', title="EatsExpress - complete order")
-
 
 if __name__ == '__main__':
     app.run(debug=True, port=5001)
