@@ -25,7 +25,7 @@ class Cart(Base):
             @property
             def products(self):
                 """getter attribute returns the list of Product instances"""
-                from models.Cart import cart
+                from models.Cart import Cart
                 product_list = []
                 all_products = models.storage.all(Cart)
                 for product in all_products.values():
