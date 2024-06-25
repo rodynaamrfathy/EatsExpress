@@ -8,6 +8,7 @@ from models.User import User
 from models.Cart import Cart
 from models.Restaurant import Restaurant
 from models.MenuItem import MenuItem
+from models.init_db import init_db
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'your_secret_key'
