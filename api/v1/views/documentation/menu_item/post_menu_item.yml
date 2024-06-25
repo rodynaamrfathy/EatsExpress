@@ -1,0 +1,14 @@
+summary: "Create a menu item"
+description: "Creates a new menu item."
+parameters:
+  - in: "body"
+    name: "body"
+    description: "Menu item object that needs to be created."
+    required: true
+    schema:
+      $ref: "#/definitions/MenuItem"
+responses:
+  201:
+    description: "Menu item created successfully."
+    schema:
+      $ref: "#/definitions/MenuItem"

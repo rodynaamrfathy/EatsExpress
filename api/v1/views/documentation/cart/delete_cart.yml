@@ -1,0 +1,13 @@
+summary: "Delete a cart"
+description: "Deletes the cart specified by cart ID."
+parameters:
+  - name: "cart_id"
+    in: "path"
+    required: true
+    type: "integer"
+    description: "The ID of the cart to be deleted."
+responses:
+  200:
+    description: "Cart deleted successfully."
+  404:
+    description: "Cart not found."

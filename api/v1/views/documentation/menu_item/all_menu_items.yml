@@ -1,0 +1,9 @@
+summary: "List all menu items"
+description: "Retrieves a list of all menu items available."
+responses:
+  200:
+    description: "A list of menu items."
+    schema:
+      type: "array"
+      items:
+        $ref: "#/definitions/MenuItem"
