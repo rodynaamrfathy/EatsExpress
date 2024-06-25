@@ -10,9 +10,9 @@ def home():
 def login():
     return render_template('login.html', title="EatsExpress - Login")
 
-@app.route('/resgister')
-def resgister():
-    return render_template('create_account.html', title="EatsExpress - Resgister")
+@app.route('/register')
+def register():
+    return render_template('create_account.html', title="EatsExpress - Register")
 
 @app.route('/cart')
 def cart():
