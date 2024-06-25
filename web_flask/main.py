@@ -3,7 +3,7 @@ from flask import Flask, render_template
 app = Flask(__name__)
 
 @app.route('/')
-def home():
+def main():
     return render_template('main.html', title="EatsExpress - Home")
 
 @app.route('/login')
@@ -23,7 +23,7 @@ def restaurant():
     return render_template('restaurant.html', title="EatsExpress - Restaurant")
 
 @app.route('/home')
-def home2():
+def home():
     return render_template('main_loggedin.html', title="EatsExpress - Home")
 
 @app.route('/search')

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/header.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/header+loggedin.css') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/footer.css') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/create_account.css') }}">
   <title>{{ title }}</title>
@@ -34,7 +34,8 @@
           <input type="email" name="confirm_email" placeholder="Rewrite your email">
           <input type="password" name="password" placeholder="Password">
           <input type="text" name="username" placeholder="Username">
-          <button type="submit">Register</button>
+          <a href="{{ url_for('home') }}" id="register-link" class="button">Register</a>
+          
       </form>
   </div>
   </main>
