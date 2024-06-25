@@ -8,6 +8,7 @@ from models.User import User
 from models.Cart import Cart
 from models.Restaurant import Restaurant
 from models.MenuItem import MenuItem
+import time
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'your_secret_key'
@@ -33,20 +34,22 @@ def login():
                 break
         if user:
             session['user_id'] = user.id
+            
             flash('Logged in successfully!', 'success')
             return redirect(url_for('home_loggedin'))
         else:
+            
             flash('Invalid credentials, please try again.', 'danger')
             return redirect(url_for('login'))
-        return render_template('login.html', title="EatsExpress - Login")
+    
+    return render_template('login.html', title="EatsExpress - Login")
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
-   if request.method == 'POST':
+    if request.method == 'POST':
         username = request.form['username']
         email = request.form['email']
         password = request.form['password']
-        address = request.form.get('address', '')
 
         # Check if email already exists
         for u in storage.all(User).values():
@@ -55,7 +58,7 @@ def register():
                 return redirect(url_for('login'))
 
         # Create a new user
-        new_user = User(username=username, email=email, password=password, address=address)
+        new_user = User(username=username, email=email, password=password)
         storage.new(new_user)
         storage.save()
 
