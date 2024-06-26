@@ -22,15 +22,18 @@ def login():
         # Hash the entered password
         hashed_password = md5(password.encode()).hexdigest()
 
-        user = next((u for u in storage.all(User).values() if u.username == username and u.password == hashed_password), None)
+        user = None
+        for u in storage.all(User).values():
+            if u.username == username and u.password == hashed_password:
+                user = u
+                break
         if user:
-            session['user_id'] = user.id
             flash('Logged in successfully!', 'success')
             return redirect(url_for('home'))
         else:
             flash('Invalid credentials, please try again.', 'danger')
             return redirect(url_for('login'))
-    
+
     return render_template('login.html', title="EatsExpress - Login")
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -56,21 +59,9 @@ def register():
         return redirect(url_for('login'))
     return render_template('create_account.html', title="EatsExpress - Register")
 
-@app.route('/add_to_cart/<int:item_id>')
-def add_to_cart(item_id):
-    item = storage.get(MenuItem, item_id)
-    if not item:
-        flash('Item not found', 'danger')
-        return redirect(url_for('home'))
-    if 'user_id' in session:
-        new_cart_item = Cart(user_id=session['user_id'], item_id=item.id, quantity=1)
-        storage.new(new_cart_item)
-        storage.save()
-        flash('Item added to cart', 'success')
-        return redirect(url_for('cart'))
-    else:
-        flash('Please login first', 'danger')
-        return redirect(url_for('login'))
+@app.route('/add_to_cart')
+def add_to_cart():
+    return render_template("viewcart.html")
 
 @app.route('/restaurant/<int:restaurant_id>')
 def restaurant(restaurant_id):
