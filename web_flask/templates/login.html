@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,6 +10,7 @@
   <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
   <title>{{ title }}</title>
 </head>
+
 <body>
   <header class="header">
     {% include 'header.html' %}
@@ -17,7 +19,7 @@
     <div class="blurry-background">
       <section id="home">
         <div class="home-banner">
-          <img src="{{ url_for('static', filename='assets/main/banner-img-1-2.png') }}" alt="Salad Image" class="banner1">
+          <img src="{{ url_for('static', filename='css/assets/banner1.png') }}" alt="Salad Image" class="banner1">
           <div class="home-text">
             <h1>Order food online in Egypt</h1>
             <p>Order food and grocery delivery online from hundreds of restaurants and shops nearby.</p>
@@ -26,16 +28,30 @@
               <button>Let's go</button>
             </div>
           </div>
-          <img src="{{ url_for('static', filename='assets/main/banner-img-2-1.png') }}" alt="Pasta Image" class="banner2">
+          <img src="{{ url_for('static', filename='css/assets/banner2.png') }}" alt="Pasta Image" class="banner2">
         </div>
       </section>
     </div>
+
     <div class="login-container">
       <div class="login-box">
         <h1>Welcome back!</h1>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        <div class="flash-messages">
+          {% for category, message in messages %}
+          <div class="alert alert-{{ category }}">
+            {{ message }}
+          </div>
+          {% endfor %}
+        </div>
+        {% endif %}
+        {% endwith %}
+
         <form method="POST" action="{{ url_for('login') }}">
-          <input type="text" name="username" placeholder="Email, username">
-          <input type="password" name="password" placeholder="password">
+          <input type="text" name="username" placeholder="Email, username" required>
+          <input type="password" name="password" placeholder="Password" required>
           <button type="submit">Login</button>
         </form>
         <p><a href="{{ url_for('register') }}">Create a new account?</a></p>
@@ -46,4 +62,5 @@
     {% include 'footer.html' %}
   </footer>
 </body>
+
 </html>

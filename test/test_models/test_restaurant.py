@@ -11,7 +11,7 @@ from models import Restaurant
 from models.base_model import BaseModel
 import pep8
 import unittest
-Restaurant = restaurant.Restaurant
+Restaurant = Restaurant.Restaurant
 
 class TestRestaurantDocs(unittest.TestCase):
     """Tests to check the documentation and style of Restaurant class"""
@@ -29,9 +29,9 @@ class TestRestaurantDocs(unittest.TestCase):
 
     def test_restaurant_module_docstring(self):
         """Test for the restaurant.py module docstring"""
-        self.assertIsNot(restaurant.__doc__, None,
+        self.assertIsNot(Restaurant.__doc__, None,
                         "restaurant.py needs a docstring")
-        self.assertTrue(len(restaurant.__doc__) >= 1,
+        self.assertTrue(len(Restaurant.__doc__) >= 1,
                         "restaurant.py needs a docstring")
 
     def test_restaurant_class_docstring(self):

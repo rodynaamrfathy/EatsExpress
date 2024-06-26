@@ -1,49 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/header+loggedin.css') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/footer.css') }}">
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/header.css') }}">
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/create_account.css') }}">
   <title>{{ title }}</title>
 </head>
+
 <body>
   <header class="header">
+    <!-- Include the header.html file -->
     {% include 'header.html' %}
   </header>
-  <main class="main">
-    <div class="blurry-background">
-      <section id="home">
-        <div class="home-banner">
-          <img src="{{ url_for('static', filename='assets/main/banner-img-1-2.png') }}" alt="Salad Image" class="banner1">
-          <div class="home-text">
-            <h1>Order food online in Egypt</h1>
-            <p>Order food and grocery delivery online from hundreds of restaurants and shops nearby.</p>
-            <div class="search-bar">
-              <input type="text" placeholder="city, area, street">
-              <button>Let's go</button>
-            </div>
-          </div>
-          <img src="{{ url_for('static', filename='assets/main/banner-img-2-1.png') }}" alt="Pasta Image" class="banner2">
+
+  <main>
+    <div class="form-container">
+      <!-- Flash messages block -->
+      {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+      <ul class="flashes">
+        {% for category, message in messages %}
+        <li class="{{ category }}">{{ message }}</li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+      {% endwith %}
+
+      <form action="{{ url_for('register') }}" method="post">
+        <div class="input-group">
+          <input type="text" name="firstname" placeholder="Firstname" required>
+          <input type="text" name="lastname" placeholder="Lastname" required>
         </div>
-      </section>
-    </div>
-    <div class="register-container">
-      <div class="register-box">
-        <h1>Create an Account</h1>
-        <form method="POST" action="{{ url_for('register') }}">
-          <input type="text" name="username" placeholder="Username">
-          <input type="email" name="email" placeholder="Email">
-          <input type="password" name="password" placeholder="Password">
-          <button type="submit">Register</button>
-        </form>
-      </div>
+        <div class="input-group">
+          <select name="country_code" required>
+            <option value="+1">+1</option>
+            <option value="+44">+44</option>
+            <option value="+91">+91</option>
+            <option value="+20">+20</option>
+          </select>
+          <input type="text" name="phone_number" placeholder="Phone Number" required>
+        </div>
+        <input type="email" name="email" placeholder="Email" required>
+        <input type="email" name="confirm_email" placeholder="Rewrite your email" required>
+        <input type="password" name="password" placeholder="Password" required>
+        <input type="text" name="username" placeholder="Username" required>
+        <button id="register-link" class="button">Register</button>
+      </form>
     </div>
   </main>
+
   <footer class="footer">
+    <!-- Include the footer.html file -->
     {% include 'footer.html' %}
   </footer>
 </body>
+
 </html>

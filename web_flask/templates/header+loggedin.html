@@ -12,12 +12,10 @@
       <a href="#breakfast" class="nav-link text-wrapper-4">Breakfast</a>
     </div>
     <div class="user-info">
-      <a href="{{ url_for('main.view_account') }}">
-        <img src="assets/profile.png" alt="Profile Icon" class="profile-icon">
-        <span class="user-greeting">Hello, {{ current_user.first_name }}!</span>
-      </a>
-      <a href="{{ url_for('main.view_cart') }}">
-        <img src="assets/cart.png" alt="Cart Icon" class="cart-icon">
+        <img src="{{ url_for('static', filename='css/assets/profile.png') }}" alt="Profile Icon" class="profile-icon">
+        <span class="user-greeting">Hello</span>
+      <a href="{{ url_for('add_to_cart') }}">
+        <img src="{{ url_for('static', filename='css/assets/cart.png') }}" alt="Cart Icon" class="cart-icon">
       </a>
     </div>
   </div>
