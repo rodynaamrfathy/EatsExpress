@@ -12,7 +12,6 @@ class Restaurant(BaseModel, Base):
         __tablename__ = 'restaurants'
         name = Column(String(128), nullable=False)
         location = Column(String(256), nullable=True)
-        reviews = relationship("Review", backref="restaurant")
         menu_items = relationship("MenuItem", backref="restaurant")  # One-to-many relationship with MenuItem
 
     else:
