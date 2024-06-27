@@ -92,5 +92,9 @@ def addaddress():
 def completeorder():
     return render_template('complete_order.html', title="EatsExpress - complete order")
 
+@app.route('/viewall')
+def viewall():
+    return render_template('viewall.html', title="EatsExpress - view all restaurants")
+
 if __name__ == '__main__':
     app.run(debug=True, port=5001)

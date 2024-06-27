@@ -4,7 +4,6 @@ from os import getenv
 
 
 
-
 storage_t = getenv("EatExpress_TYPE_STORAGE")
 
 if storage_t == "db":
