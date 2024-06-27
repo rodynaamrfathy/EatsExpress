@@ -1,6 +1,4 @@
-#!/usr/bin/python3
-"""This is the base model class for AirBnB"""
-
+from app import db
 from datetime import datetime
 import models
 from os import getenv
@@ -18,12 +16,12 @@ else:
 
 
 
-class BaseModel:
+class BaseModel(db.Model):
     """The BaseModel class from which future classes will be derived"""
-    if models.storage_t == "db":
-        id = Column(String(60), primary_key=True)
-        created_at = Column(DateTime, default=datetime.utcnow)
-        updated_at = Column(DateTime, default=datetime.utcnow)
+
+    id = db.Column(db.Text, primary_key=True)
+    created_at = db.Column(DateTime, default=datetime.utcnow)
+    updated_at = db.Column(DateTime, default=datetime.utcnow)
 
     def __init__(self, *args, **kwargs):
         """Initialization of the base model"""

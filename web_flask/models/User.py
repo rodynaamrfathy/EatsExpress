@@ -1,3 +1,4 @@
+from app import db
 from hashlib import md5
 from main import db  # Assuming 'db' is your SQLAlchemy instance
 

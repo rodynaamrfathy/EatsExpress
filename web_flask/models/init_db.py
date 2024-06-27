@@ -1,3 +1,4 @@
+from app import db
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from models.base_model import Base
