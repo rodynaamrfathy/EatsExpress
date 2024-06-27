@@ -57,14 +57,14 @@ def register():
 def add_to_cart():
     return render_template("viewcart.html")
 
-@app.route('/restaurant/<int:restaurant_id>')
-def restaurant(restaurant_id):
-    restaurant = storage.get(Restaurant, restaurant_id)
+@app.route('/restaurant/<string:restaurant_slug>')
+def restaurant(restaurant_slug):
+    restaurant = Restaurant.query.filter_by(slug=restaurant_slug).first()
     if not restaurant:
         flash('Restaurant not found', 'danger')
         return redirect(url_for('home'))
-    menu_items = [item for item in storage.all(MenuItem).values() if item.restaurant_id == restaurant_id]
-    return render_template('restaurant.html', restaurant=restaurant, menu_items=menu_items, title="EatsExpress - Restaurant")
+    menu_items = MenuItem.query.filter_by(restaurant_id=restaurant.id).all()
+    return render_template('restaurant.html', restaurant=restaurant, menu_items=menu_items, title=f"EatsExpress - {restaurant.name}")
 
 @app.route('/home')
 def home():
