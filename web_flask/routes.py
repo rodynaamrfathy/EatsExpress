@@ -1,5 +1,5 @@
 from flask import render_template, request, redirect, url_for, flash, session
-from models.User import User
+from models.base_model import User
 from hashlib import md5
 
 def register_routes(app, db):

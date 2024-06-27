@@ -6,10 +6,8 @@ db = SQLAlchemy()
 
 def create_app():
     app = Flask(__name__, template_folder='templates')
-    # Correct the key and the URI spelling
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///eatsexpress.sqlite'
     app.config['SECRET_KEY'] = 'your_secret_key'
-
 
     db.init_app(app)
 
