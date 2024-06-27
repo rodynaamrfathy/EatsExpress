@@ -206,4 +206,18 @@ body, html {
     font-size: 0.9rem;
 }
 
-
+.view-all-button {
+    background-color: #f47b20;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+  
+.view-all-button:hover {
+    background-color: #e5671b;
+}
