@@ -1,6 +1,3 @@
-#!/usr/bin/python3
-""" console """
-
 import cmd
 from datetime import datetime
 import models
