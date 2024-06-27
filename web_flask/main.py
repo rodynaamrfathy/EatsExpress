@@ -81,7 +81,7 @@ def completeorder():
 @app.route('/viewall')
 def viewall():
     restaurants = storage.all(Restaurant).values()
-    print(restaurants)  # This will print the list of restaurants to your console
+    print(restaurants)
     return render_template('all_restaurants.html', restaurants=restaurants, title="View All Restaurants")
 
 @app.route('/restaurant_details/<int:restaurant_id>')
