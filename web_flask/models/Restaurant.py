@@ -1,26 +1,20 @@
-#!/usr/bin/python3
-""" Definition of the Restaurant model """
-
-import models
-from models.base_model import BaseModel, Base
-from os import getenv
-import sqlalchemy
-from sqlalchemy import Column, String, Float, Table
+from main import db
+from sqlalchemy import Column, String
 from sqlalchemy.orm import relationship
+import models
 
-
-class Restaurant(BaseModel, Base):
+class Restaurant(db.Model):
     """ Representation of a Restaurant """
-    if models.storage_t =='db':
-        __tablename__ = 'restaurants'
-        name = Column(String(128), nullable=False)
-        location = Column(String(256), nullable=True)
-        reviews = relationship("Review", backref="restaurant")
-
-    else:
-        name = ""
-        location = ""
+    __tablename__ = 'restaurants'
+    
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(128), nullable=False)
+    location = db.Column(db.String(256), nullable=True)
+    reviews = db.relationship("Review", backref="restaurant")
 
     def __init__(self, *args, **kwargs):
         """ Initializes the restaurant """
         super().__init__(*args, **kwargs)
+
+    def __repr__(self):
+        return f'Restaurant(id={self.id}, name={self.name}, location={self.location})'

@@ -1,25 +1,21 @@
-# models/review.py
-
+from main import db
+from sqlalchemy import Column, Integer, String, ForeignKey
+from sqlalchemy.orm import relationship
 import models
-from models.base_model import BaseModel, Base
-from os import getenv
-import sqlalchemy
-from sqlalchemy import Column, Integer, String, ForeignKey, Float
 
-class Review(BaseModel, Base):
+class Review(db.Model):
     """Representation of a review"""
-    if models.storage_t == 'db':
+    __tablename__ = 'reviews'
     
-        __tablename__ = 'reviews'
-        user_id = Column(Integer, ForeignKey('users.id'), nullable=False)
-        comment = Column(String(1024), nullable=True)
-        restaurant_id = Column(Integer, ForeignKey('restaurants.id'))  # ForeignKey pointing to the restaurants table
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    comment = db.Column(db.String(1024), nullable=True)
+    restaurant_id = db.Column(db.Integer, db.ForeignKey('restaurants.id'))  # Assuming ForeignKey pointing to the restaurants table
 
-    else:
-        user_id = ""
-        comment = ""
-
+    user = db.relationship("User", back_populates="reviews")
 
     def __init__(self, *args, **kwargs):
-        """initializes Review"""
+        """Initializes Review"""
         super().__init__(*args, **kwargs)
+
+    def __repr__(self):
+        return f'Review(id={self.id}, user_id={self.user_id}, comment={self.comment})'

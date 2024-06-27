@@ -5,6 +5,10 @@ from models.User import User
 from models.Cart import Cart
 from models.Restaurant import Restaurant
 from models.MenuItem import MenuItem
+from flask_migrate import Migrate
+from flask_sqlalchemy import SQLAlchemy
+
+db = SQLAlchemy()
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'your_secret_key'
