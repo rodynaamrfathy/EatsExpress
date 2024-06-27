@@ -3,19 +3,17 @@
 
 import models
 from models.base_model import BaseModel, Base
-from os import getenv
-import sqlalchemy
-from sqlalchemy import Column, String, Float, Table
+from sqlalchemy import Column, String
 from sqlalchemy.orm import relationship
-
 
 class Restaurant(BaseModel, Base):
     """ Representation of a Restaurant """
-    if models.storage_t =='db':
+    if models.storage_t == 'db':
         __tablename__ = 'restaurants'
         name = Column(String(128), nullable=False)
         location = Column(String(256), nullable=True)
         reviews = relationship("Review", backref="restaurant")
+        menu_items = relationship("MenuItem", backref="restaurant")  # One-to-many relationship with MenuItem
 
     else:
         name = ""
