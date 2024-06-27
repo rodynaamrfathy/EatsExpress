@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Choose Action</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/header.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/create_account.css') }}">
+</head>
+<body>
+    <header class="header">
+        {% include 'header.html' %}
+    </header>
+    <div class="form-container" style="margin-top: 250px;">
+        <h1>Choose Action</h1>
+        <form method="post" action="{{ url_for('choice') }}">
+           <a href="{{ url_for('create_restaurant') }}"> <button type="button" style="margin: 10px;">Create Restaurant</button></a> 
+            <a href="{{ url_for('add_menu_item') }}"><button type="button" style="margin: 10px;">Add Menu Item</button></a>
+        </form>
+    </div>
+</body>
+</html>

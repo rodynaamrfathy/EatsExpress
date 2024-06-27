@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Menu Item</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/header.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/create_account.css') }}">
+</head>
+<body>
+    <header class="header">
+        {% include 'header.html' %}
+    </header>
+    <div class="form-container" style="margin-top: 250px;">
+        <h1>Add Menu Item</h1>
+        <form method="post">
+            <label for="restaurant_name">Restaurant Name:</label>
+            <input type="text" id="restaurant_name" name="restaurant_name" required>
+
+            <label for="menu_item_name">Item Name:</label>
+            <input type="text" id="menu_item_name" name="menu_item_name" required>
+
+            <label for="menu_item_price">Price:</label>
+            <input type="number" id="menu_item_price" name="menu_item_price" required step="0.01">
+
+            <label for="menu_item_description">Description:</label>
+            <input type="text" id="menu_item_description" name="menu_item_description" required>
+
+            <button type="submit" style="margin: 10px;">Add Menu Item</button>
+        </form>
+    </div>
+</body>
+</html>

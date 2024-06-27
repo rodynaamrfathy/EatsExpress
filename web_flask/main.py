@@ -81,7 +81,6 @@ def completeorder():
 @app.route('/viewall')
 def viewall():
     restaurants = storage.all(Restaurant).values()
-    print(restaurants)
     return render_template('all_restaurants.html', restaurants=restaurants, title="View All Restaurants")
 
 @app.route('/restaurant_details/<int:restaurant_id>')
@@ -90,9 +89,64 @@ def restaurant_details(restaurant_id):
     if not restaurant:
         flash('Restaurant not found', 'danger')
         return redirect(url_for('viewall'))
-    menu_items = storage.all(MenuItem).filter_by(restaurant_id=restaurant.id).all()  # Assuming this fetches related menu items
+    menu_items = [item for item in storage.all(MenuItem).values() if item.restaurant_id == restaurant_id]  # Fetch related menu items
     return render_template('restaurant_details.html', restaurant=restaurant, menu_items=menu_items, title=restaurant.name)
 
+@app.route('/choice')
+def choice():
+    return render_template('choice.html', title="Choose Action")
+
+@app.route('/create_restaurant', methods=['GET', 'POST'])
+def create_restaurant():
+    if request.method == 'POST':
+        name = request.form['name']
+        location = request.form['location']
+
+        # Check for existing restaurant
+        existing_restaurant = next((r for r in storage.all(Restaurant).values() if r.name == name), None)
+        if existing_restaurant:
+            flash('Restaurant already exists. Please try a different name.', 'warning')
+            return redirect(url_for('create_restaurant'))
+
+        # Create restaurant object
+        new_restaurant = Restaurant(name=name, location=location)
+        storage.new(new_restaurant)
+        storage.save()
+        flash('Restaurant created successfully!', 'success')
+        return redirect(url_for('viewall'))
+
+    return render_template('create_restaurant.html', title="Create New Restaurant")
+
+@app.route('/add_menu_item', methods=['GET', 'POST'])
+def add_menu_item():
+    if request.method == 'POST':
+        restaurant_name = request.form['restaurant_name']
+        item_name = request.form['menu_item_name']
+        item_price = request.form['menu_item_price']
+        item_description = request.form['menu_item_description']
+
+        # Find the restaurant
+        restaurant = next((r for r in storage.all(Restaurant).values() if r.name == restaurant_name), None)
+        if not restaurant:
+            flash('Restaurant not found. Please try again.', 'danger')
+            return redirect(url_for('add_menu_item'))
+
+        # Create menu item object and add it to the restaurant
+        new_menu_item = MenuItem(name=item_name, price=float(item_price), description=item_description, restaurant_id=restaurant.id)
+        storage.new(new_menu_item)
+        storage.save()
+        flash('Menu item added successfully!', 'success')
+    return render_template('add_menu_item.html', title="Create New item")
+
+@app.route('/add_item_to_cart/<int:item_id>', methods=['GET', 'POST'])
+def add_item_to_cart(item_id):
+    menu_item = storage.get(MenuItem, item_id)
+    if request.method == 'POST':
+        # Logic for adding the item to the cart
+        flash('Item added to cart successfully!', 'success')
+        return redirect(url_for('restaurant_details', restaurant_id=menu_item.restaurant_id))
+    
+    return render_template('add_item_to_cart.html', menu_item=menu_item, title="Add Item to Cart")
 
 if __name__ == '__main__':
     app.run(debug=True, port=5001)

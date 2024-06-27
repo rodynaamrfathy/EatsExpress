@@ -5,43 +5,36 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/header+loggedin.css') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/footer.css') }}">
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/add_item_to_cart.css') }}">
-  <title>{{ title }}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+  <title>Add Item to Cart - EatsExpress</title>
 </head>
 <body>
   <header class="header">
-    <!-- Include the header+loggedin.html file -->
-    {% include 'header+loggedin.html' %}
+    {% include 'header+order.html' %}
   </header>
 
   <main class="main">
-    <div class="add-item-container">
-      <img src="{{ url_for('static', filename='css/assets/base.png') }}" alt="Menu Item">
-      <h1>Item name</h1>
-      <p>Description of the item goes here.</p>
-      <h2>$100</h2>
-      <div class="quantity-control">
-        <button>-</button>
-        <span>1</span>
-        <button>+</button>
-      </div>
-      <form>
-        <label for="addon1">
-          <input type="checkbox" id="addon1" name="addon1"> Add-on 1
-        </label>
-        <label for="addon2">
-          <input type="checkbox" id="addon2" name="addon2"> Add-on 2
-        </label>
-        <label for="addon3">
-          <input type="checkbox" id="addon3" name="addon3"> Add-on 3
-        </label>
-        <button type="submit">Add to cart</button>
+    <div class="form-container">
+      <h1>Add Item to Cart</h1>
+      <form method="post">
+        <label for="name">Item Name:</label>
+        <input type="text" id="name" name="name" value="{{ menu_item.name }}" readonly>
+
+        <label for="price">Price:</label>
+        <input type="number" id="price" name="price" value="{{ menu_item.price }}" readonly>
+
+        <label for="description">Description:</label>
+        <input type="text" id="description" name="description" value="{{ menu_item.description }}" readonly>
+
+        <label for="quantity">Quantity:</label>
+        <input type="number" id="quantity" name="quantity" required>
+
+        <button type="submit">Add to Cart</button>
       </form>
     </div>
   </main>
 
   <footer class="footer">
-    <!-- Include the footer.html file -->
     {% include 'footer.html' %}
   </footer>
 </body>

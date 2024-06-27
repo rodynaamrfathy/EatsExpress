@@ -19,7 +19,7 @@
         <a href="{{ url_for('restaurant_details', restaurant_id=restaurant.id) }}" class="item">
           <div class="item-content">
             <div class="item-logo">
-              <img src="{{ url_for('static', filename='css/assets/restaurants/' + restaurant.image_filename) }}" alt="{{ restaurant.name }}">
+              <img src="{{ url_for('static', filename='css/assets/restaurants/' ~ loop.index ~ '.png') }}" alt="{{ restaurant.name }}">
             </div>
             <h2>{{ restaurant.name }}</h2>
             <div class="item-details">
