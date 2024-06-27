@@ -1,20 +1,42 @@
-from app import db
-from sqlalchemy import Column, Integer, String, Text, DateTime
+#!/usr/bin/python3
+""" holds class User"""
+
+import models
+from models.base_model import BaseModel, Base
+from os import getenv
+import sqlalchemy
+from sqlalchemy import Column, String, Integer
 from sqlalchemy.orm import relationship
-from datetime import datetime
 from hashlib import md5
 
-class User(db.Model):
-    __tablename__ = 'users'
-    id = db.Column(db.Integer, primary_key=True)
-    email = db.Column(db.Text, nullable=False)
-    password = db.Column(db.Text, nullable=False)
-    first_name = db.Column(db.Text, nullable=True)
-    last_name = db.Column(db.Text, nullable=True)
-    phone_number = db.Column(db.Text, nullable=True)
-    address = db.Column(db.Text, nullable=True)
-    created_at = db.Column(db.DateTime, default=datetime.utcnow)
-    updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
-    def __repr__(self):
-        return '<User {}>'.format(self.email)
+class User(BaseModel, Base):
+    """Representation of a user for EatExpress"""
+    if models.storage_t == 'db':
+        _tablename_ = 'users'
+        email = Column(String(128), nullable=False)
+        password = Column(String(128), nullable=False)
+        first_name = Column(String(128), nullable=True)
+        last_name = Column(String(128), nullable=True)
+        phone_number = Column(String(20), nullable=True)
+        address = Column(String(256), nullable=True)
+        orders = relationship("Order", back_populates="user")
+        reviews = relationship("Review", back_populates="user")
+        
+    else:
+        email = ""
+        password = ""
+        first_name = ""
+        last_name = ""
+        phone_number = ""
+        address = ""
+
+    def _init_(self, *args, **kwargs):
+        """initializes user"""
+        super()._init_(*args, **kwargs)
+
+    def _setattr_(self, name, value):
+        """sets a password with md5 encryption"""
+        if name == "password":
+            value = md5(value.encode()).hexdigest()
+        super()._setattr_(name, value)
