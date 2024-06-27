@@ -1,1 +1,270 @@
-{"User.c17eaac8-790d-404a-a400-fa158d708384": {"username": "rodyna", "email": "rodyna@gmail.com", "password": "202cb962ac59075b964b07152d234b70", "created_at": "2024-06-27T21:08:04.187555", "updated_at": "2024-06-27T21:08:04.187588", "id": "c17eaac8-790d-404a-a400-fa158d708384", "__class__": "User"}}
+{
+  "User.c17eaac8-790d-404a-a400-fa158d708384": {
+    "username": "rodyna",
+    "email": "rodyna@gmail.com",
+    "password": "202cb962ac59075b964b07152d234b70",
+    "created_at": "2024-06-27T21:08:04.187555",
+    "updated_at": "2024-06-27T21:08:04.187588",
+    "id": "c17eaac8-790d-404a-a400-fa158d708384",
+    "__class__": "User"
+  },
+  "Restaurant.58fa38fd-0132-4d05-9224-4ff6804f8401": {
+    "id": "58fa38fd-0132-4d05-9224-4ff6804f8401",
+    "name": "Garnell's Sushi",
+    "location": "123 Ocean View Blvd, Santa Monica",
+    "menu_items": [
+      {
+        "id": "61bdfa93-41e6-44c0-80f7-3a2b9622d149",
+        "name": "Salmon Nigiri",
+        "price": 10,
+        "description": "Fresh salmon over a bed of sushi rice."
+      },
+      {
+        "id": "a448bdbd-8293-416c-86ef-de0061eef2cb",
+        "name": "Miso Soup",
+        "price": 3,
+        "description": "Traditional Japanese miso soup with tofu and seaweed."
+      },
+      {
+        "id": "c1b0ba1d-3b5f-4899-87b6-dfc470afd2ba",
+        "name": "Sake",
+        "price": 5,
+        "description": "Japanese rice wine served chilled."
+      },
+      {
+        "id": "869ae065-f116-41f2-9002-124411d1990c",
+        "name": "Dragon Roll",
+        "price": 12,
+        "description": "Eel, cucumber, and avocado topped with thin slices of avocado."
+      },
+      {
+        "id": "9ec29f7a-53cf-4837-879b-465a7ce62a77",
+        "name": "Green Tea",
+        "price": 2,
+        "description": "Freshly brewed Japanese green tea."
+      }
+    ]
+  },
+  "Restaurant.4a9faff8-ca9e-44a6-86d4-ee6aa028f2ba": {
+    "id": "4a9faff8-ca9e-44a6-86d4-ee6aa028f2ba",
+    "name": "Roma Pizza",
+    "location": "456 Mountain Rd, Denver",
+    "menu_items": [
+      {
+        "id": "6b095e3b-04dd-4c94-827e-03195b4187d9",
+        "name": "Meat Lover's Pizza",
+        "price": 15,
+        "description": "Pepperoni, ham, sausage, bacon, and mozzarella."
+      },
+      {
+        "id": "fc5f1719-75ae-47c5-9076-a0f054390ed6",
+        "name": "Garlic Bread",
+        "price": 4,
+        "description": "Crispy bread with garlic butter and herbs."
+      },
+      {
+        "id": "b15b02eb-601f-4b27-9f37-579f547da562",
+        "name": "Caesar Salad",
+        "price": 8,
+        "description": "Romaine lettuce with Caesar dressing, croutons, and parmesan cheese."
+      },
+      {
+        "id": "69458836-7846-4b66-9682-a77120cebefd",
+        "name": "Tiramisu",
+        "price": 6,
+        "description": "Coffee-flavored Italian dessert."
+      },
+      {
+        "id": "a7eafb79-e1e2-4fbb-8c46-8cdcccf54d12",
+        "name": "Italian Soda",
+        "price": 3,
+        "description": "Carbonated water with your choice of flavored syrup."
+      }
+    ]
+  },
+  "Restaurant.d28b1d88-2716-4d67-bef5-8d93e75b0dc5": {
+    "id": "d28b1d88-2716-4d67-bef5-8d93e75b0dc5",
+    "name": "Vinny's Pizzeria",
+    "location": "789 River St, New York",
+    "menu_items": [
+      {
+        "id": "d71ddb74-0418-4c3f-aa67-d6d04ebca73a",
+        "name": "Buffalo Wings",
+        "price": 9,
+        "description": "Spicy chicken wings served with blue cheese dressing."
+      },
+      {
+        "id": "bfd47801-4331-4149-8b04-409d49916487",
+        "name": "Antipasto Salad",
+        "price": 8,
+        "description": "Mixed greens with Italian meats, olives, and pepperoncini."
+      },
+      {
+        "id": "49ea6501-82a3-429c-a551-77783ee74355",
+        "name": "Calzone",
+        "price": 10,
+        "description": "Folded pizza with mozzarella, ricotta, and your choice of fillings."
+      },
+      {
+        "id": "d83465b1-fca7-4bb3-8dbf-5e1fcf508dbe",
+        "name": "Lemonade",
+        "price": 4,
+        "description": "Freshly squeezed lemonade."
+      },
+      {
+        "id": "b5a75991-429b-4622-b114-242e0c9b83f2",
+        "name": "Cannoli",
+        "price": 5,
+        "description": "Sicilian pastry filled with sweet ricotta."
+      }
+    ]
+  },
+  "Restaurant.eae3b353-99a7-4743-a517-cf24b2225f01": {
+    "id": "eae3b353-99a7-4743-a517-cf24b2225f01",
+    "name": "Bangkok Thai",
+    "location": "321 Sunset Blvd, Los Angeles",
+    "menu_items": [
+      {
+        "id": "fc5f1719-75ae-47c5-9076-a0f054390ed6",
+        "name": "Pad Thai",
+        "price": 14,
+        "description": "Classic Thai noodle dish with shrimp, peanuts, egg, and bean sprouts."
+      },
+      {
+        "id": "f0987277-cd7f-4678-bfe7-0c48a6229bd9",
+        "name": "Green Curry",
+        "price": 13,
+        "description": "Spicy green curry with chicken and bamboo shoots."
+      },
+      {
+        "id": "de790314-a5d0-4d2a-90ee-b02ecc552699",
+        "name": "Mango Sticky Rice",
+        "price": 7,
+        "description": "Sweet sticky rice with ripe mango and coconut milk."
+      },
+      {
+        "id": "5fca8fca-ba9b-4a1a-882c-75e4e7b2c2ec",
+        "name": "Thai Iced Tea",
+        "price": 3,
+        "description": "Sweet tea with spices and milk, served chilled."
+      },
+      {
+        "id": "e0f0b7ff-9e24-4220-a19d-ce7d104d028d",
+        "name": "Spring Rolls",
+        "price": 6,
+        "description": "Fresh rolls with shrimp, lettuce, and herbs wrapped in rice paper."
+      }
+    ]
+  },
+  "Restaurant.d31a1637-449f-408c-a2a2-57fc793cc3ca": {
+    "id": "d31a1637-449f-408c-a2a2-57fc793cc3ca",
+    "name": "Curry Up Now",
+    "location": "654 Hilltop Dr, San Francisco",
+    "menu_items": [
+      {
+        "id": "b8b9dea6-dd1e-4230-b002-9206c3037305",
+        "name": "Butter Chicken",
+        "price": 12,
+        "description": "Creamy tomato curry with tender chicken pieces."
+      },
+      {
+        "id": "8726c99e-6d7f-4fed-b644-6150b7649add",
+        "name": "Saag Paneer",
+        "price": 10,
+        "description": "Spinach curry with paneer cheese."
+      },
+      {
+        "id": "d8ef9ab2-e1e8-46a1-a608-5b262221ed48",
+        "name": "Naan Bread",
+        "price": 3,
+        "description": "Freshly baked Indian bread."
+      },
+      {
+        "id": "3f088c16-423f-483b-a1ce-2bc82f32fb0c",
+        "name": "Mango Lassi",
+        "price": 4,
+        "description": "Sweet yogurt-based mango drink."
+      },
+      {
+        "id": "315bc42c-2531-49ca-ab35-ca23f4164766",
+        "name": "Vegetable Samosa",
+        "price": 5,
+        "description": "Spiced potatoes and peas wrapped in a crispy pastry."
+      }
+    ]
+  },
+  "Restaurant.4fbb151a-f87a-43e8-a99f-2b247198d5b2": {
+    "id": "4fbb151a-f87a-43e8-a99f-2b247198d5b2",
+    "name": "Chez François",
+    "location": "112 Vine St, Chicago",
+    "menu_items": [
+      {
+        "id": "f61fa2a7-803d-415a-b5e7-c5c198f8e9e6",
+        "name": "Filet Mignon",
+        "price": 25,
+        "description": "Grilled filet mignon with béarnaise sauce."
+      },
+      {
+        "id": "f067d6cf-9498-4a85-b8c9-4ac595a835d9",
+        "name": "French Onion Soup",
+        "price": 7,
+        "description": "Caramelized onion broth with toasted bread and melted Gruyère."
+      },
+      {
+        "id": "a181dc11-b731-4a62-9d72-9a06f338bfb7",
+        "name": "Crème Brûlée",
+        "price": 8,
+        "description": "Rich vanilla custard with a caramelized sugar crust."
+      },
+      {
+        "id": "8d965d79-bf0b-4d64-8fc4-ca285e048165",
+        "name": "Chardonnay",
+        "price": 9,
+        "description": "A glass of fine French Chardonnay."
+      },
+      {
+        "id": "e02f2544-897d-4c0c-b508-0f7137d90551",
+        "name": "Escargot",
+        "price": 12,
+        "description": "Snails baked with garlic, herb butter, and parsley."
+      }
+    ]
+  },
+  "Restaurant.c3806a3c-585f-4f36-a96f-051f90a1e7ee": {
+    "id": "c3806a3c-585f-4f36-a96f-051f90a1e7ee",
+    "name": "The Greenhouse",
+    "location": "230 Park Ave, Seattle",
+    "menu_items": [
+      {
+        "id": "a5fa05a4-9705-44b0-955f-4fb2045e4053",
+        "name": "Vegan Burger",
+        "price": 12,
+        "description": "Plant-based burger topped with avocado, lettuce, tomato, and vegan mayo."
+      },
+      {
+        "id": "5efbaeb4-4e01-4f0f-ae9d-0ce260e529f2",
+        "name": "Kale Salad",
+        "price": 9,
+        "description": "Kale with apple slices, walnuts, and a lemon vinaigrette."
+      },
+      {
+        "id": "de497ded-cba3-4f2c-8ad2-af2b9d2e988b",
+        "name": "Smoothie Bowl",
+        "price": 10,
+        "description": "Acai berry smoothie bowl with granola, banana, and mixed berries."
+      },
+      {
+        "id": "4a223b3f-a2e0-4845-a794-50e539d69ce3",
+        "name": "Organic Soda",
+        "price": 3,
+        "description": "Naturally sweetened soda with your choice of flavor: grape, orange, or lemon-lime."
+      },
+      {
+        "id": "c4a254cf-a3d7-4ba7-bbc0-2e2d3770ad4f",
+        "name": "Cold Brew Coffee",
+        "price": 4,
+        "description": "Smooth and refreshing cold brew coffee."
+      }
+    ]
+  }
+}
