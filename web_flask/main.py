@@ -57,14 +57,6 @@ def register():
 def add_to_cart():
     return render_template("viewcart.html")
 
-@app.route('/restaurant/<string:restaurant_slug>')
-def restaurant(restaurant_slug):
-    restaurant = Restaurant.query.filter_by(slug=restaurant_slug).first()
-    if not restaurant:
-        flash('Restaurant not found', 'danger')
-        return redirect(url_for('home'))
-    menu_items = MenuItem.query.filter_by(restaurant_id=restaurant.id).all()
-    return render_template('restaurant.html', restaurant=restaurant, menu_items=menu_items, title=f"EatsExpress - {restaurant.name}")
 
 @app.route('/home')
 def home():
@@ -88,7 +80,18 @@ def completeorder():
 
 @app.route('/viewall')
 def viewall():
-    return render_template('viewall.html', title="EatsExpress - view all restaurants")
+    restaurants = storage.all(Restaurant).values()  # Assuming this fetches all restaurant instances
+    return render_template('all_restaurants.html', restaurants=restaurants, title="View All Restaurants")
+
+@app.route('/restaurant_details/<int:restaurant_id>')
+def restaurant_details(restaurant_id):
+    restaurant = storage.get(Restaurant, restaurant_id)
+    if not restaurant:
+        flash('Restaurant not found', 'danger')
+        return redirect(url_for('viewall'))
+    menu_items = storage.all(MenuItem).filter_by(restaurant_id=restaurant.id).all()  # Assuming this fetches related menu items
+    return render_template('restaurant_details.html', restaurant=restaurant, menu_items=menu_items, title=restaurant.name)
+
 
 if __name__ == '__main__':
     app.run(debug=True, port=5001)
