@@ -1,29 +1,17 @@
-import models
-from models.base_model import BaseModel, Base
-from sqlalchemy import Column, String, Integer, ForeignKey
+from main import db
+from sqlalchemy import Column, Integer, String
+from sqlalchemy.orm import relationship
 
-class MenuItem(BaseModel, Base):
-    if models.storage_t == 'db':
-        __tablename__ = 'menu_items'
-        name = Column(String(128), nullable=False)
-        price = Column(Integer, nullable=False)
-        restaurant_id = Column(Integer, ForeignKey('restaurants.id'), nullable=False)
-    else:
-        name = ""
-        price = 0
-        restaurant_id = ""
+class User(db.Model):
+    """Representation of a user"""
+    __tablename__ = 'users'
+    
+    email = db.Column(db.String(128), nullable=False)
+    password = db.Column(db.String(128), nullable=False)
+    first_name = db.Column(db.String(128), nullable=True)
+    last_name = db.Column(db.String(128), nullable=True)
+    phone_number = db.Column(db.String(20), nullable=True)
+    address = db.Column(db.String(256), nullable=True)
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-
-    if models.storage_t != 'db':
-        @property
-        def products(self):
-            """Getter attribute returns the list of Product instances"""
-            from models.MenuItem import MenuItem
-            product_list = []
-            all_products = models.storage.all(MenuItem)
-            for product in all_products.values():
-                if product.order_id == self.id:
-                    product_list.append(product)
-            return product_list
+    def __repr__(self):
+        return f'person with name {self.first_name} and email {self.email}'

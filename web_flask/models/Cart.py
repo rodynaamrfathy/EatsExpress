@@ -1,32 +1,17 @@
-import models
-from models.base_model import BaseModel, Base
-from os import getenv
-import sqlalchemy
+from main import db
 from sqlalchemy import Column, Integer, ForeignKey
 from sqlalchemy.orm import relationship
 
-class Cart(BaseModel, Base):
-    if models.storage_t == 'db':
-        __tablename__ = 'cart'
-        user_id = Column(Integer, ForeignKey('users.id'), nullable=False)
-        item_id = Column(Integer, ForeignKey('menu_items.id'), nullable=False)
-        quantity = Column(Integer, default=1)
-    else:
-        user_id = ""
-        item_id = ""
-        quantity = 0
+class Cart(db.Model):
+    """Representation of a shopping cart item"""
+    __tablename__ = 'cart'
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    item_id = db.Column(db.Integer, db.ForeignKey('menu_items.id'), nullable=False)
+    quantity = db.Column(db.Integer, default=1)
+    
+    user = db.relationship("User")  # Assuming User model exists
+    item = db.relationship("MenuItem")  # Assuming MenuItem model exists
 
-    if models.storage_t != 'db':
-        @property
-        def products(self):
-            """getter attribute returns the list of Product instances"""
-            from models.Cart import Cart
-            product_list = []
-            all_products = models.storage.all(Cart)
-            for product in all_products.values():
-                if product.order_id == self.id:
-                    product_list.append(product)
-            return product_list
+    def __repr__(self):
+        return f'Cart(user_id={self.user_id}, item_id={self.item_id}, quantity={self.quantity})'
