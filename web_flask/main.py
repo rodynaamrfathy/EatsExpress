@@ -131,5 +131,23 @@ def add_menu_item():
         flash('Menu item added successfully!', 'success')
     return render_template('add_menu_item.html', title="Create New item")
 
+"""@app.route('/add_item_to_cart/<int:item_id>', methods=['GET', 'POST'])
+def add_item_to_cart(item_id):
+    menu_item = storage.get(MenuItem, item_id)
+    if not menu_item:
+        flash('Menu item not found.', 'danger')
+        return redirect(url_for('viewall'))
+
+    if request.method == 'POST':
+        quantity = request.form['quantity']
+        # Assuming you have a Cart model and logic to handle cart items
+        new_cart_item = Cart(item_id=menu_item.id, quantity=int(quantity))
+        storage.new(new_cart_item)
+        storage.save()
+        flash('Item added to cart successfully!', 'success')
+        return redirect(url_for('view_cart'))
+
+    return render_template('add_item_to_cart.html', menu_item=menu_item)"""
+
 if __name__ == '__main__':
     app.run(debug=True, port=5001)
