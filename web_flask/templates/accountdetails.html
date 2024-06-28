@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account Details</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/footer.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/header.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/accountdetails.css') }}">
+</head>
+<body>
+    <header class="header">
+        {% include 'header.html' %}
+    </header>
+    <main class="main">
+        <div class="account-container">
+            <div class="account-header">
+                <div class="profile-picture">
+                    <span class="initial">{{ user.first_name[0] if user.first_name else user.username[0] }}</span>
+                </div>
+                <div class="user-info">
+                    <h1>
+                        {% if user.first_name %}
+                            {{ user.first_name }}
+                        {% else %}
+                            {{ user.username }}
+                        {% endif %}
+                        {% if user.last_name %}
+                            {{ user.last_name }}
+                        {% endif %}
+                    </h1>
+                    <p>Egypt</p>
+                </div>
+            </div>
+            <div class="account-details">
+                <label>Email</label>
+                <input type="text" value="{{ user.email }}" readonly>
+                <label>First Name</label>
+                <input type="text" value="{{ user.first_name }}" readonly>
+                <label>Last Name</label>
+                <input type="text" value="{{ user.last_name }}" readonly>
+                <label>Phone Number</label>
+                <input type="text" value="{{ user.phone_number }}" readonly>
+                <label>Address</label>
+                <input type="text" value="{{ user.address }}" readonly>
+            </div>
+            <form method="POST" action="{{ url_for('delete_account') }}">
+                <button type="submit" class="delete-account">Delete account</button>
+            </form>
+        </div>
+        <div class="orders">
+            <h2>Your orders</h2>
+            <!-- Order details will go here -->
+        </div>
+    </main>
+    <footer class="footer">
+        {% include 'footer.html' %}
+    </footer>
+</body>
+</html>

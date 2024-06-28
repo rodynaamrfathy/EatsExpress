@@ -1,0 +1,36 @@
+/* Add this to static/css/view_account.css */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+.header {
+    background-color: #fff;
+    border-bottom: 1px solid #e1e1e1;
+}
+
+.main {
+    padding: 20px;
+}
+
+.account-container {
+    max-width: 800px;
+    margin: 20px auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.account-summary p {
+    font-size: 16px;
+    margin: 10px 0;
+}
+
+.account-summary p strong {
+    display: inline-block;
+    width: 150px;
+    color: #333;
+}

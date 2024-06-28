@@ -123,3 +123,34 @@
     white-space: nowrap;
   }
   
+  /* for view account */
+.user-info {
+  position: relative;
+  display: inline-block;
+}
+
+.user-dropdown {
+  display: inline-block;
+  cursor: pointer;
+}
+
+.user-dropdown .dropdown-content {
+  display: none;
+  position: absolute;
+  right: 0;
+  background-color: white;
+  min-width: 200px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+  padding: 10px;
+  border-radius: 4px;
+}
+
+.user-dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.account-summary {
+  text-align: left;
+  padding: 10px 0;
+}

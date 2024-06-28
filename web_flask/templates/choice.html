@@ -7,17 +7,18 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/header.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/create_account.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/choice.css') }}">
 </head>
 <body>
     <header class="header">
         {% include 'header.html' %}
     </header>
-    <div class="form-container" style="margin-top: 250px;">
+    <div class="form-container">
         <h1>Choose Action</h1>
-        <form method="post" action="{{ url_for('choice') }}">
-           <a href="{{ url_for('create_restaurant') }}"> <button type="button" style="margin: 10px;">Create Restaurant</button></a> 
-            <a href="{{ url_for('add_menu_item') }}"><button type="button" style="margin: 10px;">Add Menu Item</button></a>
-        </form>
+        <div class="action-buttons">
+            <a href="{{ url_for('create_restaurant') }}"><button type="button">Create Restaurant</button></a>
+            <a href="{{ url_for('add_menu_item') }}"><button type="button">Add Menu Item</button></a>
+        </div>
     </div>
 </body>
 </html>

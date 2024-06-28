@@ -1,26 +1,31 @@
-{% extends 'main_loggedin.html' %}
-{% block title %}View Account - EatsExpress{% endblock %}
-{% block content %}
-<div class="account-container">
-  <h1>My Account</h1>
-  <form method="POST">
-    <div class="form-group">
-      <label for="first_name">First Name</label>
-      <input type="text" id="first_name" name="first_name" value="{{ current_user.first_name }}" required>
-    </div>
-    <div class="form-group">
-      <label for="last_name">Last Name</label>
-      <input type="text" id="last_name" name="last_name" value="{{ current_user.last_name }}" required>
-    </div>
-    <div class="form-group">
-      <label for="email">Email</label>
-      <input type="email" id="email" name="email" value="{{ current_user.email }}" required>
-    </div>
-    <div class="form-group">
-      <label for="phone_number">Phone Number</label>
-      <input type="text" id="phone_number" name="phone_number" value="{{ current_user.phone_number }}" required>
-    </div>
-    <button type="submit" class="btn btn-primary">Update Account</button>
-  </form>
-</div>
-{% endblock %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Account</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/footer.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/header.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/view_account.css') }}">
+</head>
+<body>
+    <header class="header">
+        {% include 'header.html' %}
+    </header>
+    <main class="main">
+        <div class="account-container">
+            <h1>Account Details</h1>
+            <div class="account-summary">
+                <p><strong>First Name:</strong> {{ user.first_name }}</p>
+                <p><strong>Last Name:</strong> {{ user.last_name }}</p>
+                <p><strong>Email:</strong> {{ user.email }}</p>
+                <p><strong>Phone Number:</strong> {{ user.phone_number }}</p>
+                <p><strong>Address:</strong> {{ user.address }}</p>
+            </div>
+        </div>
+    </main>
+    <footer class="footer">
+        {% include 'footer.html' %}
+    </footer>
+</body>
+</html>

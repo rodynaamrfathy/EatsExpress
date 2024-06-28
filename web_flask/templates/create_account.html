@@ -12,13 +12,11 @@
 
 <body>
   <header class="header">
-    <!-- Include the header.html file -->
     {% include 'header.html' %}
   </header>
 
   <main>
     <div class="form-container">
-      <!-- Flash messages block -->
       {% with messages = get_flashed_messages(with_categories=true) %}
       {% if messages %}
       <ul class="flashes">
@@ -53,7 +51,6 @@
   </main>
 
   <footer class="footer">
-    <!-- Include the footer.html file -->
     {% include 'footer.html' %}
   </footer>
 </body>

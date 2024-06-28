@@ -12,8 +12,19 @@
       <a href="#breakfast" class="nav-link text-wrapper-4">Breakfast</a>
     </div>
     <div class="user-info">
-        <img src="{{ url_for('static', filename='css/assets/profile.png') }}" alt="Profile Icon" class="profile-icon">
-        <span class="user-greeting">Hello</span>
+      <img src="{{ url_for('static', filename='css/assets/profile.png') }}" alt="Profile Icon" class="profile-icon">
+      <div class="user-dropdown">
+        <span class="user-greeting">Hello, {{ user.username }}</span>
+        <div class="dropdown-content">
+          <a href="{{ url_for('accountdetails') }}">View Account</a>
+          <div class="account-summary">
+            <p><strong>Name:</strong> {{ user.first_name }} {{ user.last_name }}</p>
+            <p><strong>Email:</strong> {{ user.email }}</p>
+            <p><strong>Phone Number:</strong> {{ user.phone_number }}</p>
+            <p><strong>Address:</strong> {{ user.address }}</p>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
