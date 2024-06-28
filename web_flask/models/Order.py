@@ -18,18 +18,14 @@ class Order(BaseModel, Base):
     if models.storage_t == 'db':
         __tablename__ = 'orders'
         user_id = Column(Integer, ForeignKey('users.id'), nullable=False)
-        product_name = Column(String(128), nullable=False)
-        quantity = Column(Integer, nullable=False)
-        price = Column(Integer, nullable=False)
+        menu_items = relationship("MenuItem", backref="order")
+        Total = Column(Integer, nullable=False)
         user = relationship("User", back_populates="orders")
 
     else:
-
         user_id = ""
-        product_name_name = ""
-        quantity = ""
-        price = 0
-        products_ids = []
+        Total = ""
+        menuitem_id = []
 
     def __init__(self, *args, **kwargs):
         """initializes Order"""

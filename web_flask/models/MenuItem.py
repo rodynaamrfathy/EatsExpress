@@ -14,6 +14,8 @@ class MenuItem(BaseModel, Base):
         description = Column(String(256), nullable=True)  
         restaurant_id = Column(Integer, ForeignKey('restaurants.id'), nullable=False)  # Foreign key to Restaurant
 
+
+
     else:
         name = ""
         price = 0

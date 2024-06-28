@@ -18,15 +18,13 @@
       <img src="{{ url_for('static', filename='css/assets/restaurant-placeholder-large.png') }}" alt="Restaurant Image">
       <h1> {{ restaurant.name }} </h1>
       {% for item in menu_items %}
-        <a href="{{ url_for('add_item_to_cart', item_id=item.id) }}" class="menu-item">
-          <div class="menu-item-content">
-            <img src="{{ url_for('static', filename='css/assets/menu-item-placeholder.png') }}" alt="Menu Item">
-            <div class="menu-item-details">
-              <h2>{{ item.name }}</h2>
-              <p>{{ item.description }}</p>
-            </div>
+        <div class="menu-item">
+          <img src="{{ url_for('static', filename='css/assets/menu-item-placeholder.png') }}" alt="Menu Item">
+          <div class="menu-item-details">
+            <h2>{{ item.name }}</h2>
+            <p>{{ item.description }}</p>
           </div>
-        </a>
+        </div>
       {% endfor %}
     </div>
   </main>
