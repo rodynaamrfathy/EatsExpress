@@ -21,3 +21,17 @@ class Restaurant(BaseModel, Base):
     def __init__(self, *args, **kwargs):
         """ Initializes the restaurant """
         super().__init__(*args, **kwargs)
+
+        
+    def to_dict(self):
+
+        """Returns a dictionary representation of the restaurant"""
+        return {
+            'id': self.id,
+            'name': self.name,
+            'location': self.location,
+            'image_filename': self.image_filename,
+            'delivery_fee': self.delivery_fee,
+            'delivery_time': self.delivery_time,
+            'tags': [{'name': tag.name} for tag in self.tags]
+        }
