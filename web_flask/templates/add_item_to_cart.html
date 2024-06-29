@@ -6,7 +6,7 @@
   <link rel="stylesheet" href="{{ url_for('static', filename='css/header+loggedin.css') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/footer.css') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/add_item_to cart.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/add_item_to_cart.css') }}">
   <title>{{ title }}</title>
 </head>
 <body>
@@ -16,27 +16,42 @@
 
   <main class="main">
     <div class="form-container">
-      <h1>Add Item to Cart</h1>
-      <form method="post">
-        <label for="name">Item Name:</label>
-        <input type="text" id="name" name="name" value="{{ menu_item.name }}" readonly>
-
-        <label for="price">Price:</label>
-        <input type="number" id="price" name="price" value="{{ menu_item.price }}" readonly>
-
-        <label for="description">Description:</label>
-        <input type="text" id="description" name="description" value="{{ menu_item.description }}" readonly>
-
-        <label for="quantity">Quantity:</label>
-        <input type="number" id="quantity" name="quantity" min="1" value="1" required>
-
-        <button type="submit">Add to Cart</button>
-      </form>
+      {% if menu_item.image_url %}
+        <img src="{{ menu_item.image_url }}" alt="Menu Item Image">
+      {% else %}
+        <img src="{{ url_for('static', filename='css/assets/menu-item-placeholder.png') }}" alt="Menu Item Placeholder">
+      {% endif %}
+      <div class="item-details">
+        <h1>{{ menu_item.name }}</h1>
+        <p>{{ menu_item.description }}</p>
+        <p class="price">${{ menu_item.price }}</p>
+        <div class="quantity-container">
+          <label for="quantity">Quantity:</label>
+          <button type="button" onclick="decrementQuantity()">-</button>
+          <input type="number" id="quantity" name="quantity" min="1" value="1" required>
+          <button type="button" onclick="incrementQuantity()">+</button>
+        </div>
+        <button type="submit" class="add-to-cart-btn">Add to Cart</button>
+      </div>
     </div>
   </main>
 
   <footer class="footer">
     {% include 'footer.html' %}
   </footer>
+
+  <script>
+    function incrementQuantity() {
+      var quantityInput = document.getElementById('quantity');
+      quantityInput.value = parseInt(quantityInput.value) + 1;
+    }
+
+    function decrementQuantity() {
+      var quantityInput = document.getElementById('quantity');
+      if (quantityInput.value > 1) {
+        quantityInput.value = parseInt(quantityInput.value) - 1;
+      }
+    }
+  </script>
 </body>
 </html>
