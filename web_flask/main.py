@@ -205,26 +205,23 @@ def delete_account():
         flash('You need to log in to delete your account.', 'danger')
         return redirect(url_for('login'))
 
-@app.route('/add_to_cart/<menu_item_id>', methods=['POST'])
-def add_to_cart(menu_item_id):
+@app.route('/add_item_to_cart/<menu_item_id>', methods=['GET', 'POST'])
+def add_item_to_cart(menu_item_id):
     if 'user_id' in session:
         user = storage.get(User, session['user_id'])
         menu_item = storage.get(MenuItem, menu_item_id)
-        restaurant = menu_item.restaurant
-
-        # Check if the user already has a cart for this restaurant
-        cart = storage.query(Cart).filter_by(user_id=user.id, menu_item_id=menu_item_id).first()
-        if cart:
-            # Update the quantity if the item already exists in the cart
-            cart.quantity += 1
-        else:
-            # Create a new cart item
-            cart = Cart(user_id=user.id, menu_item_id=menu_item_id, quantity=1)
-            storage.new(cart)
-
-        storage.save()
-        flash('Item added to cart!', 'success')
-        return redirect(url_for('view_cart'))
+        if request.method == 'POST':
+            quantity = int(request.form['quantity'])
+            cart_item = storage.query(Cart).filter_by(user_id=user.id, menu_item_id=menu_item_id).first()
+            if cart_item:
+                cart_item.quantity += quantity
+            else:
+                cart_item = Cart(user_id=user.id, menu_item_id=menu_item_id, quantity=quantity)
+                storage.new(cart_item)
+            storage.save()
+            flash('Item added to cart!', 'success')
+            return redirect(url_for('view_cart'))
+        return render_template('add_item_to_cart.html', menu_item=menu_item, title="Add Item to Cart")
     else:
         flash('You need to log in to add items to the cart.', 'danger')
         return redirect(url_for('login'))

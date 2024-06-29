@@ -10,13 +10,11 @@ class Cart(BaseModel, Base):
         __tablename__ = 'cart'
         user_id = Column(Integer, ForeignKey('users.id'), nullable=False)
         menu_item_id = Column(Integer, ForeignKey('menu_items.id'), nullable=False)
-        quantity = Column(Integer, default=1)
         user = relationship("User", back_populates="cart")  # Back reference to User
         menu_item = relationship("MenuItem", back_populates="carts")  # Relationship with MenuItem
     else:
         user_id = ""
         menu_item_id = ""
-        quantity = 0
         user = None
         menu_item = None
 
