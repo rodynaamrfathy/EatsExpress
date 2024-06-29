@@ -10,64 +10,33 @@
 </head>
 <body>
   <header class="header">
-    <!-- Include the header+loggedin.html file -->
     {% include 'header+loggedin.html' %}
   </header>
 
   <main class="main" style="flex: 1;">
     <div class="cart-container">
       <h1>Cart</h1>
+      <h2>{{ restaurant.name }}</h2>
+      {% for cart_item in cart_items %}
       <div class="cart-item">
         <div class="item-image"><img src="{{ url_for('static', filename='css/assets/item-placeholder.png') }}" alt="Item image"></div>
         <div class="item-details">
-          <h2>Item name</h2>
-          <p>The flavors of ranch dressing, chicken and our special pizza double cheese.</p>
-          <p><strong>Add ons</strong></p>
-          <p>Add on 1, Add on 2</p>
+          <h2>{{ cart_item.menu_item.name }}</h2>
+          <p>{{ cart_item.menu_item.description }}</p>
+          <p><strong>Price:</strong> ${{ cart_item.menu_item.price }}</p>
         </div>
         <div class="item-quantity">
           <p>Quantity</p>
           <div class="quantity-controls">
-            <button class="quantity-btn">-</button>
-            <span>1</span>
-            <button class="quantity-btn">+</button>
+            <form method="post" action="{{ url_for('update_quantity', item_id=cart_item.id) }}">
+              <button class="quantity-btn" name="action" value="decrease">-</button>
+              <span>{{ cart_item.quantity }}</span>
+              <button class="quantity-btn" name="action" value="increase">+</button>
+            </form>
           </div>
         </div>
       </div>
-      <div class="cart-item">
-        <div class="item-image"><img src="{{ url_for('static', filename='css/assets/item-placeholder.png') }}" alt="Item image"></div>
-        <div class="item-details">
-          <h2>Item name</h2>
-          <p>The flavors of ranch dressing, chicken and our special pizza double cheese.</p>
-          <p><strong>Add ons</strong></p>
-          <p>Add on 1, Add on 2</p>
-        </div>
-        <div class="item-quantity">
-          <p>Quantity</p>
-          <div class="quantity-controls">
-            <button class="quantity-btn">-</button>
-            <span>1</span>
-            <button class="quantity-btn">+</button>
-          </div>
-        </div>
-      </div>
-      <div class="cart-item">
-        <div class="item-image"><img src="{{ url_for('static', filename='css/assets/item-placeholder.png') }}" alt="Item image"></div>
-        <div class="item-details">
-          <h2>Item name</h2>
-          <p>The flavors of ranch dressing, chicken and our special pizza double cheese.</p>
-          <p><strong>Add ons</strong></p>
-          <p>Add on 1, Add on 2</p>
-        </div>
-        <div class="item-quantity">
-          <p>Quantity</p>
-          <div class="quantity-controls">
-            <button class="quantity-btn">-</button>
-            <span>1</span>
-            <button class="quantity-btn">+</button>
-          </div>
-        </div>
-      </div>
+      {% endfor %}
       <a href="{{ url_for('completeorder') }}">
         <button class="complete-order-btn">Complete order</button>
       </a>
@@ -75,7 +44,6 @@
   </main>
 
   <footer class="footer">
-    <!-- Include the footer.html file -->
     {% include 'footer.html' %}
   </footer>
 </body>

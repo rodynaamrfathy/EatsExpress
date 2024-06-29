@@ -80,9 +80,6 @@ def register():
     
     return render_template('create_account.html', title="EatsExpress - Register")
 
-@app.route('/add_to_cart')
-def add_to_cart():
-    return render_template("viewcart.html")
 
 @app.context_processor
 def inject_user():
@@ -210,23 +207,50 @@ def delete_account():
         return redirect(url_for('login'))
 
 
-"""@app.route('/add_item_to_cart/<int:item_id>', methods=['GET', 'POST'])
-def add_item_to_cart(item_id):
-    menu_item = storage.get(MenuItem, item_id)
-    if not menu_item:
-        flash('Menu item not found.', 'danger')
-        return redirect(url_for('viewall'))
-
-    if request.method == 'POST':
-        quantity = request.form['quantity']
-        # Assuming you have a Cart model and logic to handle cart items
-        new_cart_item = Cart(item_id=menu_item.id, quantity=int(quantity))
-        storage.new(new_cart_item)
+@app.route('/add_to_cart/<menu_item_id>', methods=['POST'])
+def add_to_cart(menu_item_id):
+    if 'user_id' in session:
+        user = storage.get(User, session['user_id'])
+        menu_item = storage.get(MenuItem, menu_item_id)
+        if not menu_item:
+            flash('Menu item not found.', 'danger')
+            return redirect(url_for('viewall'))
+        
+        restaurant = menu_item.restaurant
+        # Manually filter the cart items by user_id and menu_item_id
+        cart_item = next((item for item in storage.all(Cart).values() if item.user_id == user.id and item.menu_item_id == menu_item_id), None)
+        
+        if cart_item:
+            # Update the quantity if the item already exists in the cart
+            cart_item.quantity += 1
+        else:
+            # Create a new cart item
+            cart_item = Cart(user_id=user.id, menu_item_id=menu_item_id, quantity=1)
+            storage.new(cart_item)
+        
         storage.save()
-        flash('Item added to cart successfully!', 'success')
+        flash('Item added to cart!', 'success')
         return redirect(url_for('view_cart'))
+    else:
+        flash('You need to log in to add items to the cart.', 'danger')
+        return redirect(url_for('login'))
 
-    return render_template('add_item_to_cart.html', menu_item=menu_item)"""
+@app.route('/view_cart')
+def view_cart():
+    if 'user_id' in session:
+        user = storage.get(User, session['user_id'])
+        cart_items = [item for item in storage.all(Cart).values() if item.user_id == user.id]
+        if cart_items:
+            restaurant = storage.get(Restaurant, cart_items[0].menu_item.restaurant_id)
+            return render_template('viewcart.html', cart_items=cart_items, restaurant=restaurant, title="Cart")
+        else:
+            flash('Your cart is empty.', 'info')
+            return redirect(url_for('viewall'))
+    else:
+        flash('You need to log in to view your cart.', 'danger')
+        return redirect(url_for('login'))
+
+
 
 if __name__ == '__main__':
     app.run(debug=True, port=5001)

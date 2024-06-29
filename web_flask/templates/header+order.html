@@ -1,14 +1,50 @@
-<div class="header">
-  <div class="navigation">
-    <div class="logo">
-      <p class="eats-express"><span class="text-wrapper">EatsExpress</span> <span class="span">.</span></p>
-    </div>
-    <div class="user-info">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/header+loggedin.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/footer.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/restaurant.css') }}">
+  <title>{{ restaurant.name }} - EatsExpress</title>
+</head>
+<body>
+  <header class="header">
+    <div class="navigation">
+      <div class="logo">
+        <p class="eats-express"><span class="text-wrapper">EatsExpress</span> <span class="span">.</span></p>
+      </div>
+      <div class="user-info">
         <img src="{{ url_for('static', filename='css/assets/profile.png') }}" alt="Profile Icon" class="profile-icon">
-        <span class="user-greeting">Hello</span>
-      <a href="{{ url_for('add_to_cart') }}">
-        <img src="{{ url_for('static', filename='css/assets/cart.png') }}" alt="Cart Icon" class="cart-icon">
-      </a>
+        <span class="user-greeting">Hello, {{ user.username }}</span>
+        <a href="{{ url_for('view_cart') }}">
+          <img src="{{ url_for('static', filename='css/assets/cart.png') }}" alt="Cart Icon" class="cart-icon">
+        </a>
+      </div>
     </div>
-  </div>
-</div>
+  </header>
+
+  <main class="main">
+    <div class="restaurant-container">
+      <img src="{{ url_for('static', filename='css/assets/restaurant-placeholder-large.png') }}" alt="Restaurant Image">
+      <h1> {{ restaurant.name }} </h1>
+      {% for item in menu_items %}
+        <a href="{{ url_for('add_to_cart', menu_item_id=item.id) }}" class="menu-item">
+          <div class="menu-item-content">
+            <img src="{{ url_for('static', filename='css/assets/menu-item-placeholder.png') }}" alt="Menu Item">
+            <div class="menu-item-details">
+              <h2>{{ item.name }}</h2>
+              <p>{{ item.description }}</p>
+              <p style="font-size: 25px;"><strong>Price:</strong> ${{ item.price }}</p>
+            </div>
+          </div>
+        </a>
+      {% endfor %}
+    </div>
+  </main>
+
+  <footer class="footer">
+    {% include 'footer.html' %}
+  </footer>
+</body>
+</html>

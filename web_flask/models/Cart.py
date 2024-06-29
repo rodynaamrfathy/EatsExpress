@@ -9,12 +9,16 @@ class Cart(BaseModel, Base):
     if models.storage_t == 'db':
         __tablename__ = 'cart'
         user_id = Column(Integer, ForeignKey('users.id'), nullable=False)
-        item_id = Column(Integer, ForeignKey('menu_items.id'), nullable=False)
+        menu_item_id = Column(Integer, ForeignKey('menu_items.id'), nullable=False)
         quantity = Column(Integer, default=1)
+        user = relationship("User", back_populates="cart")  # Back reference to User
+        menu_item = relationship("MenuItem", back_populates="carts")  # Relationship with MenuItem
     else:
         user_id = ""
-        item_id = ""
+        menu_item_id = ""
         quantity = 0
+        user = None
+        menu_item = None
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
