@@ -221,8 +221,9 @@ def add_item_to_cart(menu_item_id):
                     break
 
         if existing_cart and request.method == 'POST' and 'confirm' not in request.form:
-            flash(f'You already have items in your cart from another restaurant. Adding this item will remove items from the other restaurant. Do you want to proceed?', 'warning')
-            return render_template('confirm_delete_cart.html', menu_item=menu_item, title="Confirm Delete Cart", restaurant=restaurant, existing_cart=existing_cart)
+            quantity = int(request.form['quantity'])
+            message = 'You already have items in your cart from another restaurant. Adding this item will remove items from the other restaurant. Do you want to proceed?'
+            return render_template('confirm_delete_cart.html', menu_item=menu_item, title="Confirm Delete Cart", restaurant=restaurant, existing_cart=existing_cart, message=message, quantity=quantity)
 
         if request.method == 'POST':
             quantity = int(request.form['quantity'])

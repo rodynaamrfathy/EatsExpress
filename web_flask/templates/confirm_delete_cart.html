@@ -16,14 +16,11 @@
   <main class="main">
     <div class="form-container">
       <h1>Confirm Delete Cart</h1>
-      <p>You have items in your cart from another restaurant. Adding this item will remove the items from the other restaurant.</p>
+      <p>{{ message }}</p>
       <form method="post">
-        <input type="hidden" name="confirm" value="yes">
-        <button type="submit" class="confirm-btn">Yes, Proceed</button>
-      </form>
-      <form method="post" action="{{ url_for('add_item_to_cart', menu_item_id=menu_item.id) }}">
-        <input type="hidden" name="confirm" value="no">
-        <button type="submit" class="cancel-btn">No, Cancel</button>
+        <input type="hidden" name="quantity" value="{{ quantity }}">
+        <button type="submit" name="confirm" value="yes">Yes</button>
+        <button type="submit" name="confirm" value="no">No</button>
       </form>
     </div>
   </main>
