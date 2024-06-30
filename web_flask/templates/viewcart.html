@@ -27,7 +27,9 @@
       </div>
       <div class="cart-summary">
         <h3>Total: ${{ cart_items | sum(attribute='price') }}</h3>
-        <button type="button" class="checkout-btn">Proceed to Checkout</button>
+        <form action="{{ url_for('completeorder') }}" method="get">
+          <button type="submit" class="checkout-btn">Proceed with order</button>
+        </form>
       </div>
     </div>
   </main>

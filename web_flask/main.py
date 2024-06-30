@@ -110,10 +110,6 @@ def item():
 def addaddress():
     return render_template('add_address.html', title="EatsExpress - add address")
 
-@app.route('/completeorder')
-def completeorder():
-    return render_template('complete_order.html', title="EatsExpress - complete order")
-
 @app.route('/viewall')
 def viewall():
     restaurants = storage.all(Restaurant).values()
@@ -268,9 +264,28 @@ def view_cart():
             return render_template('viewcart.html', cart_items=cart.menu_items, restaurant=restaurant, title="Cart")
         else:
             flash('Your cart is empty.', 'info')
-            return redirect(url_for('main'))
+            return redirect(url_for('home'))
     else:
         flash('You need to log in to view your cart.', 'danger')
+        return redirect(url_for('login'))
+
+@app.route('/completeorder', methods=['GET', 'POST'])
+def completeorder():
+    if 'user_id' in session:
+        user = storage.get(User, session['user_id'])
+        addresses = user.addresses  # Assuming user.addresses contains the list of addresses
+        cart = next((c for c in storage.all(Cart).values() if c.user_id == user.id), None)
+        
+        if request.method == 'POST':
+            selected_address_id = request.form['address']
+            selected_address = storage.get(Address, selected_address_id)
+            # Proceed with the order placement logic
+            flash('Order placed successfully!', 'success')
+            return redirect(url_for('home'))
+        
+        return render_template('complete_order.html', cart=cart, addresses=addresses, title="Complete Order")
+    else:
+        flash('You need to log in to complete the order.', 'danger')
         return redirect(url_for('login'))
 
 if __name__ == '__main__':
