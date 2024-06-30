@@ -15,6 +15,9 @@
       <img src="{{ url_for('static', filename='css/assets/profile.png') }}" alt="Profile Icon" class="profile-icon">
       <div class="user-dropdown">
         <span class="user-greeting">Hello, {{ user.username }}</span>
+        <a href="{{ url_for('view_cart') }}">
+          <img src="{{ url_for('static', filename='css/assets/cart.png') }}" alt="Cart Icon" class="cart-icon">
+        </a>
         <div class="dropdown-content">
           <a href="{{ url_for('accountdetails') }}">View Account</a>
           <div class="account-summary">

@@ -1,10 +1,6 @@
-#!/usr/bin/python3
-""" Definition of the MenuItem model """
-
 import models
 from models.base_model import BaseModel, Base
 from sqlalchemy import Column, String, Integer, ForeignKey
-
 import models
 from models.base_model import BaseModel, Base
 from sqlalchemy import Column, String, Integer, ForeignKey
@@ -16,7 +12,7 @@ class MenuItem(BaseModel, Base):
         name = Column(String(128), nullable=False)
         price = Column(Integer, nullable=False)
         description = Column(String(256), nullable=True)
-        restaurant_id = Column(Integer, ForeignKey('restaurants.id'), nullable=False)  # Foreign key to Restaurant
+        restaurant_id = Column(String(60), ForeignKey('restaurants.id'), nullable=False)
         quantity = Column(Integer, default=0, nullable=False)  # New quantity column
     else:
         name = ""
@@ -28,4 +24,3 @@ class MenuItem(BaseModel, Base):
     def __init__(self, *args, **kwargs):
         """ Initializes the menu item """
         super().__init__(*args, **kwargs)
-

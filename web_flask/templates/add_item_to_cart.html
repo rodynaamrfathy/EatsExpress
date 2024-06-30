@@ -25,13 +25,15 @@
         <h1>{{ menu_item.name }}</h1>
         <p>{{ menu_item.description }}</p>
         <p class="price">${{ menu_item.price }}</p>
-        <div class="quantity-container">
-          <label for="quantity">Quantity:</label>
-          <button type="button" onclick="decrementQuantity()">-</button>
-          <input type="number" id="quantity" name="quantity" min="1" value="1" required>
-          <button type="button" onclick="incrementQuantity()">+</button>
-        </div>
-        <button type="submit" class="add-to-cart-btn">Add to Cart</button>
+        <form method="post">
+          <div class="quantity-container">
+            <label for="quantity">Quantity:</label>
+            <button type="button" onclick="decrementQuantity()">-</button>
+            <input type="number" id="quantity" name="quantity" min="1" value="1" required>
+            <button type="button" onclick="incrementQuantity()">+</button>
+          </div>
+          <button type="submit" class="add-to-cart-btn">Add to Cart</button>
+        </form>
       </div>
     </div>
   </main>

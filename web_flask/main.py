@@ -210,17 +210,42 @@ def add_item_to_cart(menu_item_id):
     if 'user_id' in session:
         user = storage.get(User, session['user_id'])
         menu_item = storage.get(MenuItem, menu_item_id)
+        restaurant = storage.get(Restaurant, menu_item.restaurant_id)
+        
+        # Check for existing carts from other restaurants
+        existing_cart = None
+        for cart in storage.all(Cart).values():
+            if cart.user_id == user.id:
+                if cart.restaurant_id != restaurant.id:
+                    existing_cart = cart
+                    break
+
+        if existing_cart and request.method == 'POST' and 'confirm' not in request.form:
+            flash(f'You already have items in your cart from another restaurant. Adding this item will remove items from the other restaurant. Do you want to proceed?', 'warning')
+            return render_template('confirm_delete_cart.html', menu_item=menu_item, title="Confirm Delete Cart", restaurant=restaurant, existing_cart=existing_cart)
+
         if request.method == 'POST':
             quantity = int(request.form['quantity'])
-            cart_item = storage.query(Cart).filter_by(user_id=user.id, menu_item_id=menu_item_id).first()
-            if cart_item:
-                cart_item.quantity += quantity
-            else:
-                cart_item = Cart(user_id=user.id, menu_item_id=menu_item_id, quantity=quantity)
-                storage.new(cart_item)
+
+            if existing_cart and 'confirm' in request.form and request.form['confirm'] == 'yes':
+                storage.delete(existing_cart)
+                storage.save()
+
+            cart = next((c for c in storage.all(Cart).values() if c.user_id == user.id and c.restaurant_id == restaurant.id), None)
+
+            if not cart:
+                # Create a new cart if it doesn't exist
+                cart = Cart(user_id=user.id, restaurant_id=restaurant.id)
+                storage.new(cart)
+                storage.save()
+
+            # Add item to cart
+            cart.add_item(menu_item_id=menu_item.id, menu_item_name=menu_item.name, quantity=quantity, price=menu_item.price)
+
             storage.save()
             flash('Item added to cart!', 'success')
             return redirect(url_for('view_cart'))
+        
         return render_template('add_item_to_cart.html', menu_item=menu_item, title="Add Item to Cart")
     else:
         flash('You need to log in to add items to the cart.', 'danger')
@@ -231,10 +256,15 @@ def add_item_to_cart(menu_item_id):
 def view_cart():
     if 'user_id' in session:
         user = storage.get(User, session['user_id'])
-        cart_items = storage.query(Cart).filter_by(user_id=user.id).all()
-        if cart_items:
-            restaurant = storage.get(Restaurant, cart_items[0].menu_item.restaurant_id)
-            return render_template('viewcart.html', cart_items=cart_items, restaurant=restaurant, title="Cart")
+        # Retrieve all carts
+        carts = storage.all(Cart).values()
+        # Find the cart for the specific user
+        cart = next((c for c in carts if c.user_id == user.id), None)
+
+        if cart and cart.menu_items:
+            # Assume all items in the cart belong to the same restaurant
+            restaurant = storage.get(Restaurant, cart.restaurant_id)
+            return render_template('viewcart.html', cart_items=cart.menu_items, restaurant=restaurant, title="Cart")
         else:
             flash('Your cart is empty.', 'info')
             return redirect(url_for('main'))

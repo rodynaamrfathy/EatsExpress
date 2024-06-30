@@ -20,12 +20,16 @@ class Order(BaseModel, Base):
         user_id = Column(Integer, ForeignKey('users.id'), nullable=False)
         menu_items = relationship("MenuItem", backref="order")
         Total = Column(Integer, nullable=False)
-        user = relationship("User", back_populates="orders")
+        user = relationship("User", back_populates="order")
+        restaurant_id =  Column(Integer, ForeignKey('restaurant.id'), nullable=False)
+        restaurant = relationship("Restaurant", back_populates="order")
 
+       
     else:
         user_id = ""
         Total = ""
-        menuitem_id = []
+        menu_items = []
+        restaurant_id = ""
 
     def __init__(self, *args, **kwargs):
         """initializes Order"""
