@@ -342,5 +342,20 @@ def completeorder():
 def track_order(order_id):
     return render_template('track_order.html', title="Track Order")
 
+@app.route('/filter_restaurants/<filter_by>/<filter_value>')
+def filter_restaurants(filter_by, filter_value):
+    restaurants = []
+    for restaurant in storage.all(Restaurant).values():
+        if filter_by == 'cuisines' and filter_value in restaurant.cuisines:
+            restaurants.append(restaurant)
+        elif filter_by == 'categories' and filter_value in restaurant.categories:
+            restaurants.append(restaurant)
+        elif filter_by == 'breakfast' and filter_value in restaurant.breakfast:
+            restaurants.append(restaurant)
+        elif filter_by == 'beverages' and filter_value in restaurant.beverages:
+            restaurants.append(restaurant)
+    return render_template('filtered_restaurants.html', restaurants=restaurants, title=f"Restaurants - {filter_value}")
+
+
 if __name__ == '__main__':
     app.run(debug=True, port=5001)

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/footer.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/header.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+</head>
+<body>
+    <header class="header">
+        {% include 'header.html' %}
+    </header>
+    <main class="main" >
+        <section id="filtered-restaurants" style="margin-top: 100px;"; >
+            <div class="items-container" style="margin: 50px;">
+                {% for restaurant in restaurants %}
+                <a href="{{ url_for('restaurant_details', restaurant_id=restaurant.id) }}" class="item">
+                    <div class="item-content">
+                        <div class="item-logo">
+                            <img src="{{ url_for('static', filename='css/assets/restaurants/' ~ restaurant.name | lower ~ '.png') }}" alt="{{ restaurant.name }}">
+                        </div>
+                        <h2>{{ restaurant.name }}</h2>
+                        <div class="item-details">
+                            <img src="{{ url_for('static', filename='css/assets/delivery.png') }}" alt="Delivery Icon">
+                            <span>{{ restaurant.delivery_time }}</span>
+                            <img src="{{ url_for('static', filename='css/assets/time.png') }}" alt="Time Icon">
+                            <span>{{ restaurant.delivery_time }}</span>
+                        </div>
+                        <div class="item-tags">
+                            <span>{{ restaurant.cuisines }}</span>
+                            <span>{{ restaurant.categories }}</span>
+                        </div>
+                    </div>
+                </a>
+                {% endfor %}
+            </div>
+        </section>
+    </main>
+    <footer class="footer">
+        {% include 'footer.html' %}
+    </footer>
+</body>
+</html>
