@@ -7,96 +7,13 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/footer.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/header.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/trackorder.css') }}">
-    <style>
-        .track-order-container {
-            text-align: center;
-            margin: 20px auto;
-        }
-        .order-status {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 800px;
-            margin: 20px auto;
-        }
-        .order-status div {
-            text-align: center;
-        }
-        .order-status img {
-            width: 50px;
-            height: 50px;
-        }
-        .order-status .active img {
-            border: 2px solid green;
-            border-radius: 50%;
-        }
-        .order-status .active p {
-            font-weight: bold;
-            color: green;
-        }
-    </style>
-    <script>
-        function updateOrderStatus() {
-            const order = JSON.parse('{{ order | tojson | safe }}');
-            const currentTime = new Date().getTime();
-            const createdTime = new Date(order.created_at).getTime();
-            const deliveryTime = parseInt(order.delivery_time.split(' ')[0]) * 60 * 1000;
-            const elapsedTime = currentTime - createdTime;
-
-            const statusElements = document.querySelectorAll('.order-status div');
-            statusElements.forEach(el => el.classList.remove('active'));
-
-            if (elapsedTime < 60000) {
-                statusElements[0].classList.add('active');
-            } else if (elapsedTime < deliveryTime / 3) {
-                statusElements[1].classList.add('active');
-            } else if (elapsedTime < (2 * deliveryTime) / 3) {
-                statusElements[2].classList.add('active');
-            } else if (elapsedTime < deliveryTime) {
-                statusElements[3].classList.add('active');
-            } else {
-                statusElements[4].classList.add('active');
-            }
-        }
-
-        document.addEventListener('DOMContentLoaded', function() {
-            updateOrderStatus();
-            setInterval(updateOrderStatus, 60000);
-        });
-    </script>
 </head>
 <body>
     <header class="header">
         {% include 'header.html' %}
     </header>
-    <main class="main">
-        <div class="track-order-container">
-            <h1>Track Order</h1>
-            <h2>Order from {{ order.restaurant.name }}</h2>
-            <p>Total Price: ${{ order.total_price }}</p>
-            <p>Address: {{ order.address }}</p>
-            <p>Delivery Time: {{ order.delivery_time }}</p>
-            <p>Order Created At: {{ order.created_at.strftime('%Y-%m-%d %H:%M:%S') }}</p>
-            <div class="order-status">
-                <div>
-                    <img src="{{ url_for('static', filename='css/assets/confirmed.png') }}" alt="Confirmed">
-                    <p>Confirmed</p>
-                </div>
-                <div>
-                    <img src="{{ url_for('static', filename='css/assets/prepared.png') }}" alt="Prepared">
-                    <p>Prepared</p>
-                </div>
-                <div>
-                    <img src="{{ url_for('static', filename='css/assets/on_its_way.png') }}" alt="On its way">
-                    <p>On its way</p>
-                </div>
-                <div>
-                    <img src="{{ url_for('static', filename='css/assets/delivered.png') }}" alt="Delivered">
-                    <p>Delivered</p>
-                </div>
-            </div>
-            <div id="status-message"></div>
-        </div>
+    <main>
+        
     </main>
     <footer class="footer">
         {% include 'footer.html' %}
