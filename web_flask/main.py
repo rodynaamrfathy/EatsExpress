@@ -139,12 +139,24 @@ def create_restaurant():
     if request.method == 'POST':
         name = request.form['name']
         location = request.form['location']
+        cuisines = request.form['cuisines']
+        categories = request.form['categories']
+        breakfast = request.form['breakfast']
+        beverages = request.form['beverages']
+        
         existing_restaurant = next((r for r in storage.all(Restaurant).values() if r.name == name), None)
         if existing_restaurant:
             flash('Restaurant already exists. Please try a different name.', 'warning')
             return redirect(url_for('create_restaurant'))
 
-        new_restaurant = Restaurant(name=name, location=location)
+        new_restaurant = Restaurant(
+            name=name,
+            location=location,
+            cuisines=cuisines,
+            categories=categories,
+            breakfast=breakfast,
+            beverages=beverages
+        )
         storage.new(new_restaurant)
         storage.save()
         flash('Restaurant created successfully!', 'success')

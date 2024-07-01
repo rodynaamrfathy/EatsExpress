@@ -17,11 +17,20 @@ class Restaurant(BaseModel, Base):
         location = Column(String(256), nullable=False)
         reviews = relationship("Review", backref="restaurant")
         delivery_time = Column(String(256), nullable=False)
+        cuisines = Column(String(256), nullable=False)
+        categories = Column(String(256), nullable=False)
+        breakfast = Column(String(256), nullable=False)
+        beverages = Column(String(256), nullable=False)
+
 
     else:
         name = ""
         location = ""
         delivery_time = 30 
+        cuisines = ""
+        categories = ""
+        breakfast = ""
+        beverages = ""
 
     def __init__(self, *args, **kwargs):
         """ Initializes the restaurant """

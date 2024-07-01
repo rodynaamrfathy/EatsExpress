@@ -1,0 +1,24 @@
+.main_container {
+    margin: 300px auto;
+}
+.order-track {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    align-items: center;
+}
+
+.track-step {
+    text-align: center;
+    width: 100px;
+}
+
+.step-icon {
+    display: block;
+    font-size: 30px;
+    margin-bottom: 5px;
+}
+
+.completed .step-icon {
+    color: green;
+}
