@@ -37,7 +37,7 @@
     </style>
     <script>
         function updateOrderStatus() {
-            const order = {{ order | tojson }};
+            const order = JSON.parse('{{ order | tojson | safe }}');
             const currentTime = new Date().getTime();
             const createdTime = new Date(order.created_at).getTime();
             const deliveryTime = parseInt(order.delivery_time.split(' ')[0]) * 60 * 1000;

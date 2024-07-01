@@ -57,7 +57,7 @@
                     <p>Address: {{ order.address }}</p>
                     <p>Delivery Time: {{ order.delivery_time }}</p>
                     <p>Order Created At: {{ order.created_at.strftime('%Y-%m-%d %H:%M:%S') }}</p>
-                    <div class="order-actions">
+                    <div class="order-actions" style="margin-top: 20px;">
                         {% if order.is_delivered %}
                             <span class="delivered-label">Delivered</span>
                         {% else %}

@@ -325,7 +325,7 @@ def completeorder():
     else:
         flash('You need to log in to complete your order.', 'danger')
         return redirect(url_for('login'))
-    
+
 @app.route('/track_order/<order_id>')
 def track_order(order_id):
     if 'user_id' in session:
@@ -338,11 +338,7 @@ def track_order(order_id):
             return redirect(url_for('accountdetails'))
     else:
         flash('You need to log in to track your order.', 'danger')
-        return redirect(url_for('login'))
-<<<<<<< HEAD
+        return redirect(url_for('login'))   
 
-=======
->>>>>>> 024c528 (some things got missed up but track order is done)
-
-if __name__ == '_main_':
+if __name__ == '__main__':
     app.run(debug=True, port=5001)
