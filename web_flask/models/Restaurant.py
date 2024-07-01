@@ -14,12 +14,14 @@ class Restaurant(BaseModel, Base):
     if models.storage_t =='db':
         __tablename__ = 'restaurants'
         name = Column(String(128), nullable=False)
-        location = Column(String(256), nullable=True)
+        location = Column(String(256), nullable=False)
         reviews = relationship("Review", backref="restaurant")
+        delivery_time = Column(String(256), nullable=False)
 
     else:
         name = ""
         location = ""
+        delivery_time = 30 
 
     def __init__(self, *args, **kwargs):
         """ Initializes the restaurant """

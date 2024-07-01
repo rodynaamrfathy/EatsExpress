@@ -5,6 +5,8 @@ from models.User import User
 from models.Cart import Cart
 from models.Restaurant import Restaurant
 from models.MenuItem import MenuItem
+from models.Order import Order
+
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'your_secret_key'
@@ -253,13 +255,10 @@ def add_item_to_cart(menu_item_id):
 def view_cart():
     if 'user_id' in session:
         user = storage.get(User, session['user_id'])
-        # Retrieve all carts
         carts = storage.all(Cart).values()
-        # Find the cart for the specific user
         cart = next((c for c in carts if c.user_id == user.id), None)
 
         if cart and cart.menu_items:
-            # Assume all items in the cart belong to the same restaurant
             restaurant = storage.get(Restaurant, cart.restaurant_id)
             return render_template('viewcart.html', cart_items=cart.menu_items, restaurant=restaurant, title="Cart")
         else:
@@ -273,20 +272,48 @@ def view_cart():
 def completeorder():
     if 'user_id' in session:
         user = storage.get(User, session['user_id'])
-        addresses = user.addresses  # Assuming user.addresses contains the list of addresses
-        cart = next((c for c in storage.all(Cart).values() if c.user_id == user.id), None)
-        
-        if request.method == 'POST':
-            selected_address_id = request.form['address']
-            selected_address = storage.get(Address, selected_address_id)
-            # Proceed with the order placement logic
-            flash('Order placed successfully!', 'success')
-            return redirect(url_for('home'))
-        
-        return render_template('complete_order.html', cart=cart, addresses=addresses, title="Complete Order")
+        cart = next((c for c in storage.all(Cart).values() if c.user_id == user.id), None)  # Fetch cart for the user
+
+        if cart:
+            restaurant = storage.get(Restaurant, cart.restaurant_id)
+            restaurant_delivery_time = restaurant.delivery_time  # Get the restaurant's delivery time
+            delivery_time = restaurant_delivery_time + 10  # Add 10 minutes to the restaurant's delivery time
+            total_price = sum(item['price'] for item in cart.menu_items)
+
+            if request.method == 'POST':
+                address = request.form['address']
+
+                # Create a new order
+                new_order = Order(
+                    user_id=user.id,
+                    restaurant_id=cart.restaurant_id,
+                    total_price=total_price,
+                    address=address,
+                    delivery_time=f"{delivery_time} minutes"
+                )
+
+                # Add menu items to the order
+                for item in cart.menu_items:
+                    new_order.menu_items.append(item)
+
+                storage.new(new_order)
+                storage.save()
+
+                # Delete the cart after placing the order
+                storage.delete(cart)
+                storage.save()
+
+                flash('Order placed successfully!', 'success')
+                return redirect(url_for('home'))
+
+            return render_template('complete_order.html', title="Complete Order", cart_items=cart.menu_items, total_price=total_price, delivery_time=delivery_time)
+        else:
+            flash('Your cart is empty.', 'info')
+            return redirect(url_for('main'))
     else:
-        flash('You need to log in to complete the order.', 'danger')
+        flash('You need to log in to complete your order.', 'danger')
         return redirect(url_for('login'))
+
 
 if __name__ == '__main__':
     app.run(debug=True, port=5001)

@@ -19,7 +19,6 @@ class User(BaseModel, Base):
         first_name = Column(String(128), nullable=True)
         last_name = Column(String(128), nullable=True)
         phone_number = Column(String(20), nullable=True)
-        address = Column(String(256), nullable=True)
         orders = relationship("Order", back_populates="user")
         cart = relationship("Cart", uselist=False, back_populates="user")
         
@@ -29,7 +28,6 @@ class User(BaseModel, Base):
         first_name = ""
         last_name = ""
         phone_number = ""
-        address = ""
         cart = []
 
     def _init_(self, *args, **kwargs):
