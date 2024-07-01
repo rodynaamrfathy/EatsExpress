@@ -356,6 +356,23 @@ def filter_restaurants(filter_by, filter_value):
             restaurants.append(restaurant)
     return render_template('filtered_restaurants.html', restaurants=restaurants, title=f"Restaurants - {filter_value}")
 
+@app.route('/search_restaurants', methods=['GET'])
+def search_restaurants():
+    query = request.args.get('query', '').lower()
+    if not query:
+        flash('Please enter a search query.', 'warning')
+        return redirect(url_for('home'))
+    
+    restaurants = []
+    for restaurant in storage.all(Restaurant).values():
+        if (query in restaurant.location.lower() or
+            query in restaurant.cuisines.lower() or
+            query in restaurant.categories.lower() or
+            query in restaurant.breakfast.lower() or
+            query in restaurant.beverages.lower()):
+            restaurants.append(restaurant)
+    
+    return render_template('filtered_restaurants.html', restaurants=restaurants, title=f"Search Results for '{query}'")
 
 if __name__ == '__main__':
     app.run(debug=True, port=5001)

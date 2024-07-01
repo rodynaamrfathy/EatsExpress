@@ -23,8 +23,10 @@
             <h1>Order food online in Egypt</h1>
             <p>Order food and grocery delivery online from hundreds of restaurants and shops nearby.</p>
             <div class="search-bar">
-              <input type="text" placeholder="city, area, street">
-              <button>Let's go</button>
+              <form action="{{ url_for('search_restaurants') }}" method="GET">
+                <input type="text" name="query" placeholder="city, area, street">
+                <button type="submit">Let's go</button>
+              </form>
             </div>
           </div>
           <img src="{{ url_for('static', filename='css/assets/banner2.png') }}" alt="Pasta Image" class="banner2">
