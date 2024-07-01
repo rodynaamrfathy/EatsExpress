@@ -1,0 +1,31 @@
+.track-order-container {
+    text-align: center;
+    margin: 20px auto;
+}
+
+.order-status {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 800px;
+    margin: 20px auto;
+}
+
+.order-status div {
+    text-align: center;
+}
+
+.order-status img {
+    width: 50px;
+    height: 50px;
+}
+
+.order-status .active img {
+    border: 2px solid green;
+    border-radius: 50%;
+}
+
+.order-status .active p {
+    font-weight: bold;
+    color: green;
+}

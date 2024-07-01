@@ -339,7 +339,10 @@ def track_order(order_id):
     else:
         flash('You need to log in to track your order.', 'danger')
         return redirect(url_for('login'))
+<<<<<<< HEAD
 
+=======
+>>>>>>> 024c528 (some things got missed up but track order is done)
 
 if __name__ == '_main_':
     app.run(debug=True, port=5001)

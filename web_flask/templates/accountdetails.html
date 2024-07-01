@@ -50,7 +50,22 @@
         </div>
         <div class="orders">
             <h2>Your orders</h2>
-            <!-- Order details will go here -->
+            {% for order in orders %}
+                <div class="order-item">
+                    <h3>Order from {{ order.restaurant.name }}</h3>
+                    <p>Total Price: ${{ order.total_price }}</p>
+                    <p>Address: {{ order.address }}</p>
+                    <p>Delivery Time: {{ order.delivery_time }}</p>
+                    <p>Order Created At: {{ order.created_at.strftime('%Y-%m-%d %H:%M:%S') }}</p>
+                    <div class="order-actions">
+                        {% if order.is_delivered %}
+                            <span class="delivered-label">Delivered</span>
+                        {% else %}
+                            <a href="{{ url_for('track_order', order_id=order.id) }}" class="track-order-btn">Track Order</a>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endfor %}
         </div>
     </main>
     <footer class="footer">

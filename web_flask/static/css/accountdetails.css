@@ -90,13 +90,52 @@ body {
 }
 
 .orders {
-    max-width: 600px;
-    margin: 40px auto;
+    margin-top: 40px;
 }
 
 .orders h2 {
-    font-size: 24px;
+    font-size: 20px;
+    color: #333333;
     margin-bottom: 20px;
+}
+
+.order-item {
+    background-color: #f9f9f9;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.order-item h3 {
+    margin: 0 0 10px;
+    font-size: 18px;
+    color: #333333;
+}
+
+.order-item p {
+    margin: 5px 0;
+    color: #666666;
+}
+
+.delivered-label {
+    display: inline-block;
+    background-color: #4caf50;
+    color: #ffffff;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-weight: bold;
+}
+
+.track-order-btn {
+    background-color: #FF8C00;
+    color: #ffffff;
+    border: none;
+    padding: 20px 30px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 10px;
 }
 
 .footer {
@@ -104,3 +143,4 @@ body {
     border-top: 1px solid #e1e1e1;
     padding: 10px 0;
 }
+
