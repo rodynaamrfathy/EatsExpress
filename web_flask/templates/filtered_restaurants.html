@@ -12,14 +12,14 @@
     <header class="header">
         {% include 'header.html' %}
     </header>
-    <main class="main" >
-        <section id="filtered-restaurants" style="margin-top: 100px;"; >
+    <main class="main">
+        <section id="filtered-restaurants" style="margin-top: 100px;">
             <div class="items-container" style="margin: 50px;">
                 {% for restaurant in restaurants %}
                 <a href="{{ url_for('restaurant_details', restaurant_id=restaurant.id) }}" class="item">
                     <div class="item-content">
                         <div class="item-logo">
-                            <img src="{{ url_for('static', filename='css/assets/restaurants/' ~ restaurant.name | lower ~ '.png') }}" alt="{{ restaurant.name }}">
+                            <img src="{{ url_for('static', filename=restaurant.image.split('static/')[1]) }}" alt="{{ restaurant.name }}">
                         </div>
                         <h2>{{ restaurant.name }}</h2>
                         <div class="item-details">

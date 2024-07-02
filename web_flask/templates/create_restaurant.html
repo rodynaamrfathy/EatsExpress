@@ -14,7 +14,7 @@
     </header>
     <div class="form-container" style="margin-top: 250px;">
         <h1>Create New Restaurant</h1>
-        <form method="post">
+        <form method="post" enctype="multipart/form-data">
             <label for="name">Restaurant Name:</label>
             <input type="text" id="name" name="name" required>
 
@@ -32,6 +32,9 @@
 
             <label for="beverages">Beverages:</label>
             <input type="text" id="beverages" name="beverages" required>
+
+            <label for="image">Image:</label>
+            <input type="file" id="image" name="image" accept="image/*" required>
 
             <button type="submit" style="margin: 10px;">Create Restaurant</button>
         </form>

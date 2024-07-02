@@ -33,7 +33,7 @@
         </div>
       </section>
       
-      <section id="Catigories" style="margin: 50px;">
+      <section id="categories" style="margin: 50px;">
         <div class="offers-container">
           <a href="{{ url_for('filter_restaurants', filter_by='categories', filter_value='Burger') }}" class="offer-item">
             <div class="icon-wrapper">
@@ -80,62 +80,28 @@
         </div>
       </section>
       
-      <section id="restaurants" >
+      <section id="restaurants">
         <div class="items-container">
-          <a href="#garnell" class="item">
-            <div class="item-content">
-              <div class="item-logo">
-                <img src="{{ url_for('static', filename='css/assets/restaurants/Garnell.png') }}" alt="Garnell">
+          {% for restaurant in restaurants %}
+            <a href="{{ url_for('restaurant_details', restaurant_id=restaurant.id) }}" class="item">
+              <div class="item-content">
+                <div class="item-logo">
+                  <img src="{{ url_for('static', filename=restaurant.image.split('static/')[1]) }}" alt="{{ restaurant.name }}">
+                </div>
+                <h2>{{ restaurant.name }}</h2>
+                <div class="item-details">
+                  <img src="{{ url_for('static', filename='css/assets/delivery.png') }}" alt="Delivery Icon">
+                  <span>Free delivery</span>
+                  <img src="{{ url_for('static', filename='css/assets/time.png') }}" alt="Time Icon">
+                  <span>10-15 min</span>
+                </div>
+                <div class="item-tags">
+                  <span>{{ restaurant.cuisines }}</span>
+                  <span>{{ restaurant.categories }}</span>
+                </div>
               </div>
-              <h2>Garnell</h2>
-              <div class="item-details">
-                <img src="{{ url_for('static', filename='css/assets/delivery.png') }}" alt="Delivery Icon">
-                <span>Free delivery</span>
-                <img src="{{ url_for('static', filename='css/assets/time.png') }}" alt="Time Icon">
-                <span>10-15 min</span>
-              </div>
-              <div class="item-tags">
-                <span>Japanese</span>
-                <span>Asian</span>
-              </div>
-            </div>
-          </a>
-          <a href="#romapizza" class="item">
-            <div class="item-content">
-              <div class="item-logo">
-                <img src="{{ url_for('static', filename='css/assets/restaurants/romapizza.png') }}" alt="Roma Pizza">
-              </div>
-              <h2>Roma pizza</h2>
-              <div class="item-details">
-                <img src="{{ url_for('static', filename='css/assets/delivery.png') }}" alt="Delivery Icon">
-                <span>$20 delivery</span>
-                <img src="{{ url_for('static', filename='css/assets/time.png') }}" alt="Time Icon">
-                <span>20-25 min</span>
-              </div>
-              <div class="item-tags">
-                <span>Italian</span>
-                <span>Pizza</span>
-              </div>
-            </div>
-          </a>
-          <a href="#vinnyspizza" class="item">
-            <div class="item-content">
-              <div class="item-logo">
-                <img src="{{ url_for('static', filename='css/assets/restaurants/vinnys.png') }}" alt="Vinny's Pizza">
-              </div>
-              <h2>vinny's pizza</h2>
-              <div class="item-details">
-                <img src="{{ url_for('static', filename='css/assets/delivery.png') }}" alt="Delivery Icon">
-                <span>$20 delivery</span>
-                <img src="{{ url_for('static', filename='css/assets/time.png') }}" alt="Time Icon">
-                <span>20-25 min</span>
-              </div>
-              <div class="item-tags">
-                <span>Italian</span>
-                <span>Pizza</span>
-              </div>
-            </div>
-          </a>
+            </a>
+          {% endfor %}
         </div>
         <div class="section-header">
           <a href="{{ url_for('viewall') }}" class="view-all-button">View all</a>

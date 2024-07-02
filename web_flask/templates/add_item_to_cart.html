@@ -16,8 +16,8 @@
 
   <main class="main">
     <div class="form-container">
-      {% if menu_item.image_url %}
-        <img src="{{ menu_item.image_url }}" alt="Menu Item Image">
+      {% if menu_item.image %}
+        <img src="{{ url_for('static', filename=menu_item.image.split('static/')[1]) }}" alt="Menu Item Image">
       {% else %}
         <img src="{{ url_for('static', filename='css/assets/menu-item-placeholder.png') }}" alt="Menu Item Placeholder">
       {% endif %}

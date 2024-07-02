@@ -14,12 +14,16 @@ class MenuItem(BaseModel, Base):
         description = Column(String(256), nullable=True)
         restaurant_id = Column(String(60), ForeignKey('restaurants.id'), nullable=False)
         quantity = Column(Integer, default=0, nullable=False)  # New quantity column
+        image = Column(String)
+
+
     else:
         name = ""
         price = 0
         description = ""
         restaurant_id = ""
         quantity = 0  # Default quantity for non-db storage
+        image = ""
 
     def __init__(self, *args, **kwargs):
         """ Initializes the menu item """

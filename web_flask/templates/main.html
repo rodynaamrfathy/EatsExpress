@@ -12,8 +12,7 @@
 <body>
   <div class="base">
     <header class="header">
-      <!-- Include the header.html file -->
-      {% include 'header+navigation.html' %}
+      {% include 'header.html' %}
     </header>
 
     <main class="main" style="flex: 1;">
@@ -24,53 +23,55 @@
             <h1>Order food online in Egypt</h1>
             <p>Order food and grocery delivery online from hundreds of restaurants and shops nearby.</p>
             <div class="search-bar">
-              <input type="text" placeholder="city, area, street">
-              <button>Let's go</button>
+              <form action="{{ url_for('search_restaurants') }}" method="GET">
+                <input type="text" name="query" placeholder="city, area, street">
+                <button type="submit">Let's go</button>
+              </form>
             </div>
           </div>
           <img src="{{ url_for('static', filename='css/assets/banner2.png') }}" alt="Pasta Image" class="banner2">
         </div>
       </section>
       
-      <section id="Catigories" style="margin: 50px;">
+      <section id="categories" style="margin: 50px;">
         <div class="offers-container">
-          <a href="#burger" class="offer-item">
+          <a href="{{ url_for('filter_restaurants', filter_by='categories', filter_value='Burger') }}" class="offer-item">
             <div class="icon-wrapper">
               <img src="{{ url_for('static', filename='css/assets/food/Burger.png') }}" alt="Burger">
             </div>
             <p>Burger</p>
           </a>
-          <a href="#pizza" class="offer-item">
+          <a href="{{ url_for('filter_restaurants', filter_by='categories', filter_value='Pizza') }}" class="offer-item">
             <div class="icon-wrapper">
               <img src="{{ url_for('static', filename='css/assets/food/pizza.png') }}" alt="Pizza">
             </div>
             <p>Pizza</p>
           </a>
-          <a href="#donut" class="offer-item">
+          <a href="{{ url_for('filter_restaurants', filter_by='categories', filter_value='Donut') }}" class="offer-item">
             <div class="icon-wrapper">
               <img src="{{ url_for('static', filename='css/assets/food/dount.png') }}" alt="Donut">
             </div>
             <p>Donut</p>
           </a>
-          <a href="#asian" class="offer-item">
+          <a href="{{ url_for('filter_restaurants', filter_by='categories', filter_value='Asian') }}" class="offer-item">
             <div class="icon-wrapper">
               <img src="{{ url_for('static', filename='css/assets/food/asian.png') }}" alt="Asian">
             </div>
             <p>Asian</p>
           </a>
-          <a href="#cake" class="offer-item">
+          <a href="{{ url_for('filter_restaurants', filter_by='categories', filter_value='Cake') }}" class="offer-item">
             <div class="icon-wrapper">
               <img src="{{ url_for('static', filename='css/assets/food/cake.png') }}" alt="Cake">
             </div>
             <p>Cake</p>
           </a>
-          <a href="#pasta" class="offer-item">
+          <a href="{{ url_for('filter_restaurants', filter_by='categories', filter_value='Pasta') }}" class="offer-item">
             <div class="icon-wrapper">
               <img src="{{ url_for('static', filename='css/assets/food/pasta.png') }}" alt="Pasta">
             </div>
             <p>Pasta</p>
           </a>
-          <a href="#mexican" class="offer-item">
+          <a href="{{ url_for('filter_restaurants', filter_by='categories', filter_value='Mexican') }}" class="offer-item">
             <div class="icon-wrapper">
               <img src="{{ url_for('static', filename='css/assets/food/mexican.png') }}" alt="Mexican">
             </div>
@@ -80,71 +81,36 @@
       </section>
       
       <section id="restaurants">
-        
         <div class="items-container">
-          <a href="#garnell" class="item">
-            <div class="item-content">
-              <div class="item-logo">
-                <img src="{{ url_for('static', filename='css/assets/restaurants/Garnell.png') }}" alt="Garnell">
+          {% for restaurant in restaurants %}
+            <a href="{{ url_for('restaurant_details', restaurant_id=restaurant.id) }}" class="item">
+              <div class="item-content">
+                <div class="item-logo">
+                  <img src="{{ url_for('static', filename=restaurant.image.split('static/')[1]) }}" alt="{{ restaurant.name }}">
+                </div>
+                <h2>{{ restaurant.name }}</h2>
+                <div class="item-details">
+                  <img src="{{ url_for('static', filename='css/assets/delivery.png') }}" alt="Delivery Icon">
+                  <span>Free delivery</span>
+                  <img src="{{ url_for('static', filename='css/assets/time.png') }}" alt="Time Icon">
+                  <span>10-15 min</span>
+                </div>
+                <div class="item-tags">
+                  <span>{{ restaurant.cuisines }}</span>
+                  <span>{{ restaurant.categories }}</span>
+                </div>
               </div>
-              <h2>Garnell</h2>
-              <div class="item-details">
-                <img src="{{ url_for('static', filename='css/assets/delivery.png') }}" alt="Delivery Icon">
-                <span>Free delivery</span>
-                <img src="{{ url_for('static', filename='css/assets/time.png') }}" alt="Time Icon">
-                <span>10-15 min</span>
-              </div>
-              <div class="item-tags">
-                <span>Japanese</span>
-                <span>Asian</span>
-              </div>
-            </div>
-          </a>
-          <a href="#romapizza" class="item">
-            <div class="item-content">
-              <div class="item-logo">
-                <img src="{{ url_for('static', filename='css/assets/restaurants/romapizza.png') }}" alt="Roma Pizza">
-              </div>
-              <h2>Roma pizza</h2>
-              <div class="item-details">
-                <img src="{{ url_for('static', filename='css/assets/delivery.png') }}" alt="Delivery Icon">
-                <span>$20 delivery</span>
-                <img src="{{ url_for('static', filename='css/assets/time.png') }}" alt="Time Icon">
-                <span>20-25 min</span>
-              </div>
-              <div class="item-tags">
-                <span>Italian</span>
-                <span>Pizza</span>
-              </div>
-            </div>
-          </a>
-          <a href="#vinnyspizza" class="item">
-            <div class="item-content">
-              <div class="item-logo">
-                <img src="{{ url_for('static', filename='css/assets/restaurants/vinnys.png') }}" alt="Vinny's Pizza">
-              </div>
-              <h2>vinny's pizza</h2>
-              <div class="item-details">
-                <img src="{{ url_for('static', filename='css/assets/delivery.png') }}" alt="Delivery Icon">
-                <span>$20 delivery</span>
-                <img src="{{ url_for('static', filename='css/assets/time.png') }}" alt="Time Icon">
-                <span>20-25 min</span>
-              </div>
-              <div class="item-tags">
-                <span>Italian</span>
-                <span>Pizza</span>
-              </div>
-            </div>
-          </a>
+            </a>
+          {% endfor %}
         </div>
         <div class="section-header">
-          <a href="{{ url_for('login') }}" class="view-all-button">View all</a>
+          <a href="{{ url_for('viewall') }}" class="view-all-button">View all</a>
         </div>
       </section>
 
       <section id="beverages" style="margin-top: 70px;">
         <div class="items-container">
-          <a href="#coffee" class="item">
+          <a href="{{ url_for('filter_restaurants', filter_by='beverages', filter_value='Coffee') }}" class="item">
             <div class="item-content">
               <div class="item-logo">
                 <img src="{{ url_for('static', filename='css/assets/beverages/coffee.png') }}" alt="Coffee">
@@ -152,7 +118,7 @@
               <h2>Coffee</h2>
             </div>
           </a>
-          <a href="#softdrinks" class="item">
+          <a href="{{ url_for('filter_restaurants', filter_by='beverages', filter_value='Soft Drinks') }}" class="item">
             <div class="item-content">
               <div class="item-logo">
                 <img src="{{ url_for('static', filename='css/assets/beverages/softdrinks.png') }}" alt="Soft Drinks">
@@ -160,7 +126,7 @@
               <h2>Soft Drinks</h2>
             </div>
           </a>
-          <a href="#juice" class="item">
+          <a href="{{ url_for('filter_restaurants', filter_by='beverages', filter_value='Juice') }}" class="item">
             <div class="item-content">
               <div class="item-logo">
                 <img src="{{ url_for('static', filename='css/assets/beverages/juice.png') }}" alt="Juice">
@@ -171,9 +137,9 @@
         </div>
       </section>
 
-      <section id="cuisines">
+      <section id="cuisines" style="margin-top: 70px;">
         <div class="items-container">
-          <a href="#italian" class="item">
+          <a href="{{ url_for('filter_restaurants', filter_by='cuisines', filter_value='Italian') }}" class="item">
             <div class="item-content">
               <div class="item-logo">
                 <img src="{{ url_for('static', filename='css/assets/cuisines/italian.png') }}" alt="Italian">
@@ -181,7 +147,7 @@
               <h2>Italian</h2>
             </div>
           </a>
-          <a href="#japanese" class="item">
+          <a href="{{ url_for('filter_restaurants', filter_by='cuisines', filter_value='Japanese') }}" class="item">
             <div class="item-content">
               <div class="item-logo">
                 <img src="{{ url_for('static', filename='css/assets/cuisines/japanese.png') }}" alt="Japanese">
@@ -189,7 +155,7 @@
               <h2>Japanese</h2>
             </div>
           </a>
-          <a href="#egyptian" class="item">
+          <a href="{{ url_for('filter_restaurants', filter_by='cuisines', filter_value='Egyptian') }}" class="item">
             <div class="item-content">
               <div class="item-logo">
                 <img src="{{ url_for('static', filename='css/assets/cuisines/egyptian.png') }}" alt="Egyptian">
@@ -202,7 +168,7 @@
 
       <section id="breakfast" style="margin-top: 70px;">
         <div class="items-container">
-          <a href="#orientalbreakfast" class="item">
+          <a href="{{ url_for('filter_restaurants', filter_by='breakfast', filter_value='Oriental Breakfast') }}" class="item">
             <div class="item-content">
               <div class="item-logo">
                 <img src="{{ url_for('static', filename='css/assets/breakfast/orientalbreakfast.png') }}" alt="Oriental Breakfast">
@@ -210,7 +176,7 @@
               <h2>Oriental Breakfast</h2>
             </div>
           </a>
-          <a href="#americanbreakfast" class="item">
+          <a href="{{ url_for('filter_restaurants', filter_by='breakfast', filter_value='American Breakfast') }}" class="item">
             <div class="item-content">
               <div class="item-logo">
                 <img src="{{ url_for('static', filename='css/assets/breakfast/americanbreakfast.png') }}" alt="American Breakfast">
@@ -218,7 +184,7 @@
               <h2>American Breakfast</h2>
             </div>
           </a>
-          <a href="#bakeries" class="item">
+          <a href="{{ url_for('filter_restaurants', filter_by='breakfast', filter_value='Bakeries') }}" class="item">
             <div class="item-content">
               <div class="item-logo">
                 <img src="{{ url_for('static', filename='css/assets/breakfast/bakeries.png') }}" alt="Bakeries">
@@ -231,7 +197,6 @@
     </main>
 
     <footer class="footer">
-      <!-- Include the footer.html file -->
       {% include 'footer.html' %}
     </footer>
   </div>

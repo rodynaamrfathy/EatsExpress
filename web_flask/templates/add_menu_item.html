@@ -14,7 +14,7 @@
     </header>
     <div class="form-container" style="margin-top: 250px;">
         <h1>Add Menu Item</h1>
-        <form method="post">
+        <form method="post" enctype="multipart/form-data">
             <label for="restaurant_name">Restaurant Name:</label>
             <input type="text" id="restaurant_name" name="restaurant_name" required>
 
@@ -26,6 +26,9 @@
 
             <label for="menu_item_description">Description:</label>
             <input type="text" id="menu_item_description" name="menu_item_description" required>
+
+            <label for="image">Image:</label>
+            <input type="file" id="image" name="image" accept="image/*" required>
 
             <button type="submit" style="margin: 10px;">Add Menu Item</button>
         </form>

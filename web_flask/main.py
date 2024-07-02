@@ -7,11 +7,20 @@ from models.Restaurant import Restaurant
 from models.MenuItem import MenuItem
 from models.Order import Order
 from datetime import datetime, timedelta
-
-
+from werkzeug.utils import secure_filename
+import os
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'your_secret_key'
+app.config['UPLOAD_FOLDER'] = 'static/uploads'
+app.config['ALLOWED_EXTENSIONS'] = {'png', 'jpg', 'jpeg', 'gif'}
+
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in app.config['ALLOWED_EXTENSIONS']
+
+def ensure_upload_folder_exists():
+    if not os.path.exists(app.config['UPLOAD_FOLDER']):
+        os.makedirs(app.config['UPLOAD_FOLDER'])
 
 @app.route('/')
 def main():
@@ -143,7 +152,17 @@ def create_restaurant():
         categories = request.form['categories']
         breakfast = request.form['breakfast']
         beverages = request.form['beverages']
+        image = request.files['image']
         
+        if image and allowed_file(image.filename):
+            filename = secure_filename(image.filename)
+            ensure_upload_folder_exists()
+            image.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            image_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+        else:
+            flash('Invalid image file.', 'danger')
+            return redirect(url_for('create_restaurant'))
+
         existing_restaurant = next((r for r in storage.all(Restaurant).values() if r.name == name), None)
         if existing_restaurant:
             flash('Restaurant already exists. Please try a different name.', 'warning')
@@ -155,7 +174,8 @@ def create_restaurant():
             cuisines=cuisines,
             categories=categories,
             breakfast=breakfast,
-            beverages=beverages
+            beverages=beverages,
+            image=image_path
         )
         storage.new(new_restaurant)
         storage.save()
@@ -171,17 +191,35 @@ def add_menu_item():
         item_name = request.form['menu_item_name']
         item_price = request.form['menu_item_price']
         item_description = request.form['menu_item_description']
+        image = request.files['image']
+
+        if image and allowed_file(image.filename):
+            filename = secure_filename(image.filename)
+            ensure_upload_folder_exists()
+            image.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            image_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+        else:
+            flash('Invalid image file.', 'danger')
+            return redirect(url_for('add_menu_item'))
 
         restaurant = next((r for r in storage.all(Restaurant).values() if r.name == restaurant_name), None)
         if not restaurant:
             flash('Restaurant not found. Please try again.', 'danger')
             return redirect(url_for('add_menu_item'))
 
-        new_menu_item = MenuItem(name=item_name, price=float(item_price), description=item_description, restaurant_id=restaurant.id)
+        new_menu_item = MenuItem(
+            name=item_name,
+            price=float(item_price),
+            description=item_description,
+            restaurant_id=restaurant.id,
+            image=image_path
+        )
         storage.new(new_menu_item)
         storage.save()
         flash('Menu item added successfully!', 'success')
-    return render_template('add_menu_item.html', title="Create New item")
+        return redirect(url_for('viewall'))
+
+    return render_template('add_menu_item.html', title="Create New Item")
 
 @app.route('/view_account')
 def view_account():
@@ -209,7 +247,6 @@ def accountdetails():
     else:
         flash('You need to log in to view your account.', 'danger')
         return redirect(url_for('login'))
-
 
 @app.route('/delete_account', methods=['POST'])
 def delete_account():
@@ -273,7 +310,6 @@ def add_item_to_cart(menu_item_id):
     else:
         flash('You need to log in to add items to the cart.', 'danger')
         return redirect(url_for('login'))
-
 
 @app.route('/view_cart')
 def view_cart():

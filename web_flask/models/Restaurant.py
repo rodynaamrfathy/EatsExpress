@@ -21,7 +21,7 @@ class Restaurant(BaseModel, Base):
         categories = Column(String(256), nullable=False)
         breakfast = Column(String(256), nullable=False)
         beverages = Column(String(256), nullable=False)
-
+        image = Column(String)
 
     else:
         name = ""
@@ -31,6 +31,7 @@ class Restaurant(BaseModel, Base):
         categories = ""
         breakfast = ""
         beverages = ""
+        image = ""
 
     def __init__(self, *args, **kwargs):
         """ Initializes the restaurant """
