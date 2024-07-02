@@ -1,43 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create New Restaurant</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/header.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/create_account.css') }}">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create New Restaurant</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/header.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/create_account.css') }}">
 </head>
 <body>
-    <header class="header">
-        {% include 'header.html' %}
-    </header>
-    <div class="form-container" style="margin-top: 250px;">
-        <h1>Create New Restaurant</h1>
-        <form method="post" enctype="multipart/form-data">
-            <label for="name">Restaurant Name:</label>
-            <input type="text" id="name" name="name" required>
+  <header class="header">
+    {% include 'header.html' %}
+  </header>
+  <div class="form-container" style="margin-top: 250px;">
+    <h1>Create New Restaurant</h1>
+    <form method="post" enctype="multipart/form-data">
+      <label for="name">Restaurant Name:</label>
+      <input type="text" id="name" name="name" required>
 
-            <label for="location">Location:</label>
-            <input type="text" id="location" name="location" required>
+      <label for="location">Location:</label>
+      <input type="text" id="location" name="location" required>
 
-            <label for="cuisines">Cuisines:</label>
-            <input type="text" id="cuisines" name="cuisines" required>
+      <label for="cuisines">Cuisines:</label>
+      <input type="text" id="cuisines" name="cuisines" required>
 
-            <label for="categories">Categories:</label>
-            <input type="text" id="categories" name="categories" required>
+      <label for="categories">Categories:</label>
+      <input type="text" id="categories" name="categories" required>
 
-            <label for="breakfast">Breakfast:</label>
-            <input type="text" id="breakfast" name="breakfast" required>
+      <label for="breakfast">Breakfast:</label>
+      <input type="text" id="breakfast" name="breakfast" required>
 
-            <label for="beverages">Beverages:</label>
-            <input type="text" id="beverages" name="beverages" required>
+      <label for="beverages">Beverages:</label>
+      <input type="text" id="beverages" name="beverages" required>
 
-            <label for="image">Image:</label>
-            <input type="file" id="image" name="image" accept="image/*" required>
+      <label for="delivery_time">Delivery Time:</label>
+      <input type="text" id="delivery_time" name="delivery_time" required>
 
-            <button type="submit" style="margin: 10px;">Create Restaurant</button>
-        </form>
-    </div>
+      <label for="delivery_fee">Delivery Fee:</label>
+      <input type="number" id="delivery_fee" name="delivery_fee" step="0.01" required>
+
+      <label for="image">Restaurant Image:</label>
+      <input type="file" id="image" name="image" required>
+
+      <button type="submit" style="margin: 10px;">Create Restaurant</button>
+    </form>
+  </div>
 </body>
 </html>

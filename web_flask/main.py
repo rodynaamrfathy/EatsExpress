@@ -152,8 +152,10 @@ def create_restaurant():
         categories = request.form['categories']
         breakfast = request.form['breakfast']
         beverages = request.form['beverages']
+        delivery_time = request.form['delivery_time']
+        delivery_fee = float(request.form['delivery_fee'])
         image = request.files['image']
-        
+
         if image and allowed_file(image.filename):
             filename = secure_filename(image.filename)
             ensure_upload_folder_exists()
@@ -175,6 +177,8 @@ def create_restaurant():
             categories=categories,
             breakfast=breakfast,
             beverages=beverages,
+            delivery_time=delivery_time,
+            delivery_fee=delivery_fee,
             image=image_path
         )
         storage.new(new_restaurant)
@@ -183,6 +187,7 @@ def create_restaurant():
         return redirect(url_for('viewall'))
 
     return render_template('create_restaurant.html', title="Create New Restaurant")
+
 
 @app.route('/add_menu_item', methods=['GET', 'POST'])
 def add_menu_item():

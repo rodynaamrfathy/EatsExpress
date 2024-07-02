@@ -24,7 +24,7 @@
                         <h2>{{ restaurant.name }}</h2>
                         <div class="item-details">
                             <img src="{{ url_for('static', filename='css/assets/delivery.png') }}" alt="Delivery Icon">
-                            <span>{{ restaurant.delivery_time }}</span>
+                            <span>${{ restaurant.delivery_fee }}</span>
                             <img src="{{ url_for('static', filename='css/assets/time.png') }}" alt="Time Icon">
                             <span>{{ restaurant.delivery_time }}</span>
                         </div>

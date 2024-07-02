@@ -17,6 +17,8 @@
     <div class="restaurant-container">
       <img src="{{ url_for('static', filename=restaurant.image.split('static/')[1]) }}" alt="Restaurant Image">
       <h1>{{ restaurant.name }}</h1>
+      <p>Delivery Fee: ${{ restaurant.delivery_fee }}</p>
+      <p>Delivery Time: {{ restaurant.delivery_time }}</p>
       {% for item in menu_items %}
         <a href="{{ url_for('add_item_to_cart', menu_item_id=item.id) }}" class="menu-item">
           <div class="menu-item-content">
