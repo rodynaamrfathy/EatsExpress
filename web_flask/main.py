@@ -239,16 +239,7 @@ def view_account():
 def accountdetails():
     if 'user_id' in session:
         user = storage.get(User, session['user_id'])
-        orders = [order for order in storage.all(Order).values() if order.user_id == user.id]
-
-        # Fetch restaurant objects for each order and calculate delivery status
-        for order in orders:
-            order.restaurant = storage.get(Restaurant, order.restaurant_id)
-            delivery_minutes = int(order.delivery_time.split()[0])
-            delivery_deadline = order.created_at + timedelta(minutes=delivery_minutes)
-            order.is_delivered = delivery_deadline < datetime.utcnow()
-
-        return render_template('accountdetails.html', user=user, title="Account Details", orders=orders)
+        return render_template('accountdetails.html', user=user, title="Account Details")
     else:
         flash('You need to log in to view your account.', 'danger')
         return redirect(url_for('login'))
