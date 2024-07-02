@@ -167,5 +167,73 @@
     "updated_at": "2024-07-02T17:20:49.751439",
     "id": "0cc22f1c-1350-45c3-9e48-7a2f7716edf6",
     "__class__": "Restaurant"
+  },
+  "Restaurant.9bd17a70-d80b-4ee8-8cd0-bcccdce0b473": {
+    "name": "Tseppas",
+    "location": "Triumph, cairo",
+    "cuisines": "None",
+    "categories": "Cake, Ice cream",
+    "breakfast": "Bakeries",
+    "beverages": "Juice",
+    "delivery_time": "35 minutes",
+    "delivery_fee": 15.0,
+    "image": "static/uploads/tseppas.jpg",
+    "created_at": "2024-07-02T17:25:23.052504",
+    "updated_at": "2024-07-02T17:25:23.052508",
+    "id": "9bd17a70-d80b-4ee8-8cd0-bcccdce0b473",
+    "__class__": "Restaurant"
+  },
+  "Restaurant.6e97624e-4cb8-4ead-8b33-355454933469": {
+    "name": "Fotour Breakfast",
+    "location": "masr el gedida, cairo",
+    "cuisines": "Egyptian",
+    "categories": "Sandwich",
+    "breakfast": "Oriental Breakfast",
+    "beverages": "Soft Drinks",
+    "delivery_time": "15 minutes",
+    "delivery_fee": 15.0,
+    "image": "static/uploads/Fotour.jpg",
+    "created_at": "2024-07-02T17:31:00.668250",
+    "updated_at": "2024-07-02T17:31:00.668254",
+    "id": "6e97624e-4cb8-4ead-8b33-355454933469",
+    "__class__": "Restaurant"
+  },
+  "MenuItem.33bb448f-fcc2-4e5f-81e8-2becc9deba3a": {
+    "name": "Pastrami Omlete sandwich",
+    "price": 20.0,
+    "description": "Pastrami Omlete sandwich",
+    "restaurant_id": "6e97624e-4cb8-4ead-8b33-355454933469",
+    "image": "static/uploads/Omelete_Fotour_Breakfast.jpeg",
+    "created_at": "2024-07-02T17:32:51.452918",
+    "updated_at": "2024-07-02T17:32:51.452921",
+    "id": "33bb448f-fcc2-4e5f-81e8-2becc9deba3a",
+    "__class__": "MenuItem"
+  },
+  "MenuItem.7f470358-c2d8-4e36-937a-7e01b95c8f44": {
+    "name": "Mix Cheddar Sauce Fries",
+    "price": 15.0,
+    "description": "Mix Cheddar Sauce Fries",
+    "restaurant_id": "6e97624e-4cb8-4ead-8b33-355454933469",
+    "image": "static/uploads/Fries_Fotour_Breakfast.jpeg",
+    "created_at": "2024-07-02T17:33:17.997709",
+    "updated_at": "2024-07-02T17:33:17.997713",
+    "id": "7f470358-c2d8-4e36-937a-7e01b95c8f44",
+    "__class__": "MenuItem"
+  },
+  "Cart.ad90b914-c682-4d23-8a6c-e83189507f03": {
+    "user_id": "39cda39d-8f7c-41e4-8899-5ed9cb2084c9",
+    "restaurant_id": "6e97624e-4cb8-4ead-8b33-355454933469",
+    "created_at": "2024-07-02T17:52:56.658117",
+    "updated_at": "2024-07-02T17:52:56.658122",
+    "id": "ad90b914-c682-4d23-8a6c-e83189507f03",
+    "menu_items": [
+      {
+        "id": "33bb448f-fcc2-4e5f-81e8-2becc9deba3a",
+        "name": "Pastrami Omlete sandwich",
+        "quantity": 1,
+        "price": 20.0
+      }
+    ],
+    "__class__": "Cart"
   }
 }
