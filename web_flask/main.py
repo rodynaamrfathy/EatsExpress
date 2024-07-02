@@ -337,18 +337,17 @@ def view_cart():
 def completeorder():
     if 'user_id' in session:
         user = storage.get(User, session['user_id'])
-        cart = next((c for c in storage.all(Cart).values() if c.user_id == user.id), None)  # Fetch cart for the user
+        cart = next((c for c in storage.all(Cart).values() if c.user_id == user.id), None)
 
         if cart:
             restaurant = storage.get(Restaurant, cart.restaurant_id)
-            restaurant_delivery_time = restaurant.delivery_time  # Get the restaurant's delivery time
-            delivery_time = restaurant_delivery_time + 10  # Add 10 minutes to the restaurant's delivery time
-            total_price = sum(item['price'] for item in cart.menu_items)
+            restaurant_delivery_time = int(restaurant.delivery_time.split()[0])
+            delivery_time = restaurant_delivery_time + 10
+            total_price = sum(item['price'] * item['quantity'] for item in cart.menu_items)
 
             if request.method == 'POST':
                 address = request.form['address']
 
-                # Create a new order
                 new_order = Order(
                     user_id=user.id,
                     restaurant_id=cart.restaurant_id,
@@ -357,27 +356,25 @@ def completeorder():
                     delivery_time=f"{delivery_time} minutes"
                 )
 
-                # Add menu items to the order
                 for item in cart.menu_items:
                     new_order.menu_items.append(item)
 
                 storage.new(new_order)
                 storage.save()
-
-                # Delete the cart after placing the order
                 storage.delete(cart)
                 storage.save()
 
                 flash('Order placed successfully!', 'success')
                 return redirect(url_for('home'))
 
-            return render_template('complete_order.html', title="Complete Order", cart_items=cart.menu_items, total_price=total_price, delivery_time=delivery_time)
+            return render_template('complete_order.html', title="Complete Order", cart_items=cart.menu_items, total_price=total_price, delivery_time=f"{delivery_time} minutes")
         else:
             flash('Your cart is empty.', 'info')
             return redirect(url_for('main'))
     else:
         flash('You need to log in to complete your order.', 'danger')
         return redirect(url_for('login'))
+
 
 @app.route('/track_order/<order_id>')
 def track_order(order_id):

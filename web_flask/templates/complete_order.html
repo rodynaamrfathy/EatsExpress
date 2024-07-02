@@ -22,7 +22,6 @@
           {% for item in cart_items %}
             <div class="order-item">
               <div class="item-image">
-                <img src="{{ item.image_url or url_for('static', filename='css/assets/item-placeholder.png') }}" alt="Item image">
               </div>
               <div class="item-details">
                 <h2>{{ item.name }}</h2>
