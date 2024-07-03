@@ -15,8 +15,8 @@
       {% include 'header+loggedin.html' %}
     </header>
 
-    <main class="main" style="flex: 1;">
-      <section id="home">
+    <main class="main">
+      <section id="home" class="home-section">
         <div class="home-banner">
           <img src="{{ url_for('static', filename='css/assets/banner1.png') }}" alt="Salad Image" class="banner1">
           <div class="home-text">
@@ -33,7 +33,7 @@
         </div>
       </section>
       
-      <section id="categories" style="margin: 50px;">
+      <section id="categories" class="category-section">
         <div class="offers-container">
           <a href="{{ url_for('filter_restaurants', filter_by='categories', filter_value='Burger') }}" class="offer-item">
             <div class="icon-wrapper">
@@ -80,7 +80,7 @@
         </div>
       </section>
       
-      <section id="restaurants">
+      <section id="restaurants" class="restaurants-section">
         <div class="items-container">
           {% for restaurant in restaurants %}
             <a href="{{ url_for('restaurant_details', restaurant_id=restaurant.id) }}" class="item">
@@ -104,11 +104,12 @@
           {% endfor %}
         </div>
         <div class="section-header">
+          <h1 class="text1">Explore more restaurants and cuisines:</h1>
           <a href="{{ url_for('viewall') }}" class="view-all-button">View all</a>
         </div>
       </section>
 
-      <section id="beverages" style="margin-top: 70px;">
+      <section id="beverages" class="beverages-section">
         <div class="items-container">
           <a href="{{ url_for('filter_restaurants', filter_by='beverages', filter_value='Coffee') }}" class="item">
             <div class="item-content">
@@ -137,7 +138,7 @@
         </div>
       </section>
 
-      <section id="cuisines" style="margin-top: 70px;">
+      <section id="cuisines" class="cuisines-section">
         <div class="items-container">
           <a href="{{ url_for('filter_restaurants', filter_by='cuisines', filter_value='Italian') }}" class="item">
             <div class="item-content">
@@ -166,7 +167,7 @@
         </div>
       </section>
 
-      <section id="breakfast" style="margin-top: 70px;">
+      <section id="breakfast" class="breakfast-section">
         <div class="items-container">
           <a href="{{ url_for('filter_restaurants', filter_by='breakfast', filter_value='Oriental Breakfast') }}" class="item">
             <div class="item-content">
