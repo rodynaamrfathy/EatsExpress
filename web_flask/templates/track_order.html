@@ -3,27 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Track Order</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/footer.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/header.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/trackorder.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/track_order.css') }}">
+    <title>Order Tracker</title>
 </head>
 <body>
-    <header class="header">
-        {% include 'header.html' %}
-    </header>
-    <main>
-        <div class="main_container">
-        <div class="order-track">
-            <div class="track-step completed"><span class="step-icon">&#10003;</span>Confirmed</div>
-            <div class="track-step completed"><span class="step-icon">&#9993;</span>Prepared</div>
-            <div class="track-step completed"><span class="step-icon">&#128690;</span>On its way</div>
-            <div class="track-step"><span class="step-icon">&#128230;</span>Delivered</div>
+    <div class="container">
+        <div class="order-tracker">
+            <div class="step">
+                <img src="{{ url_for('static', filename='css/assets/track/confirmed.png') }}" alt="Confirmed">
+                <p>confirmed</p>
+            </div>
+            <div class="step">
+                <img src="{{ url_for('static', filename='css/assets/track/prepared.png') }}" alt="Prepared">
+                <p>prepared</p>
+            </div>
+            <div class="step">
+                <img src="{{ url_for('static', filename='css/assets/track/on_way.png" alt="On it's way">
+                <p>on it's way</p>
+            </div>
+            <div class="step">
+                <img src="static/css/assets/track/delivered.png" alt="Delivered">
+                <p>Delivered</p>
+            </div>
         </div>
-        </div>
-    </main>    
-    <footer class="footer">
-        {% include 'footer.html' %}
-    </footer>
+        <div id="status"></div>
+    </div>
+    <script>
+        const steps = document.querySelectorAll('.step');
+        const status = document.getElementById('status');
+        const totalTime = 10000; // total time in milliseconds
+        const stepTime = totalTime / steps.length;
+
+        let currentStep = 0;
+
+        function updateStep() {
+            if (currentStep < steps.length) {
+                steps[currentStep].classList.add('active');
+                status.textContent = steps[currentStep].querySelector('p').textContent;
+                currentStep++;
+                setTimeout(updateStep, stepTime);
+            } else {
+                status.textContent = "Delivered";
+            }
+        }
+
+        function startOrder() {
+            setTimeout(updateStep, stepTime);
+        }
+
+        window.onload = startOrder;
+    </script>
 </body>
 </html>
