@@ -1,7 +1,9 @@
 <div class="header">
   <div class="navigation">
     <div class="logo">
-      <p class="eats-express"><span class="text-wrapper">EatsExpress</span> <span class="span">.</span></p>
+        <a href="{{ url_for('home') }}">
+            <p class="eats-express"><span class="text-wrapper">EatsExpress</span> <span class="span">.</span></p>
+        </a>
     </div>
     <div class="user-info">
       <img src="{{ url_for('static', filename='css/assets/profile.png') }}" alt="Profile Icon" class="profile-icon">

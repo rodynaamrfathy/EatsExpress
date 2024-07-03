@@ -435,5 +435,14 @@ def search_restaurants():
     
     return render_template('filtered_restaurants.html', restaurants=restaurants, title=f"Search Results for '{query}'")
 
+@app.route('/logout', methods=['POST'])
+def logout():
+    session.pop('user_id', None)
+    session.pop('username', None)
+    session.pop('email', None)
+    flash('You have been logged out.', 'success')
+    return redirect(url_for('main'))
+
+
 if __name__ == '__main__':
     app.run(debug=True, port=5001)

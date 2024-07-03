@@ -11,6 +11,9 @@
 <body>
     <header class="header">
         {% include 'header.html' %}
+        <form method="POST" action="{{ url_for('logout') }}">
+            <button type="submit" class="logout-button">Logout</button>
+        </form>
     </header>
     <main class="main">
         <div class="account-container">

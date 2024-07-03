@@ -20,7 +20,9 @@
                 <p><strong>Last Name:</strong> {{ user.last_name }}</p>
                 <p><strong>Email:</strong> {{ user.email }}</p>
                 <p><strong>Phone Number:</strong> {{ user.phone_number }}</p>
-                <p><strong>Address:</strong> {{ user.address }}</p>
+                <form method="POST" action="{{ url_for('logout') }}" style="display:inline;">
+                    <button type="submit" class="logout-button">Logout</button>
+                  </form>
             </div>
         </div>
     </main>

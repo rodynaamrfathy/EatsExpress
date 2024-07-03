@@ -144,3 +144,18 @@ body {
     padding: 10px 0;
 }
 
+
+.logout-button {
+    background-color: #FF8C00; /* Red */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 10px;
+}
+
+.logout-button:hover {
+    background-color: #d32f2f; /* Darker red */
+}
