@@ -9,6 +9,10 @@
     <title>Order Tracker</title>
 </head>
 <body>
+    <header class="header">
+        {% include 'header.html' %}
+    </header>
+    <main>
     <div class="container">
         <div class="order-tracker">
             <div class="step">
@@ -20,16 +24,20 @@
                 <p>prepared</p>
             </div>
             <div class="step">
-                <img src="{{ url_for('static', filename='css/assets/track/on_way.png" alt="On it's way">
+                <img src="{{ url_for('static', filename='css/assets/track/on_way.png') }}" alt="On it's way">
                 <p>on it's way</p>
             </div>
             <div class="step">
-                <img src="static/css/assets/track/delivered.png" alt="Delivered">
+                <img src="{{ url_for('static', filename='css/assets/track/delivered.png') }}" alt="Delivered">
                 <p>Delivered</p>
             </div>
         </div>
         <div id="status"></div>
     </div>
+    </main>
+    <footer class="footer">
+        {% include 'footer.html' %}
+    </footer>
     <script>
         const steps = document.querySelectorAll('.step');
         const status = document.getElementById('status');

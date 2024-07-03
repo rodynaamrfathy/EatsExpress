@@ -239,10 +239,39 @@ def view_account():
 def accountdetails():
     if 'user_id' in session:
         user = storage.get(User, session['user_id'])
-        return render_template('accountdetails.html', user=user, title="Account Details")
+        
+        # Fetch user's orders
+        orders = [order for order in storage.all(Order).values() if order.user_id == user.id]
+        
+        # Convert orders to dictionaries for easy rendering in the template
+        order_list = []
+        for order in orders:
+            restaurant = storage.get(Restaurant, order.restaurant_id)
+            order_dict = {
+                'restaurant_name': restaurant.name if restaurant else "Unknown Restaurant",
+                'total_price': order.total_price,
+                'address': order.address,
+                'delivery_time': order.delivery_time,
+                'created_at': order.created_at.strftime('%Y-%m-%d %H:%M:%S'),
+                'address': order.address
+
+            }
+            order_list.append(order_dict)
+        
+        # Convert user to a dictionary
+        user_dict = {
+            'first_name': user.first_name,
+            'last_name': user.last_name,
+            'username': user.username,
+            'email': user.email,
+            'phone_number': user.phone_number,
+        }
+        
+        return render_template('accountdetails.html', user=user_dict, orders=order_list, title="Account Details")
     else:
         flash('You need to log in to view your account.', 'danger')
         return redirect(url_for('login'))
+
 
 @app.route('/delete_account', methods=['POST'])
 def delete_account():
