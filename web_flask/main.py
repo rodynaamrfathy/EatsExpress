@@ -248,13 +248,12 @@ def accountdetails():
         for order in orders:
             restaurant = storage.get(Restaurant, order.restaurant_id)
             order_dict = {
+                'id': order.id,  # Include the order ID
                 'restaurant_name': restaurant.name if restaurant else "Unknown Restaurant",
                 'total_price': order.total_price,
                 'address': order.address,
                 'delivery_time': order.delivery_time,
-                'created_at': order.created_at.strftime('%Y-%m-%d %H:%M:%S'),
-                'address': order.address
-
+                'created_at': order.created_at.strftime('%Y-%m-%d %H:%M:%S')
             }
             order_list.append(order_dict)
         
@@ -271,7 +270,6 @@ def accountdetails():
     else:
         flash('You need to log in to view your account.', 'danger')
         return redirect(url_for('login'))
-
 
 @app.route('/delete_account', methods=['POST'])
 def delete_account():
@@ -395,10 +393,15 @@ def completeorder():
         flash('You need to log in to complete your order.', 'danger')
         return redirect(url_for('login'))
 
-
 @app.route('/track_order/<order_id>')
 def track_order(order_id):
-    return render_template('track_order.html', title="Track Order")
+    order = storage.get(Order, order_id)  # Correctly retrieve the order using order_id
+    if order:
+        return render_template('track_order.html', order=order, title="Track Order")
+    else:
+        flash('Order not found.', 'danger')
+        return redirect(url_for('accountdetails'))
+
 
 @app.route('/filter_restaurants/<filter_by>/<filter_value>')
 def filter_restaurants(filter_by, filter_value):

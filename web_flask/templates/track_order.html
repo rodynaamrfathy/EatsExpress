@@ -6,38 +6,35 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/footer.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/header.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/track_order.css') }}">
-    <title>Order Tracker</title>
+    <title>{{ title }}</title>
 </head>
 <body>
     <header class="header">
         {% include 'header.html' %}
     </header>
     <main>
-    <div class="container">
-        <div class="order-tracker">
-            <div class="step">
-                <img src="{{ url_for('static', filename='css/assets/track/confirmed.png') }}" alt="Confirmed">
-                <p>confirmed</p>
+        <div class="container">
+            <div class="order-tracker">
+                <div class="step">
+                    <img src="{{ url_for('static', filename='css/assets/track/confirmed.png') }}" alt="Confirmed">
+                    <p>confirmed</p>
+                </div>
+                <div class="step">
+                    <img src="{{ url_for('static', filename='css/assets/track/prepared.png') }}" alt="Prepared">
+                    <p>prepared</p>
+                </div>
+                <div class="step">
+                    <img src="{{ url_for('static', filename='css/assets/track/on_way.png') }}" alt="On its way">
+                    <p>on its way</p>
+                </div>
+                <div class="step">
+                    <img src="{{ url_for('static', filename='css/assets/track/delivered.png') }}" alt="Delivered">
+                    <p>Delivered</p>
+                </div>
             </div>
-            <div class="step">
-                <img src="{{ url_for('static', filename='css/assets/track/prepared.png') }}" alt="Prepared">
-                <p>prepared</p>
-            </div>
-            <div class="step">
-                <img src="{{ url_for('static', filename='css/assets/track/on_way.png') }}" alt="On it's way">
-                <p>on it's way</p>
-            </div>
-            <div class="step">
-                <img src="{{ url_for('static', filename='css/assets/track/delivered.png') }}" alt="Delivered">
-                <p>Delivered</p>
-            </div>
+            <div id="status"></div>
         </div>
-        <div id="status"></div>
-    </div>
     </main>
-    <footer class="footer">
-        {% include 'footer.html' %}
-    </footer>
     <script>
         const steps = document.querySelectorAll('.step');
         const status = document.getElementById('status');

@@ -57,6 +57,9 @@
                     <p>Address: {{ order.address }}</p>
                     <p>Delivery Time: {{ order.delivery_time }}</p>
                     <p>Order Created At: {{ order.created_at }}</p>
+                    <div class="order-actions" style="margin-top: 20px;">
+                        <a href="{{ url_for('track_order', order_id=order.id) }}" class="track-order-btn">Track Order</a>
+                    </div>
                 </div>
             {% endfor %}
         </div>
