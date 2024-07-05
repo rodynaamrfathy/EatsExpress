@@ -351,6 +351,31 @@ def view_cart():
         flash('You need to log in to view your cart.', 'danger')
         return redirect(url_for('login'))
 
+@app.route('/update_cart_item/<item_id>/<action>', methods=['POST'])
+def update_cart_item(item_id, action):
+    if 'user_id' in session:
+        user = storage.get(User, session['user_id'])
+        cart = next((c for c in storage.all(Cart).values() if c.user_id == user.id), None)
+
+        if cart:
+            item = next((i for i in cart.menu_items if str(i['id']) == item_id), None)
+
+            if item:
+                if action == 'increase':
+                    item['quantity'] += 1
+                elif action == 'decrease':
+                    if item['quantity'] > 1:
+                        item['quantity'] -= 1
+                    else:
+                        cart.menu_items.remove(item)
+                        flash('Item was deleted from the cart', 'warning')
+
+                storage.save()
+                return redirect(url_for('view_cart'))
+
+    flash('Something went wrong. Please try again.', 'danger')
+    return redirect(url_for('view_cart'))
+
 @app.route('/completeorder', methods=['GET', 'POST'])
 def completeorder():
     if 'user_id' in session:
