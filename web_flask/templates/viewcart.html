@@ -6,12 +6,29 @@
   <link rel="stylesheet" href="{{ url_for('static', filename='css/header+loggedin.css') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/footer.css') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/viewcart.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/flash_messages.css') }}">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
   <title>{{ title }}</title>
 </head>
 <body>
   <header class="header">
     {% include 'header+order.html' %}
   </header>
+
+  <div class="flash-messages">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      {% for category, message in messages %}
+      <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+        {{ message }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      {% endfor %}
+    {% endif %}
+    {% endwith %}
+  </div>
 
   <main class="main">
     <div class="cart-container">
@@ -27,6 +44,8 @@
       </div>
       <div class="cart-summary">
         <h3>Total: ${{ cart_items | sum(attribute='price') }}</h3>
+        <p>Delivery Fee: ${{ restaurant.delivery_fee }}</p>
+        <h3>Grand Total: ${{ cart_items | sum(attribute='price') + restaurant.delivery_fee }}</h3>
         <form action="{{ url_for('completeorder') }}" method="get">
           <button type="submit" class="checkout-btn">Proceed with order</button>
         </form>
@@ -37,5 +56,9 @@
   <footer class="footer">
     {% include 'footer.html' %}
   </footer>
+
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </body>
 </html>
