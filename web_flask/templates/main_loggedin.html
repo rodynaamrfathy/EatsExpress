@@ -17,22 +17,23 @@
       {% include 'header+loggedin.html' %}
     </header>
 
-    <main class="main">
-      <div class="container mt-3">
-        {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}
-        <div class="alert alert-dismissible fade show" role="alert">
-          {% for category, message in messages %}
-          <div class="alert alert-{{ category }}">{{ message }}</div>
-          {% endfor %}
-          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        {% endif %}
-        {% endwith %}
+    <!-- Flash Messages Container -->
+    <div class="flash-messages">
+      {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+      <div class="alert alert-dismissible fade show" role="alert">
+        {% for category, message in messages %}
+        <div class="alert alert-{{ category }}">{{ message }}</div>
+        {% endfor %}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
       </div>
+      {% endif %}
+      {% endwith %}
+    </div>
 
+    <main class="main">
       <section id="home" class="home-section">
         <div class="home-banner">
           <img src="{{ url_for('static', filename='css/assets/banner1.png') }}" alt="Salad Image" class="banner1">
