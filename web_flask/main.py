@@ -362,6 +362,7 @@ def completeorder():
             restaurant_delivery_time = int(restaurant.delivery_time.split()[0])
             delivery_time = restaurant_delivery_time + 10
             total_price = sum(item['price'] * item['quantity'] for item in cart.menu_items)
+            total_price_with_delivery = total_price + restaurant.delivery_fee
 
             if request.method == 'POST':
                 address = request.form['address']
@@ -369,7 +370,7 @@ def completeorder():
                 new_order = Order(
                     user_id=user.id,
                     restaurant_id=cart.restaurant_id,
-                    total_price=total_price,
+                    total_price=total_price_with_delivery,
                     address=address,
                     delivery_time=f"{delivery_time} minutes"
                 )
@@ -385,13 +386,14 @@ def completeorder():
                 flash('Order placed successfully!', 'success')
                 return redirect(url_for('home'))
 
-            return render_template('complete_order.html', title="Complete Order", cart_items=cart.menu_items, total_price=total_price, delivery_time=f"{delivery_time} minutes")
+            return render_template('complete_order.html', title="Complete Order", cart_items=cart.menu_items, total_price=total_price_with_delivery, delivery_time=f"{delivery_time} minutes")
         else:
             flash('Your cart is empty.', 'info')
             return redirect(url_for('main'))
     else:
         flash('You need to log in to complete your order.', 'danger')
         return redirect(url_for('login'))
+
 
 @app.route('/track_order/<order_id>')
 def track_order(order_id):
