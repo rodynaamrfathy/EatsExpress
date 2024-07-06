@@ -30,20 +30,28 @@ body, html {
   border-radius: 24px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   gap: 40px;
-  width: 90%; /* Adjust width as needed */
+  width: 90%;
+  max-width: 1700px;
+}
+
+.item-image {
+  flex: 1;
 }
 
 .form-container img {
-  width: 400px;
+  width: 100%;
   height: auto;
   border-radius: 24px;
 }
 
 .item-details {
+  flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: center;
   padding: 20px;
+  text-align: center;
+  align-items: flex-end;
 }
 
 .item-details h1 {
