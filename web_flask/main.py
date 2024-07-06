@@ -442,6 +442,8 @@ def filter_restaurants(filter_by, filter_value):
             restaurants.append(restaurant)
         elif filter_by == 'beverages' and filter_value in restaurant.beverages:
             restaurants.append(restaurant)
+    if restaurants == []:
+        flash('No restaurants found.', 'danger')
     return render_template('filtered_restaurants.html', restaurants=restaurants, title=f"Restaurants - {filter_value}")
 
 @app.route('/search_restaurants', methods=['GET'])

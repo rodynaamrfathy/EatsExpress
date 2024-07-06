@@ -14,27 +14,28 @@
     <header class="header">
         {% include 'header.html' %}
     </header>
-    <main class="main">
-        <div class="container mt-3">
-            {% with messages = get_flashed_messages(with_categories=true) %}
-            {% if messages %}
-            <div class="alert alert-dismissible fade show" role="alert">
-                {% for category, message in messages %}
-                <div class="alert alert-{{ category }}">{{ message }}</div>
-                {% endfor %}
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            {% endif %}
-            {% endwith %}
+    
+    <div class="flash-messages">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        <div class="alert alert-dismissible fade show" role="alert">
+            {% for category, message in messages %}
+            <div class="alert alert-{{ category }}">{{ message }}</div>
+            {% endfor %}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
         </div>
-
+        {% endif %}
+        {% endwith %}
+    </div>
+    
+    <main class="main">
         <section id="filtered-restaurants" style="margin-top: 100px;">
             <div class="items-container" style="margin: 50px;">
                 {% for restaurant in restaurants %}
                 <a href="{{ url_for('restaurant_details', restaurant_id=restaurant.id) }}" class="item">
-                    <div class="item-content">
+                    <div class="item-content" style="margin: 50px;">
                         <div class="item-logo">
                             <img src="{{ url_for('static', filename=restaurant.image.split('static/')[1]) }}" alt="{{ restaurant.name }}">
                         </div>
