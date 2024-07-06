@@ -43,7 +43,7 @@ def login():
             session['email'] = user.email
             flash('Logged in successfully!', 'success')
             if user.username == 'Admin':
-                return redirect(url_for('choice'))
+                return redirect(url_for('adminpage'))
             return redirect(url_for('home'))
         else:
             flash('Invalid credentials, please try again.', 'danger')
@@ -139,9 +139,15 @@ def restaurant_details(restaurant_id):
     
     return render_template('restaurant_details.html', restaurant=restaurant, menu_items=menu_items, title=restaurant.name)
 
-@app.route('/choice')
-def choice():
-    return render_template('choice.html', title="Choose Action")
+@app.route('/adminpage')
+def adminpage():
+    user_id = session.get('user_id')
+    if user_id:
+        user = storage.get(User, user_id)
+        if user and user.username == "Admin":
+            return render_template('adminpage.html', title="Choose Action")
+    flash('Only admins have access to this page.', 'danger')
+    return redirect(url_for('home'))
 
 @app.route('/create_restaurant', methods=['GET', 'POST'])
 def create_restaurant():
@@ -185,9 +191,14 @@ def create_restaurant():
         storage.save()
         flash('Restaurant created successfully!', 'success')
         return redirect(url_for('viewall'))
-
-    return render_template('create_restaurant.html', title="Create New Restaurant")
-
+    
+    user_id = session.get('user_id')
+    if user_id:
+        user = storage.get(User, user_id)
+        if user and user.username == "Admin":
+            return render_template('create_restaurant.html', title="Create New Restaurant")
+    flash('Only admins have access to this page.', 'danger')
+    return redirect(url_for('home'))
 
 @app.route('/add_menu_item', methods=['GET', 'POST'])
 def add_menu_item():
@@ -223,8 +234,13 @@ def add_menu_item():
         storage.save()
         flash('Menu item added successfully!', 'success')
         return redirect(url_for('viewall'))
-
-    return render_template('add_menu_item.html', title="Create New Item")
+    user_id = session.get('user_id')
+    if user_id:
+        user = storage.get(User, user_id)
+        if user and user.username == "Admin":
+            return render_template('add_menu_item.html', title="Create New Item")
+    flash('Only admins have access to this page.', 'danger')
+    return redirect(url_for('home'))
 
 @app.route('/view_account')
 def view_account():
@@ -461,7 +477,8 @@ def search_restaurants():
             query in restaurant.breakfast.lower() or
             query in restaurant.beverages.lower()):
             restaurants.append(restaurant)
-    
+    if restaurants == []:
+        flash('No restaurants found.', 'danger')
     return render_template('filtered_restaurants.html', restaurants=restaurants, title=f"Search Results for '{query}'")
 
 @app.route('/logout', methods=['POST'])
