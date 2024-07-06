@@ -37,7 +37,22 @@
             <a href="{{ url_for('add_menu_item') }}"><button type="button" class="action-button">Add Menu Item</button></a>
         </div>
     </div>
-    <h2>Orders:</h2>
+    <div class="filter-container">
+        <h2>Orders:</h2>
+        <form method="GET" action="{{ url_for('adminpage') }}">
+            <div class="form-group">
+                <label for="orderFilter">Filter Orders:</label>
+                <select class="form-control" id="orderFilter" name="status">
+                    <option value="all">All (excluding delivered)</option>
+                    <option value="delivered">Delivered</option>
+                    <option value="cancelled">Cancelled</option>
+                    <option value="confirmed">Confirmed</option>
+                    <option value="prepared">Prepared</option>
+                </select>
+                <button type="submit" class="Apply-Filter">Apply Filter</button>
+            </div>
+        </form>
+    </div>
     <div class="orders">
         {% for order in orders %}
             <div class="order-item">

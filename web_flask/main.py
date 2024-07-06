@@ -138,7 +138,16 @@ def restaurant_details(restaurant_id):
 @app.route('/adminpage')
 def adminpage():
     user_id = session.get('user_id')
+    filter_status = request.args.get('status', 'all')
+
     orders = [order for order in storage.all(Order).values()]
+    if filter_status != 'all':
+        if filter_status == 'all_excluding_delivered':
+            orders = [order for order in orders if order.status != 'delivered']
+        else:
+            orders = [order for order in orders if order.status == filter_status]
+    else:
+        orders = [order for order in orders if order.status != 'delivered']
     
     order_list = []
     for order in orders:
@@ -153,6 +162,7 @@ def adminpage():
             'status': order.status
         }
         order_list.append(order_dict)
+    
     if user_id:
         user = storage.get(User, user_id)
         if user and user.username == "Admin":

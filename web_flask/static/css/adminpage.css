@@ -17,7 +17,7 @@
     flex: 1;
 }
 
-.action-buttons button, .order-item button.action-button {
+.action-buttons button, .order-item button.action-button, .Apply-Filter {
     width: 100%;
     padding: 20px;
     font-size: 20px;
@@ -31,7 +31,7 @@
     margin-bottom: 10px;
 }
 
-.action-buttons button:hover, .order-item button.action-button:hover {
+.action-buttons button:hover, .order-item button.action-button:hover, .Apply-Filter:hover {
     background-color: #FF8C00;
 }
 
@@ -74,4 +74,37 @@
 
 .order-item .button-container form {
     flex: 1;
+}
+
+.filter-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.filter-container h2 {
+    margin: 0;
+}
+
+.filter-container .form-group {
+    display: flex;
+    align-items: center;
+    margin: 0;
+}
+
+.filter-container .form-group label {
+    margin-right: 10px;
+    white-space: nowrap; /* Prevents line breaks */
+}
+
+.filter-container .form-group select {
+    margin-right: 10px;
+}
+
+.Apply-Filter {
+    padding: 10px 20px;
+    margin-top: 0;
+    height: 40px;
+    white-space: nowrap; /* Prevents line breaks */
 }
