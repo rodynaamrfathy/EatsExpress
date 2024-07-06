@@ -111,10 +111,6 @@ def home():
         flash('You need to log in to access this page.', 'danger')
         return redirect(url_for('login'))
 
-@app.route('/search')
-def search():
-    return render_template('filter.html', title="EatsExpress - Search")
-
 @app.route('/item')
 def item():
     return render_template('add_item_to_cart.html', title="EatsExpress - item")
@@ -142,10 +138,25 @@ def restaurant_details(restaurant_id):
 @app.route('/adminpage')
 def adminpage():
     user_id = session.get('user_id')
+    orders = [order for order in storage.all(Order).values()]
+    
+    order_list = []
+    for order in orders:
+        restaurant = storage.get(Restaurant, order.restaurant_id)
+        order_dict = {
+            'id': order.id,  # Include the order ID
+            'restaurant_name': restaurant.name if restaurant else "Unknown Restaurant",
+            'total_price': order.total_price,
+            'address': order.address,
+            'delivery_time': order.delivery_time,
+            'created_at': order.created_at.strftime('%Y-%m-%d %H:%M:%S'),
+            'status': order.status
+        }
+        order_list.append(order_dict)
     if user_id:
         user = storage.get(User, user_id)
         if user and user.username == "Admin":
-            return render_template('adminpage.html', title="Choose Action")
+            return render_template('adminpage.html', title="Choose Action", orders=order_list)
     flash('Only admins have access to this page.', 'danger')
     return redirect(url_for('home'))
 
@@ -264,12 +275,13 @@ def accountdetails():
         for order in orders:
             restaurant = storage.get(Restaurant, order.restaurant_id)
             order_dict = {
-                'id': order.id,  # Include the order ID
-                'restaurant_name': restaurant.name if restaurant else "Unknown Restaurant",
-                'total_price': order.total_price,
-                'address': order.address,
-                'delivery_time': order.delivery_time,
-                'created_at': order.created_at.strftime('%Y-%m-%d %H:%M:%S')
+            'id': order.id,  # Include the order ID
+            'restaurant_name': restaurant.name if restaurant else "Unknown Restaurant",
+            'total_price': order.total_price,
+            'address': order.address,
+            'delivery_time': order.delivery_time,
+            'created_at': order.created_at.strftime('%Y-%m-%d %H:%M:%S'),
+            'status': order.status
             }
             order_list.append(order_dict)
         
@@ -489,6 +501,31 @@ def logout():
     flash('You have been logged out.', 'success')
     return redirect(url_for('main'))
 
+@app.route('/cancelorder', methods=['POST'])
+def cancelorder():
+    order_id = request.form.get('order_id')
+    order = storage.get(Order, order_id)
+    if order:
+        order.status = 'cancelled'
+        storage.save()
+        flash('Order cancelled.', 'success')
+    else:
+        flash('Order not found.', 'danger')
+
+    return redirect(url_for('adminpage'))
+
+@app.route('/confirmorder', methods=['POST'])
+def confirmorder():
+    order_id = request.form.get('order_id')
+    order = storage.get(Order, order_id)
+    if order:
+        order.status = 'confirmed'
+        storage.save()
+        flash('Order confirmed.', 'success')
+    else:
+        flash('Order not found.', 'danger')
+
+    return redirect(url_for('adminpage'))
 
 if __name__ == '__main__':
     app.run(debug=True, port=5001)

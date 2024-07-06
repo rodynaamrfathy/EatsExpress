@@ -5,20 +5,61 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Choose Action</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/header.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/create_account.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/choice.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/adminpage.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/flash_messages.css') }}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 </head>
 <body>
     <header class="header">
         {% include 'header.html' %}
     </header>
+    <div class="container mt-3">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        <div class="flash-messages">
+            {% for category, message in messages %}
+            <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+        {% endwith %}
+    </div>
     <div class="form-container">
         <h1>Choose Action</h1>
         <div class="action-buttons">
-            <a href="{{ url_for('create_restaurant') }}"><button type="button">Create Restaurant</button></a>
-            <a href="{{ url_for('add_menu_item') }}"><button type="button">Add Menu Item</button></a>
+            <a href="{{ url_for('create_restaurant') }}"><button type="button" class="action-button">Create Restaurant</button></a>
+            <a href="{{ url_for('add_menu_item') }}"><button type="button" class="action-button">Add Menu Item</button></a>
         </div>
     </div>
+    <h2>Orders:</h2>
+    <div class="orders">
+        {% for order in orders %}
+            <div class="order-item">
+                <h3>Order from {{ order.restaurant_name }}</h3>
+                <p>Total Price: ${{ order.total_price }}</p>
+                <p>Address: {{ order.address }}</p>
+                <p>Delivery Time: {{ order.delivery_time }}</p>
+                <p>Order Created At: {{ order.created_at }}</p>
+                <p>Order Status: {{ order.status }}</p>
+                <form method="POST" action="{{ url_for('cancelorder') }}" style="display:inline-block;">
+                    <input type="hidden" name="order_id" value="{{ order.id }}">
+                    <button type="submit" class="action-button">Cancel Order</button>
+                </form>
+                <form method="POST" action="{{ url_for('confirmorder') }}" style="display:inline-block;">
+                    <input type="hidden" name="order_id" value="{{ order.id }}">
+                    <button type="submit" class="action-button">Confirm Order</button>
+                </form>
+            </div>
+        {% endfor %}
+    </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </body>
 </html>

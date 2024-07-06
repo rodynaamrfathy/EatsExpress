@@ -25,6 +25,8 @@ class Order(BaseModel, Base):
          restaurant = relationship("Restaurant", back_populates="orders")
          address = Column(String(256), nullable=True)
          delivery_time = Column(String(60), nullable=True)
+         status = Column(String(60), nullable=True)
+         
     else:
         user_id = ""
         total_price = 0
@@ -32,6 +34,7 @@ class Order(BaseModel, Base):
         restaurant_id = ""
         address = ""
         delivery_time = ""
+        status = "none"
 
     def __init__(self, *args, **kwargs):
         """Initializes Order"""
