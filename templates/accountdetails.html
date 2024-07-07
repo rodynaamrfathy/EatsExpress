@@ -14,10 +14,10 @@
     <header class="header">
         {% include 'header.html' %}
         <form method="POST" action="{{ url_for('logout') }}">
-            <button type="submit" class="logout-button">Logout</button>
+            <button type="submit" class="logout-button" style="margin-top: 0px;">Logout</button>
         </form>
     </header>
-    <main class="main">
+    <main class="main" style="margin-top: 100px;">
         <div class="container mt-3">
             {% with messages = get_flashed_messages(with_categories=true) %}
             {% if messages %}
@@ -61,8 +61,6 @@
                 <input type="text" value="{{ user.last_name }}" readonly>
                 <label>Phone Number</label>
                 <input type="text" value="{{ user.phone_number }}" readonly>
-                <label>Address</label>
-                <input type="text" value="{{ user.address }}" readonly>
             </div>
             <form method="POST" action="{{ url_for('delete_account') }}">
                 <button type="submit" class="delete-account">Delete account</button>
@@ -77,9 +75,12 @@
                     <p>Address: {{ order.address }}</p>
                     <p>Delivery Time: {{ order.delivery_time }}</p>
                     <p>Order Created At: {{ order.created_at }}</p>
+                    <p>Order Status: {{ order.status }}</p>
+                    {%if order.status != "cancelled" or order.status != "delivered" %}
                     <div class="order-actions" style="margin-top: 20px;">
                         <a href="{{ url_for('track_order', order_id=order.id) }}" class="track-order-btn">Track Order</a>
-                    </div>
+                    </div>                    
+                    {% endif %}
                 </div>
             {% endfor %}
         </div>
