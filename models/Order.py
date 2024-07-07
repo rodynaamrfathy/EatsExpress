@@ -16,34 +16,26 @@ if models.storage_t == 'db':
 class Order(BaseModel, Base):
     """Representation of an order"""
     if models.storage_t == 'db':
-        __tablename__ = 'orders'
-        user_id = Column(Integer, ForeignKey('users.id'), nullable=False)
-        product_name = Column(String(128), nullable=False)
-        quantity = Column(Integer, nullable=False)
-        price = Column(Integer, nullable=False)
-        user = relationship("User", back_populates="orders")
-
+         __tablename__ = 'orders'
+         user_id = Column(String(60), ForeignKey('users.id'), nullable=False)
+         menu_items = relationship("MenuItem", backref="order")
+         total_price = Column(Integer, nullable=False)
+         user = relationship("User", back_populates="orders")
+         restaurant_id = Column(String(60), ForeignKey('restaurants.id'), nullable=False)
+         restaurant = relationship("Restaurant", back_populates="orders")
+         address = Column(String(256), nullable=True)
+         delivery_time = Column(String(60), nullable=True)
+         status = Column(String(60), nullable=True)
+         
     else:
-
         user_id = ""
-        product_name_name = ""
-        quantity = ""
-        price = 0
-        products_ids = []
+        total_price = 0
+        menu_items = []
+        restaurant_id = ""
+        address = ""
+        delivery_time = ""
+        status = "none"
 
     def __init__(self, *args, **kwargs):
-        """initializes Order"""
+        """Initializes Order"""
         super().__init__(*args, **kwargs)
-
-    if models.storage_t != 'db':
-        
-        @property
-        def products(self):
-            """getter attribute returns the list of Product instances"""
-            from models.Restaurant import Restaurant
-            product_list = []
-            all_products = models.storage.all(Restaurant)
-            for product in all_products.values():
-                if product.order_id == self.id:
-                    product_list.append(Restaurant)
-            return product_list
