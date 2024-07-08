@@ -8,9 +8,10 @@ from models.Restaurant import Restaurant
 from models.Review import Review
 from models.Cart import Cart
 from models.MenuItem import MenuItem
+from models.Address import Address
 import shlex  # for splitting the line along spaces except in double quotes
 
-classes = {"User": User, "Order": Order, "Review": Review, "Restaurant": Restaurant, "Cart":Cart ,"MenuItem": MenuItem}
+classes = {"User": User, "Order": Order, "Review": Review, "Restaurant": Restaurant, "Cart":Cart ,"MenuItem": MenuItem, "Address": Address}
 
 class YourCommand(cmd.Cmd):
     """ Console for managing ORM entities """

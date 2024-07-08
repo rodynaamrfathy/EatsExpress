@@ -6,44 +6,53 @@
   <link rel="stylesheet" href="{{ url_for('static', filename='css/header+loggedin.css') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/footer.css') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/add_address.css') }}">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
   <title>{{ title }}</title>
 </head>
 <body>
   <header class="header">
-    <!-- Include the header+loggedin.html file -->
-    {% include 'header+loggedin.html' %}
+    {% include 'header.html' %}
   </header>
 
-  <main class="main" style="flex: 1;">
-    <div class="add-address-container">
-      <h1>Add New Address</h1>
-      <form>
-        <label for="address-line1">Address Line 1:</label>
-        <input type="text" id="address-line1" name="address-line1" required>
-        
-        <label for="address-line2">Address Line 2:</label>
-        <input type="text" id="address-line2" name="address-line2">
-        
-        <label for="city">City:</label>
-        <input type="text" id="city" name="city" required>
-        
-        <label for="state">State/Province:</label>
-        <input type="text" id="state" name="state" required>
-        
-        <label for="zip">ZIP/Postal Code:</label>
-        <input type="text" id="zip" name="zip" required>
-        
-        <label for="country">Country:</label>
-        <input type="text" id="country" name="country" required>
-        
-        <button type="submit">Save Address</button>
+  <main>
+    <div class="container mt-3">
+      {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+      <div class="alert alert-dismissible fade show" role="alert">
+        {% for category, message in messages %}
+        <div class="alert alert-{{ category }}">{{ message }}</div>
+        {% endfor %}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      {% endif %}
+      {% endwith %}
+    </div>
+
+    <div class="form-container" style="margin-top: 200px;">
+      <form action="{{ url_for('addaddress') }}" method="post">
+        <div class="input-group">
+          <input type="text" name="title" placeholder="Title" required>
+          <input type="text" name="address_line1" placeholder="Address Line 1" required>
+        </div>
+        <input type="text" name="address_line2" placeholder="Address Line 2">
+        <div class="input-group">
+          <input type="text" name="city" placeholder="City" required>
+          <input type="text" name="government" placeholder="Government" required>
+        </div>
+        <input type="text" name="postal_code" placeholder="Postal Code" required>
+        <button type="submit" class="button btn btn-primary">Save Address</button>
       </form>
     </div>
   </main>
 
   <footer class="footer">
-    <!-- Include the footer.html file -->
     {% include 'footer.html' %}
   </footer>
+
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </body>
 </html>

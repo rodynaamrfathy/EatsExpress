@@ -1,9 +1,10 @@
-from flask import render_template, session, redirect, url_for, flash
+from flask import render_template, session, redirect, url_for, flash, request
 from app import app
 from models import storage
 from models.User import User
 from models.Order import Order
 from models.Restaurant import Restaurant
+from models.Address import Address
 
 @app.route('/view_account')
 def view_account():
@@ -84,7 +85,37 @@ def inject_user():
     return dict(user=None)
 
 
-
-@app.route('/addaddress')
+@app.route('/addaddress', methods=['GET', 'POST'])
 def addaddress():
-    return render_template('add_address.html', title="EatsExpress - add address")
+
+    if 'user_id' not in session:
+        flash('You must be logged in to add an address.', 'danger')
+        return redirect(url_for('login'))
+    
+    userID = session.get('user_id')
+
+    if request.method == 'POST':
+        title = request.form['title']
+        address_line1 = request.form['address_line1']
+        address_line2 = request.form.get('address_line2', '')  # Optional field
+        city = request.form['city']
+        government = request.form['government']
+        postal_code = request.form['postal_code']
+
+        new_address = Address(
+            title=title,
+            address_line1=address_line1,
+            address_line2=address_line2,
+            city=city,
+            government=government,
+            postal_code=postal_code,
+            country='Egypt',  # Assuming a default value if not provided
+            user_id=userID
+        )
+        storage.new(new_address)
+        storage.save()  # Assuming this method commits the transaction
+
+        flash('Address added successfully!', 'success')
+        return redirect(url_for('view_cart'))  
+
+    return render_template('add_address.html', title="EatsExpress - Add Address")

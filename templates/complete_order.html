@@ -55,9 +55,17 @@
           {% endfor %}
         </div>
         <div class="choose-address">
-          <h2>Delivery Address</h2>
-          <label for="address">Enter Address:</label>
-          <input type="text" id="address" name="address" required>
+          <h2>Choose Delivery Address</h2>
+        <form method="post">
+          <label for="address">Select Address:</label>
+          <select id="address" name="address">
+            {% for address in addresses %}
+              <option value="{{ address.id }}">{{ address.title }} - {{ address.address_line1 }}, {{ address.city }}, {{ address.country }}</option>
+            {% endfor %}
+          </select>
+          <a href="{{ url_for('addaddress') }}">
+            <button type="button" class="add-address-btn">Add New Address</button>
+          </a>
         </div>
         <div class="total-price">
           <h2>Total: ${{ total_price }}</h2>

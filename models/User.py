@@ -21,6 +21,7 @@ class User(BaseModel, Base):
         phone_number = Column(String(20), nullable=True)
         orders = relationship("Order", back_populates="user")
         cart = relationship("Cart", uselist=False, back_populates="user")
+        addresses = relationship("Address", uselist=False, back_populates="user")
         
     else:
         email = ""
@@ -29,6 +30,7 @@ class User(BaseModel, Base):
         last_name = ""
         phone_number = ""
         cart = []
+        addresses = []
 
     def _init_(self, *args, **kwargs):
         """initializes user"""

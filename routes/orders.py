@@ -6,6 +6,7 @@ from models import storage
 from models.User import User
 from models.Cart import Cart
 from models.Restaurant import Restaurant
+from models.Address import Address
 from datetime import datetime
 
 
@@ -27,43 +28,41 @@ def track_order(order_id):
 
 @app.route('/completeorder', methods=['GET', 'POST'])
 def completeorder():
-    if 'user_id' in session:
-        user = storage.get(User, session['user_id'])
-        cart = next((c for c in storage.all(Cart).values() if c.user_id == user.id), None)
-
-        if cart:
-            restaurant = storage.get(Restaurant, cart.restaurant_id)
-            restaurant_delivery_time = int(restaurant.delivery_time.split()[0])
-            delivery_time = restaurant_delivery_time + 10
-            total_price = sum(item['price'] * item['quantity'] for item in cart.menu_items)
-            total_price_with_delivery = total_price + restaurant.delivery_fee
-
-            if request.method == 'POST':
-                address = request.form['address']
-
-                new_order = Order(
-                    user_id=user.id,
-                    restaurant_id=cart.restaurant_id,
-                    total_price=total_price_with_delivery,
-                    address=address,
-                    delivery_time=f"{delivery_time} minutes"
-                )
-
-                for item in cart.menu_items:
-                    new_order.menu_items.append(item)
-
-                storage.new(new_order)
-                storage.save()
-                storage.delete(cart)
-                storage.save()
-
-                flash('Order placed successfully!', 'success')
-                return redirect(url_for('home'))
-
-            return render_template('complete_order.html', title="Complete Order", cart_items=cart.menu_items, total_price=total_price_with_delivery, delivery_time=f"{delivery_time} minutes")
-        else:
-            flash('Your cart is empty.', 'info')
-            return redirect(url_for('main'))
-    else:
+    if 'user_id' not in session:
         flash('You need to log in to complete your order.', 'danger')
         return redirect(url_for('login'))
+
+    user = storage.get(User, session['user_id'])
+    cart = next((c for c in storage.all(Cart).values() if c.user_id == user.id), None)
+    if not cart:
+        flash('Your cart is empty.', 'info')
+        return redirect(url_for('main'))
+
+    restaurant = storage.get(Restaurant, cart.restaurant_id)
+    restaurant_delivery_time = int(restaurant.delivery_time.split()[0])
+    delivery_time = restaurant_delivery_time + 10
+    total_price = sum(item['price'] * item['quantity'] for item in cart.menu_items)
+    total_price_with_delivery = total_price + restaurant.delivery_fee
+    addresses = user.addresses  # Assumed to correctly retrieve all addresses linked to the user
+
+    if request.method == 'POST':
+        address_id = request.form['address']  # Use address ID to identify the selected address
+        address = storage.get(Address, address_id)  # Fetching the full address details using the ID
+        new_order = Order(
+            user_id=user.id,
+            restaurant_id=cart.restaurant_id,
+            total_price=total_price_with_delivery,
+            address=address.full_address,  # Assuming Address model has a method or property to return full formatted address
+            delivery_time=f"{delivery_time} minutes"
+        )
+        for item in cart.menu_items:
+            new_order.menu_items.append(item)
+        storage.new(new_order)
+        storage.save()
+        storage.delete(cart)
+        storage.save()
+        flash('Order placed successfully!', 'success')
+        return redirect(url_for('home'))
+
+    addresses_list = [{'id': addr.id, 'full_address': f"{addr.title} - {addr.address_line1}, {addr.city}"} for addr in addresses]
+    return render_template('complete_order.html', title="Complete Order", cart_items=cart.menu_items, total_price=total_price_with_delivery, delivery_time=f"{delivery_time} minutes", addresses=addresses_list)
