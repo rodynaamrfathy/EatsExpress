@@ -9,6 +9,17 @@ from models.Order import Order
 from datetime import datetime, timedelta
 from werkzeug.utils import secure_filename
 import os
+import re
+
+def convert_to_float(s):
+    # Extract numbers from the string
+    numbers = re.findall(r'\d+', s)
+    if numbers:
+        # Convert the first group of digits to a float
+        return float(numbers[0])
+    return 0.0  # Return 0.0 if no numbers are found
+
+
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'your_secret_key'
@@ -479,16 +490,21 @@ def completeorder():
         flash('You need to log in to complete your order.', 'danger')
         return redirect(url_for('login'))
 
-
 @app.route('/track_order/<order_id>')
 def track_order(order_id):
-    order = storage.get(Order, order_id)  # Correctly retrieve the order using order_id
-    if order:
-        return render_template('track_order.html', order=order, title="Track Order")
-    else:
+    order = storage.get(Order, order_id)
+    if not order:
         flash('Order not found.', 'danger')
         return redirect(url_for('accountdetails'))
 
+    # Calculate if the order should be marked as delivered
+    if order.status == "out for delivery":
+        delivery_time_elapsed = (datetime.utcnow() - order.updated_at).total_seconds() / 60  # in minutes
+        if float(delivery_time_elapsed) > float(convert_to_float(order.delivery_time)):
+            order.status = "delivered"
+            storage.save()  # Assuming you have a method to save the changes
+
+    return render_template('track_order.html', order=order, title="Track Order")
 
 @app.route('/filter_restaurants/<filter_by>/<filter_value>')
 def filter_restaurants(filter_by, filter_value):

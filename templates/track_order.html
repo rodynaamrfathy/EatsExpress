@@ -15,50 +15,48 @@
     <main>
         <div class="container">
             <div class="order-tracker">
-                <div class="step">
+                <div class="step" data-status="confirmed">
                     <img src="{{ url_for('static', filename='css/assets/track/confirmed.png') }}" alt="Confirmed">
-                    <p>confirmed</p>
+                    <p>Confirmed</p>
                 </div>
-                <div class="step">
+                <div class="step" data-status="prepared">
                     <img src="{{ url_for('static', filename='css/assets/track/prepared.png') }}" alt="Prepared">
-                    <p>prepared</p>
+                    <p>Prepared</p>
                 </div>
-                <div class="step">
+                <div class="step" data-status="out for delivery">
                     <img src="{{ url_for('static', filename='css/assets/track/on_way.png') }}" alt="On its way">
-                    <p>on its way</p>
+                    <p>On its way</p>
                 </div>
-                <div class="step">
+                <div class="step" data-status="delivered">
                     <img src="{{ url_for('static', filename='css/assets/track/delivered.png') }}" alt="Delivered">
                     <p>Delivered</p>
                 </div>
             </div>
-            <div id="status"></div>
+            <div id="status" style="text-align: center; margin-top: 20px;">Status: {{ order.status | capitalize }}</div>
         </div>
     </main>
     <script>
         const steps = document.querySelectorAll('.step');
         const status = document.getElementById('status');
-        const totalTime = 10000; // total time in milliseconds
-        const stepTime = totalTime / steps.length;
+        const currentStatus = "{{ order.status }}".toLowerCase();
 
-        let currentStep = 0;
-
-        function updateStep() {
-            if (currentStep < steps.length) {
-                steps[currentStep].classList.add('active');
-                status.textContent = steps[currentStep].querySelector('p').textContent;
-                currentStep++;
-                setTimeout(updateStep, stepTime);
-            } else {
-                status.textContent = "Delivered";
-            }
+        function activateSteps() {
+            let activeReached = false;
+            steps.forEach(step => {
+                const stepStatus = step.getAttribute('data-status');
+                if (stepStatus === currentStatus) {
+                    step.classList.add('active');
+                    status.textContent = "Status: " + step.querySelector('p').textContent;
+                    activeReached = true;
+                } else if (activeReached) {
+                    step.classList.remove('active');
+                } else {
+                    step.classList.add('active');
+                }
+            });
         }
 
-        function startOrder() {
-            setTimeout(updateStep, stepTime);
-        }
-
-        window.onload = startOrder;
+        window.onload = activateSteps;
     </script>
 </body>
 </html>
