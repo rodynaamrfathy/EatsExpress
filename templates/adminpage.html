@@ -33,7 +33,9 @@
     <div class="form-container">
         <h1>Choose Action</h1>
         <div class="action-buttons">
+            {% if email == "Admin@eatsexpress.com" %}
             <a href="{{ url_for('create_restaurant') }}"><button type="button" class="action-button">Create Restaurant</button></a>
+            {% endif %}
             <a href="{{ url_for('add_menu_item') }}"><button type="button" class="action-button">Add Menu Item</button></a>
         </div>
     </div>

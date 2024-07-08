@@ -145,37 +145,34 @@ def restaurant_details(restaurant_id):
 @app.route('/adminpage')
 def adminpage():
     user_id = session.get('user_id')
-    filter_status = request.args.get('status', 'all')
+    if not user_id:
+        flash('You need to log in to access this page.', 'danger')
+        return redirect(url_for('login'))
 
-    orders = [order for order in storage.all(Order).values()]
-    if filter_status != 'all':
-        if filter_status == 'all_excluding_delivered':
-            orders = [order for order in orders if order.status != 'delivered']
-        else:
-            orders = [order for order in orders if order.status == filter_status]
+    user = storage.get(User, user_id)
+    # Check if user's email matches the designated admin email
+    if not user or not user.email.endswith("@eatsexpress.com"):
+        flash('Unauthorized access. Only admins can view this page.', 'danger')
+        return redirect(url_for('home'))
+
+    filter_status = request.args.get('status', 'all')
+    if filter_status == 'all':
+        orders = [order for order in storage.all(Order).values() if order.status != 'delivered']
     else:
-        orders = [order for order in orders if order.status != 'delivered']
-    
-    order_list = []
-    for order in orders:
-        restaurant = storage.get(Restaurant, order.restaurant_id)
-        order_dict = {
-            'id': order.id,  # Include the order ID
-            'restaurant_name': restaurant.name if restaurant else "Unknown Restaurant",
-            'total_price': order.total_price,
-            'address': order.address,
-            'delivery_time': order.delivery_time,
-            'created_at': order.created_at.strftime('%Y-%m-%d %H:%M:%S'),
-            'status': order.status
-        }
-        order_list.append(order_dict)
-    
-    if user_id:
-        user = storage.get(User, user_id)
-        if user and user.username == "Admin":
-            return render_template('adminpage.html', title="Choose Action", orders=order_list)
-    flash('Only admins have access to this page.', 'danger')
-    return redirect(url_for('home'))
+        orders = [order for order in storage.all(Order).values() if order.status == filter_status]
+
+    order_list = [{
+        'id': order.id,
+        'restaurant_name': storage.get(Restaurant, order.restaurant_id).name if storage.get(Restaurant, order.restaurant_id) else "Unknown Restaurant",
+        'total_price': order.total_price,
+        'address': order.address,
+        'delivery_time': order.delivery_time,
+        'created_at': order.created_at.strftime('%Y-%m-%d %H:%M:%S'),
+        'status': order.status
+    } for order in orders]
+
+    return render_template('adminpage.html', title="Choose Action", orders=order_list, email=user.email)
+
 
 @app.route('/create_restaurant', methods=['GET', 'POST'])
 def create_restaurant():
@@ -223,7 +220,7 @@ def create_restaurant():
     user_id = session.get('user_id')
     if user_id:
         user = storage.get(User, user_id)
-        if user and user.username == "Admin":
+        if user and user.username == "Admin" and user.email == "Admin@eatsexpress.com":
             return render_template('create_restaurant.html', title="Create New Restaurant")
     flash('Only admins have access to this page.', 'danger')
     return redirect(url_for('home'))
