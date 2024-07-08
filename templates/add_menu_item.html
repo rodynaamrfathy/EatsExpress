@@ -34,8 +34,11 @@
         <h1>Add Menu Item</h1>
         <form method="post" enctype="multipart/form-data">
             <label for="restaurant_name">Restaurant Name:</label>
-            <input type="text" id="restaurant_name" name="restaurant_name" required>
-
+            {% if is_general_admin %}
+                <input type="text" id="restaurant_name" name="restaurant_name" required>
+            {% else %}
+                <input type="text" id="restaurant_name" name="restaurant_name" value="{{ restaurant_name }}" required readonly>
+            {% endif %}
             <label for="menu_item_name">Item Name:</label>
             <input type="text" id="menu_item_name" name="menu_item_name" required>
 

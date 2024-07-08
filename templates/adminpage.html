@@ -64,14 +64,26 @@
                 <p>Delivery Time: {{ order.delivery_time }}</p>
                 <p>Order Created At: {{ order.created_at }}</p>
                 <p>Order Status: {{ order.status }}</p>
+                {% if email == "Admin@eatsexpress.com" %}
                 <form method="POST" action="{{ url_for('cancelorder') }}" style="display:inline-block;">
                     <input type="hidden" name="order_id" value="{{ order.id }}">
                     <button type="submit" class="action-button">Cancel Order</button>
                 </form>
+                {% endif %}
                 <form method="POST" action="{{ url_for('confirmorder') }}" style="display:inline-block;">
                     <input type="hidden" name="order_id" value="{{ order.id }}">
                     <button type="submit" class="action-button">Confirm Order</button>
                 </form>
+                {% if email != "Admin@eatsexpress.com" %}
+                <form method="POST" action="{{ url_for('orderprepared') }}" style="display:inline-block;">
+                    <input type="hidden" name="order_id" value="{{ order.id }}">
+                    <button type="submit" class="action-button">Order Prepared</button>
+                </form>
+                <form method="POST" action="{{ url_for('outfordelivery') }}" style="display:inline-block;">
+                    <input type="hidden" name="order_id" value="{{ order.id }}">
+                    <button type="submit" class="action-button">Out For Delivery</button>
+                </form>
+                {% endif %}
             </div>
         {% endfor %}
     </div>

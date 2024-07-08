@@ -150,16 +150,19 @@ def adminpage():
         return redirect(url_for('login'))
 
     user = storage.get(User, user_id)
-    # Check if user's email matches the designated admin email
     if not user or not user.email.endswith("@eatsexpress.com"):
         flash('Unauthorized access. Only admins can view this page.', 'danger')
         return redirect(url_for('home'))
 
     filter_status = request.args.get('status', 'all')
-    if filter_status == 'all':
-        orders = [order for order in storage.all(Order).values() if order.status != 'delivered']
+    orders = storage.all(Order).values()
+    if filter_status != 'all':
+        orders = [order for order in orders if order.status == filter_status]
     else:
-        orders = [order for order in storage.all(Order).values() if order.status == filter_status]
+        orders = [order for order in orders if order.status != 'delivered']
+
+    is_general_admin = user.email == "Admin@eatsexpress.com"
+    restaurant_id = None if is_general_admin else user.restaurant_id
 
     order_list = [{
         'id': order.id,
@@ -171,8 +174,11 @@ def adminpage():
         'status': order.status
     } for order in orders]
 
-    return render_template('adminpage.html', title="Choose Action", orders=order_list, email=user.email)
+    # If not a general admin, filter orders to include only those from the admin's restaurant
+    if not is_general_admin:
+        order_list = [order for order in order_list if order['restaurant_name'] == storage.get(Restaurant, restaurant_id).name]
 
+    return render_template('adminpage.html', title="Choose Action", orders=order_list, email=user.email)
 
 @app.route('/create_restaurant', methods=['GET', 'POST'])
 def create_restaurant():
@@ -227,8 +233,23 @@ def create_restaurant():
 
 @app.route('/add_menu_item', methods=['GET', 'POST'])
 def add_menu_item():
+    user_id = session.get('user_id')
+    if not user_id:
+        flash('You need to log in to access this page.', 'danger')
+        return redirect(url_for('login'))
+    
+    user = storage.get(User, user_id)
+    if not user or not user.email.endswith("@eatsexpress.com"):
+        flash('Unauthorized access. Only admins can view this page.', 'danger')
+        return redirect(url_for('home'))
+
+    # Determine if the user is a general admin or a restaurant-specific admin
+    is_general_admin = user.email == "Admin@eatsexpress.com"
+    restaurant = None if is_general_admin else storage.get(Restaurant, user.restaurant_id)
+    restaurant_name = None if is_general_admin else restaurant.name
+
     if request.method == 'POST':
-        restaurant_name = request.form['restaurant_name']
+        restaurant_name = request.form['restaurant_name'] if is_general_admin else restaurant_name
         menu_item_name = request.form['menu_item_name']
         menu_item_price = request.form['menu_item_price']
         menu_item_description = request.form['menu_item_description']
@@ -259,13 +280,10 @@ def add_menu_item():
         storage.save()
         flash('Menu item added successfully!', 'success')
         return redirect(url_for('viewall'))
-    user_id = session.get('user_id')
-    if user_id:
-        user = storage.get(User, user_id)
-        if user and user.username == "Admin":
-            return render_template('add_menu_item.html', title="Create New Item")
-    flash('Only admins have access to this page.', 'danger')
-    return redirect(url_for('home'))
+
+    # Render the page differently based on the type of admin
+    return render_template('add_menu_item.html', title="Create New Item", 
+                           restaurant_name=restaurant_name, is_general_admin=is_general_admin)
 
 @app.route('/view_account')
 def view_account():
@@ -534,6 +552,32 @@ def confirmorder():
     order = storage.get(Order, order_id)
     if order:
         order.status = 'confirmed'
+        storage.save()
+        flash('Order confirmed.', 'success')
+    else:
+        flash('Order not found.', 'danger')
+
+    return redirect(url_for('adminpage'))
+
+@app.route('/orderprepared', methods=['POST'])
+def orderprepared():
+    order_id = request.form.get('order_id')
+    order = storage.get(Order, order_id)
+    if order:
+        order.status = 'prepared'
+        storage.save()
+        flash('Order confirmed.', 'success')
+    else:
+        flash('Order not found.', 'danger')
+
+    return redirect(url_for('adminpage'))
+
+@app.route('/outfordelivery', methods=['POST'])
+def outfordelivery():
+    order_id = request.form.get('order_id')
+    order = storage.get(Order, order_id)
+    if order:
+        order.status = 'out for delivery'
         storage.save()
         flash('Order confirmed.', 'success')
     else:
