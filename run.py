@@ -15,9 +15,11 @@ app.config['SECRET_KEY'] = 'your_secret_key'
 app.config['UPLOAD_FOLDER'] = 'static/uploads'
 app.config['ALLOWED_EXTENSIONS'] = {'png', 'jpg', 'jpeg', 'gif'}
 
+# Function to check if the file has an allowed extension
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in app.config['ALLOWED_EXTENSIONS']
 
+# Function to ensure the upload folder exists
 def ensure_upload_folder_exists():
     if not os.path.exists(app.config['UPLOAD_FOLDER']):
         os.makedirs(app.config['UPLOAD_FOLDER'])
@@ -33,10 +35,13 @@ def login():
         password = request.form['password']
         hashed_password = md5(password.encode()).hexdigest()
         user = None
-        for u in storage.all(User).values():
-            if (u.username == login_id or u.email == login_id) and u.password == hashed_password:
-                user = u
+        
+        # Check user credentials
+        for user_obj in storage.all(User).values():
+            if (user_obj.username == login_id or user_obj.email == login_id) and user_obj.password == hashed_password:
+                user = user_obj
                 break
+
         if user:
             session['user_id'] = user.id
             session['username'] = user.username
@@ -62,10 +67,12 @@ def register():
         password = request.form['password']
         username = request.form['username']
 
+        # Check if email and confirm email match
         if email != confirm_email:
             flash('Emails do not match. Please try again.', 'danger')
             return redirect(url_for('register'))
 
+        # Check if user already exists by email or username
         existing_user_by_email = next((u for u in storage.all(User).values() if u.email == email), None)
         existing_user_by_username = next((u for u in storage.all(User).values() if u.username == username), None)
         
@@ -225,9 +232,9 @@ def create_restaurant():
 def add_menu_item():
     if request.method == 'POST':
         restaurant_name = request.form['restaurant_name']
-        item_name = request.form['menu_item_name']
-        item_price = request.form['menu_item_price']
-        item_description = request.form['menu_item_description']
+        menu_item_name = request.form['menu_item_name']
+        menu_item_price = request.form['menu_item_price']
+        menu_item_description = request.form['menu_item_description']
         image = request.files['image']
 
         if image and allowed_file(image.filename):
@@ -245,9 +252,9 @@ def add_menu_item():
             return redirect(url_for('add_menu_item'))
 
         new_menu_item = MenuItem(
-            name=item_name,
-            price=float(item_price),
-            description=item_description,
+            name=menu_item_name,
+            price=float(menu_item_price),
+            description=menu_item_description,
             restaurant_id=restaurant.id,
             image=image_path
         )
