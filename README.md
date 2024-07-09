@@ -25,7 +25,7 @@ EatsExpress is an online food ordering and delivery service that connects users 
 [Deployed Site](http://rodyna.pythonanywhere.com)
 
 ### Our LinkedIn Accounts
-[Rodyna Amr's LinkedIn Profile](https://www.linkedin.com/in/your-profile) | [Mohammed Yasser's LinkedIn Profile](https://www.linkedin.com/in/your-profile) | [Mohammed Essam's LinkedIn Profile](https://www.linkedin.com/in/your-profile)
+[Rodyna Amr's LinkedIn Profile](https://www.linkedin.com/in/rodyna-amr-22027012cs/) | [Mohammed Yasser's LinkedIn Profile](https://www.linkedin.com/in/mohamed-yasser-42b16a282/) | [Mohammed Essam's LinkedIn Profile](https://www.linkedin.com/in/mohamed-essam-742553279/)
 
 <div align="center">
   <img src="/readmeimages/presentation1.png" alt="presentation" width="100%">
