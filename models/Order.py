@@ -23,7 +23,7 @@ class Order(BaseModel, Base):
          user = relationship("User", back_populates="orders")
          restaurant_id = Column(String(60), ForeignKey('restaurants.id'), nullable=False)
          restaurant = relationship("Restaurant", back_populates="orders")
-         address = Column(String(256), nullable=True)
+         address_id = Column(String(60), ForeignKey('addresses.id'), nullable=False)  # Changed to address_id
          delivery_time = Column(String(60), nullable=True)
          status = Column(String(60), nullable=True)
          
@@ -32,7 +32,7 @@ class Order(BaseModel, Base):
         total_price = 0
         menu_items = []
         restaurant_id = ""
-        address = ""
+        address_id = ""
         delivery_time = ""
         status = "none"
 
