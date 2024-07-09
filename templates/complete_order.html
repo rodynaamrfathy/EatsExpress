@@ -68,7 +68,7 @@
         <div class="choose-address">
           <h2>Choose Delivery Address</h2>
           <label for="address">Select Address:</label>
-          <select id="address" name="address">
+          <select id="address" name="address" required>
             {% for address in addresses %}
               <option value="{{ address.id }}">{{ address.full_address }}</option> <!-- Dropdown list of delivery addresses -->
             {% endfor %}

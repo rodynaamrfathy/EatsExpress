@@ -61,7 +61,10 @@ def completeorder():
     delivery_time = restaurant_delivery_time + 10
     total_price = sum(item['price'] * item['quantity'] for item in cart.menu_items)
     total_price_with_delivery = total_price + restaurant.delivery_fee
-    addresses = user.addresses  # Assumed to correctly retrieve all addresses linked to the user
+
+    # Retrieve all addresses linked to the user
+    addresses = storage.all(Address).values()
+    user_addresses = [addr for addr in addresses if addr.user_id == user.id]
 
     if request.method == 'POST':
         address_id = request.form['address']  # Use address ID to identify the selected address
@@ -69,7 +72,7 @@ def completeorder():
             user_id=user.id,
             restaurant_id=cart.restaurant_id,
             total_price=total_price_with_delivery,
-            address_id=address_id,  # Updated to use address_id
+            address_id=address_id,
             delivery_time=f"{delivery_time} minutes"
         )
         for item in cart.menu_items:
@@ -81,5 +84,5 @@ def completeorder():
         flash('Order placed successfully!', 'success')
         return redirect(url_for('home'))
 
-    addresses_list = [{'id': addr.id, 'full_address': addr.full_address()} for addr in addresses]
+    addresses_list = [{'id': addr.id, 'full_address': addr.full_address()} for addr in user_addresses]
     return render_template('complete_order.html', title="Complete Order", cart_items=cart.menu_items, total_price=total_price_with_delivery, delivery_time=f"{delivery_time} minutes", addresses=addresses_list)

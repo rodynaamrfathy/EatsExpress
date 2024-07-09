@@ -39,14 +39,15 @@ def accountdetails():
         order_list = []
         for order in orders:
             restaurant = storage.get(Restaurant, order.restaurant_id)
+            address = storage.get(Address, order.address_id)  # Fetch the address using address_id
             order_dict = {
-            'id': order.id,  # Include the order ID
-            'restaurant_name': restaurant.name if restaurant else "Unknown Restaurant",
-            'total_price': order.total_price,
-            'address': order.address,
-            'delivery_time': order.delivery_time,
-            'created_at': order.created_at.strftime('%Y-%m-%d %H:%M:%S'),
-            'status': order.status
+                'id': order.id,  # Include the order ID
+                'restaurant_name': restaurant.name if restaurant else "Unknown Restaurant",
+                'total_price': order.total_price,
+                'address': address.full_address() if address else "Unknown Address",  # Use the address object
+                'delivery_time': order.delivery_time,
+                'created_at': order.created_at.strftime('%Y-%m-%d %H:%M:%S'),
+                'status': order.status
             }
             order_list.append(order_dict)
         
@@ -63,6 +64,7 @@ def accountdetails():
     else:
         flash('You need to log in to view your account.', 'danger')
         return redirect(url_for('login'))
+
 
 @app.route('/logout', methods=['POST'])
 def logout():
