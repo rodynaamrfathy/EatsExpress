@@ -4,39 +4,49 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Account Details</title>
+    
+    <!-- Linking to CSS files -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/footer.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/header.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/accountdetails.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/flash_messages.css') }}">
+    
+    <!-- Linking to Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 </head>
 <body>
+    <!-- Header section -->
     <header class="header">
-        {% include 'header.html' %}
+        {% include 'header.html' %} <!-- Including header content -->
         <form method="POST" action="{{ url_for('logout') }}">
             <button type="submit" class="logout-button" style="margin-top: 0px;">Logout</button>
         </form>
     </header>
+
+    <!-- Main content section -->
     <main class="main" style="margin-top: 100px;">
+        <!-- Flash messages container -->
         <div class="container mt-3">
             {% with messages = get_flashed_messages(with_categories=true) %}
             {% if messages %}
+            <!-- Flash messages display using Bootstrap alerts -->
             <div class="alert alert-dismissible fade show" role="alert">
                 {% for category, message in messages %}
-                <div class="alert alert-{{ category }}">{{ message }}</div>
+                <div class="alert alert-{{ category }}">{{ message }}</div> <!-- Displaying flash messages with respective category -->
                 {% endfor %}
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
+                    <span aria-hidden="true">&times;</span> <!-- Close button for alerts -->
                 </button>
             </div>
             {% endif %}
             {% endwith %}
         </div>
         
+        <!-- Account information section -->
         <div class="account-container">
             <div class="account-header">
                 <div class="profile-picture">
-                    <span class="initial">{{ user.first_name[0] if user.first_name else user.username[0] }}</span>
+                    <span class="initial">{{ user.first_name[0] if user.first_name else user.username[0] }}</span> <!-- Displaying user's initial -->
                 </div>
                 <div class="user-info">
                     <h1>
@@ -54,18 +64,20 @@
             </div>
             <div class="account-details">
                 <label>Email</label>
-                <input type="text" value="{{ user.email }}" readonly>
+                <input type="text" value="{{ user.email }}" readonly> <!-- Displaying user's email -->
                 <label>First Name</label>
-                <input type="text" value="{{ user.first_name }}" readonly>
+                <input type="text" value="{{ user.first_name }}" readonly> <!-- Displaying user's first name -->
                 <label>Last Name</label>
-                <input type="text" value="{{ user.last_name }}" readonly>
+                <input type="text" value="{{ user.last_name }}" readonly> <!-- Displaying user's last name -->
                 <label>Phone Number</label>
-                <input type="text" value="{{ user.phone_number }}" readonly>
+                <input type="text" value="{{ user.phone_number }}" readonly> <!-- Displaying user's phone number -->
             </div>
             <form method="POST" action="{{ url_for('delete_account') }}">
-                <button type="submit" class="delete-account">Delete account</button>
+                <button type="submit" class="delete-account">Delete account</button> <!-- Button to delete account -->
             </form>
         </div>
+
+        <!-- Orders section -->
         <div class="orders">
             <h2>Your orders</h2>
             {% for order in orders %}
@@ -78,15 +90,35 @@
                     <p>Order Status: {{ order.status }}</p>
                     {% if order.status != "cancelled" and order.status != "delivered" %}
                     <div class="order-actions" style="margin-top: 20px;">
-                        <a href="{{ url_for('track_order', order_id=order.id) }}" class="track-order-btn">Track Order</a>
+                        <a href="{{ url_for('track_order', order_id=order.id) }}" class="track-order-btn">Track Order</a> <!-- Link to track order -->
                     </div>                    
                     {% endif %}
                 </div>
             {% endfor %}
         </div>
+
+        <!-- Addresses section -->
+        <div class="addresses">
+            <h2>Your Addresses</h2>
+            {% for address in addresses %}
+                <div class="address-item">
+                    <h3>{{ address.title }}</h3>
+                    <p>{{ address.address_line1 }}</p>
+                    {% if address.address_line2 %}
+                        <p>{{ address.address_line2 }}</p>
+                    {% endif %}
+                    <p>{{ address.city }}, {{ address.government }}, {{ address.postal_code }}, {{ address.country }}</p>
+                    <form method="POST" action="{{ url_for('delete_address', address_id=address.id) }}" style="display:inline-block;">
+                        <button type="submit" class="delete-address-btn">Delete Address</button> <!-- Button to delete address -->
+                    </form>
+                </div>
+            {% endfor %}
+        </div>
     </main>
+
+    <!-- Footer section -->
     <footer class="footer">
-        {% include 'footer.html' %}
+        {% include 'footer.html' %} <!-- Including footer content -->
     </footer>
 
     <!-- JavaScript libraries -->

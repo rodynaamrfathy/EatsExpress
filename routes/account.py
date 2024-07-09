@@ -21,20 +21,23 @@ def view_account():
         flash('You need to log in to view your account.', 'danger')
         return redirect(url_for('login'))
     
-@app.route('/accountdetails')
+@app.route('/accountdetails', methods=['GET', 'POST'])
 def accountdetails():
     """
     Route to view detailed account information and orders.
 
     Returns:
-        Renders the account details page with user and order information if the user is logged in, otherwise redirects to login.
+        Renders the account details page with user, order, and address information if the user is logged in, otherwise redirects to login.
     """
     if 'user_id' in session:
         user = storage.get(User, session['user_id'])
-        
+
         # Fetch user's orders
         orders = [order for order in storage.all(Order).values() if order.user_id == user.id]
-        
+
+        # Fetch user's addresses
+        addresses = [address for address in storage.all(Address).values() if address.user_id == user.id]
+
         # Convert orders to dictionaries for easy rendering in the template
         order_list = []
         for order in orders:
@@ -50,7 +53,7 @@ def accountdetails():
                 'status': order.status
             }
             order_list.append(order_dict)
-        
+
         # Convert user to a dictionary
         user_dict = {
             'first_name': user.first_name,
@@ -59,11 +62,34 @@ def accountdetails():
             'email': user.email,
             'phone_number': user.phone_number,
         }
-        
-        return render_template('accountdetails.html', user=user_dict, orders=order_list, title="Account Details")
+
+        return render_template('accountdetails.html', user=user_dict, orders=order_list, addresses=addresses, title="Account Details")
     else:
         flash('You need to log in to view your account.', 'danger')
         return redirect(url_for('login'))
+
+@app.route('/delete_address/<address_id>', methods=['POST'])
+def delete_address(address_id):
+    """
+    Route to delete an address.
+
+    Parameters:
+        address_id (str): The ID of the address to delete.
+
+    Returns:
+        Redirects to the account details page.
+    """
+    if 'user_id' in session:
+        address = storage.get(Address, address_id)
+        if address and address.user_id == session['user_id']:
+            storage.delete(address)
+            storage.save()
+            flash('Address deleted successfully.', 'success')
+        else:
+            flash('Address not found or you do not have permission to delete it.', 'danger')
+    else:
+        flash('You need to log in to delete an address.', 'danger')
+    return redirect(url_for('accountdetails'))
 
 
 @app.route('/logout', methods=['POST'])
