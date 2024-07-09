@@ -30,7 +30,7 @@ def track_order(order_id):
         delivery_time_elapsed = (datetime.utcnow() - order.updated_at).total_seconds() / 60  # in minutes
         if float(delivery_time_elapsed) > float(convert_to_float(order.delivery_time)):
             order.status = "delivered"
-            storage.save()  # Assuming you have a method to save the changes
+            storage.save() 
 
     return render_template('track_order.html', order=order, title="Track Order")
 

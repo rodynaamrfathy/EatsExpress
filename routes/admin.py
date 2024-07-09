@@ -41,7 +41,6 @@ def adminpage():
         'id': order.id,
         'restaurant_name': storage.get(Restaurant, order.restaurant_id).name if storage.get(Restaurant, order.restaurant_id) else "Unknown Restaurant",
         'total_price': order.total_price,
-        'address': order.address,
         'delivery_time': order.delivery_time,
         'created_at': order.created_at.strftime('%Y-%m-%d %H:%M:%S'),
         'status': order.status
