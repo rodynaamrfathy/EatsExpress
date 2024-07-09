@@ -120,7 +120,6 @@ def inject_user():
         return dict(user=user)
     return dict(user=None)
 
-
 @app.route('/addaddress', methods=['GET', 'POST'])
 def addaddress():
     """
@@ -137,7 +136,7 @@ def addaddress():
         flash('You must be logged in to add an address.', 'danger')
         return redirect(url_for('login'))
     
-    userID = session.get('user_id')
+    user_id = session.get('user_id')
 
     if request.method == 'POST':
         title = request.form['title']
@@ -155,12 +154,12 @@ def addaddress():
             government=government,
             postal_code=postal_code,
             country='Egypt',  # Assuming a default value if not provided
-            user_id=userID
+            user_id=user_id
         )
         storage.new(new_address)
         storage.save()  # Assuming this method commits the transaction
 
         flash('Address added successfully!', 'success')
-        return redirect(url_for('view_cart'))  
+        return redirect(url_for('view_cart'))
 
     return render_template('add_address.html', title="EatsExpress - Add Address")

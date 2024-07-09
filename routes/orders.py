@@ -9,7 +9,6 @@ from models.Restaurant import Restaurant
 from models.Address import Address
 from datetime import datetime
 
-
 @app.route('/track_order/<order_id>')
 def track_order(order_id):
     """
@@ -66,12 +65,11 @@ def completeorder():
 
     if request.method == 'POST':
         address_id = request.form['address']  # Use address ID to identify the selected address
-        address = storage.get(Address, address_id)  # Fetching the full address details using the ID
         new_order = Order(
             user_id=user.id,
             restaurant_id=cart.restaurant_id,
             total_price=total_price_with_delivery,
-            address=address.full_address,  # Assuming Address model has a method or property to return full formatted address
+            address_id=address_id,  # Updated to use address_id
             delivery_time=f"{delivery_time} minutes"
         )
         for item in cart.menu_items:
@@ -83,5 +81,5 @@ def completeorder():
         flash('Order placed successfully!', 'success')
         return redirect(url_for('home'))
 
-    addresses_list = [{'id': addr.id, 'full_address': f"{addr.title} - {addr.address_line1}, {addr.city}"} for addr in addresses]
+    addresses_list = [{'id': addr.id, 'full_address': addr.full_address()} for addr in addresses]
     return render_template('complete_order.html', title="Complete Order", cart_items=cart.menu_items, total_price=total_price_with_delivery, delivery_time=f"{delivery_time} minutes", addresses=addresses_list)

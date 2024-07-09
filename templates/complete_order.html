@@ -56,11 +56,10 @@
         </div>
         <div class="choose-address">
           <h2>Choose Delivery Address</h2>
-        <form method="post">
           <label for="address">Select Address:</label>
           <select id="address" name="address">
             {% for address in addresses %}
-              <option value="{{ address.id }}">{{ address.title }} - {{ address.address_line1 }}, {{ address.city }}, {{ address.country }}</option>
+              <option value="{{ address.id }}">{{ address.full_address }}</option>
             {% endfor %}
           </select>
           <a href="{{ url_for('addaddress') }}">
