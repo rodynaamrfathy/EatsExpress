@@ -9,10 +9,11 @@ from models.Order import Order
 from models.Review import Review
 from models.Cart import Cart
 from models.MenuItem import MenuItem
+from models.Address import Address
 import shlex
 from hashlib import md5
 
-classes = {"User": User, "Order": Order, "Review": Review, "Restaurant": Restaurant, "Cart":Cart ,"MenuItem": MenuItem}
+classes = {"User": User, "Order": Order, "Review": Review, "Restaurant": Restaurant, "Cart":Cart ,"MenuItem": MenuItem, "Address": Address}
 
 class FileStorage:
     """serializes instances to a JSON file & deserializes back to instances"""
