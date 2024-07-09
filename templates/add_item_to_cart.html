@@ -13,7 +13,7 @@
 </head>
 <body>
   <header class="header">
-    {% include 'header+order.html' %}
+    {% include 'header+order.html' %} <!-- Including header with order details -->
   </header>
 
   <main class="main">
@@ -22,7 +22,7 @@
       {% if messages %}
       <div class="alert alert-dismissible fade show" role="alert">
         {% for category, message in messages %}
-        <div class="alert alert-{{ category }}">{{ message }}</div>
+        <div class="alert alert-{{ category }}">{{ message }}</div> <!-- Displaying flash messages -->
         {% endfor %}
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
           <span aria-hidden="true">&times;</span>
@@ -35,32 +35,33 @@
     <div class="form-container">
       <div class="item-image">
         {% if menu_item.image %}
-          <img src="{{ url_for('static', filename=menu_item.image.split('static/')[1]) }}" alt="Menu Item Image">
+          <img src="{{ url_for('static', filename=menu_item.image.split('static/')[1]) }}" alt="Menu Item Image"> <!-- Displaying menu item image -->
         {% else %}
-          <img src="{{ url_for('static', filename='css/assets/menu-item-placeholder.png') }}" alt="Menu Item Placeholder">
+          <img src="{{ url_for('static', filename='css/assets/menu-item-placeholder.png') }}" alt="Menu Item Placeholder"> <!-- Placeholder image if menu item image is not available -->
         {% endif %}
       </div>
       <div class="item-details">
-        <h1>{{ menu_item.name }}</h1>
-        <p>{{ menu_item.description }}</p>
-        <p class="price">${{ menu_item.price }}</p>
+        <h1>{{ menu_item.name }}</h1> <!-- Menu item name -->
+        <p>{{ menu_item.description }}</p> <!-- Menu item description -->
+        <p class="price">${{ menu_item.price }}</p> <!-- Menu item price -->
         <form method="post">
           <div class="quantity-container">
             <label for="quantity">Quantity:</label>
-            <button type="button" onclick="decrementQuantity()">-</button>
-            <input type="number" id="quantity" name="quantity" min="1" value="1" required>
-            <button type="button" onclick="incrementQuantity()">+</button>
+            <button type="button" onclick="decrementQuantity()">-</button> <!-- Button to decrease quantity -->
+            <input type="number" id="quantity" name="quantity" min="1" value="1" required> <!-- Quantity input field -->
+            <button type="button" onclick="incrementQuantity()">+</button> <!-- Button to increase quantity -->
           </div>
-          <button type="submit" class="add-to-cart-btn">Add to Cart</button>
+          <button type="submit" class="add-to-cart-btn">Add to Cart</button> <!-- Button to add item to cart -->
         </form>
       </div>
     </div>
   </main>
 
   <footer class="footer">
-    {% include 'footer.html' %}
+    {% include 'footer.html' %} <!-- Including footer content -->
   </footer>
 
+  <!-- JavaScript functions to handle quantity adjustments -->
   <script>
     function incrementQuantity() {
       var quantityInput = document.getElementById('quantity');
@@ -74,6 +75,8 @@
       }
     }
   </script>
+
+  <!-- Bootstrap and jQuery libraries -->
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>

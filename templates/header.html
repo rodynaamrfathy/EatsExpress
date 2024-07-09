@@ -1,6 +1,13 @@
 <div class="navigation">
-  <div class="logo">
-      <a href="{% if user %}{{ url_for('home') }}{% else %}{{ url_for('main') }}{% endif %}">
-          <p class="eats-express"><span class="text-wrapper">EatsExpress</span> <span class="span">.</span></p>
-      </a>
+    <!-- Logo section with conditional link based on user authentication -->
+    <div class="logo">
+        <a href="{% if user %}{{ url_for('home') }}{% else %}{{ url_for('main') }}{% endif %}">
+            <!-- EatsExpress logo text -->
+            <p class="eats-express">
+                <span class="text-wrapper">EatsExpress</span> 
+                <span class="span">.</span>
+            </p>
+        </a>
+    </div>
   </div>
+  

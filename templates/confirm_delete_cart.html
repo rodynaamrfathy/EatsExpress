@@ -3,49 +3,61 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- Linking to CSS files -->
   <link rel="stylesheet" href="{{ url_for('static', filename='css/header+loggedin.css') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/footer.css') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/flash_messages.css') }}">
+  
+  <!-- Linking to Bootstrap CSS -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  
+  <!-- Title of the page -->
   <title>{{ title }}</title>
 </head>
 <body>
+  <!-- Header section -->
   <header class="header">
-    {% include 'header+order.html' %}
+    {% include 'header+order.html' %} <!-- Including header content -->
   </header>
 
+  <!-- Main content section -->
   <main class="main">
     <div class="container mt-3">
       {% with messages = get_flashed_messages(with_categories=true) %}
       {% if messages %}
+      <!-- Flash messages section -->
       <div class="alert alert-dismissible fade show" role="alert">
         {% for category, message in messages %}
-        <div class="alert alert-{{ category }}">{{ message }}</div>
+        <div class="alert alert-{{ category }}">{{ message }}</div> <!-- Displaying flash messages with Bootstrap alert classes -->
         {% endfor %}
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
+          <span aria-hidden="true">&times;</span> <!-- Close button for alert -->
         </button>
       </div>
       {% endif %}
       {% endwith %}
     </div>
 
+    <!-- Form container -->
     <div class="form-container" style="margin: auto; margin-left: 10%; margin-right: 10%;">
       <h1>Confirm Delete Cart</h1>
-      <p>{{ message }}</p>
+      <p>{{ message }}</p> <!-- Displaying message passed from backend -->
       <form method="post">
-        <input type="hidden" name="quantity" value="{{ quantity }}">
-        <button type="submit" name="confirm" value="yes">Yes</button>
-        <button type="submit" name="confirm" value="no" style="color: #ff6f00;">No</button>
+        <input type="hidden" name="quantity" value="{{ quantity }}"> <!-- Hidden input field for quantity -->
+        <button type="submit" name="confirm" value="yes">Yes</button> <!-- Submit button for confirming deletion -->
+        <button type="submit" name="confirm" value="no" style="color: #ff6f00;">No</button> <!-- Submit button for canceling deletion -->
       </form>
     </div>
   </main>
 
+  <!-- Footer section -->
   <footer class="footer">
-    {% include 'footer.html' %}
+    {% include 'footer.html' %} <!-- Including footer content -->
   </footer>
 
+  <!-- JavaScript libraries -->
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>

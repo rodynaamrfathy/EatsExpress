@@ -1,40 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Sets the character encoding for the document -->
     <meta charset="UTF-8">
+    <!-- Sets the viewport to make the website responsive -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Links to external CSS files for styling the page -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/footer.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/header.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/track_order.css') }}">
+    <!-- Sets the title of the page dynamically -->
     <title>{{ title }}</title>
 </head>
 <body>
+    <!-- Header section -->
     <header class="header">
-        {% include 'header.html' %}
+        {% include 'header.html' %} <!-- Includes the header.html template -->
     </header>
+
+    <!-- Main content section -->
     <main>
         <div class="container">
+            <!-- Order tracker section -->
             <div class="order-tracker">
+                <!-- Step: Confirmed -->
                 <div class="step" data-status="confirmed">
                     <img src="{{ url_for('static', filename='css/assets/track/confirmed.png') }}" alt="Confirmed">
                     <p>Confirmed</p>
                 </div>
+                <!-- Step: Prepared -->
                 <div class="step" data-status="prepared">
                     <img src="{{ url_for('static', filename='css/assets/track/prepared.png') }}" alt="Prepared">
                     <p>Prepared</p>
                 </div>
+                <!-- Step: Out for delivery -->
                 <div class="step" data-status="out for delivery">
                     <img src="{{ url_for('static', filename='css/assets/track/on_way.png') }}" alt="On its way">
                     <p>On its way</p>
                 </div>
+                <!-- Step: Delivered -->
                 <div class="step" data-status="delivered">
                     <img src="{{ url_for('static', filename='css/assets/track/delivered.png') }}" alt="Delivered">
                     <p>Delivered</p>
                 </div>
             </div>
+            <!-- Displays the current status of the order -->
             <div id="status" style="text-align: center; margin-top: 20px;">Status: {{ order.status | capitalize }}</div>
         </div>
     </main>
+
+    <!-- JavaScript to dynamically update the steps based on the current status -->
     <script>
         const steps = document.querySelectorAll('.step');
         const status = document.getElementById('status');

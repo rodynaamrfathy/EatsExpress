@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Menu Item</title>
+    
+    <!-- Linking to CSS files -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/header.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/flash_messages.css') }}">
@@ -11,34 +13,40 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 </head>
 <body>
+    <!-- Header section -->
     <header class="header">
-        {% include 'header.html' %}
+        {% include 'header.html' %} <!-- Including header content -->
     </header>
 
+    <!-- Flash messages container -->
     <div class="flash-messages">
         {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
         <div class="alert alert-dismissible fade show" role="alert">
+            <!-- Displaying flash messages -->
             {% for category, message in messages %}
             <div class="alert alert-{{ category }}">{{ message }}</div>
             {% endfor %}
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
+                <span aria-hidden="true">&times;</span> <!-- Close button -->
             </button>
         </div>
         {% endif %}
         {% endwith %}
     </div>
 
+    <!-- Form container for adding a menu item -->
     <div class="form-container" style="margin-top: 250px;">
         <h1>Add Menu Item</h1>
         <form method="post" enctype="multipart/form-data">
             <label for="restaurant_name">Restaurant Name:</label>
+            <!-- Conditional input field based on user role -->
             {% if is_general_admin %}
                 <input type="text" id="restaurant_name" name="restaurant_name" required>
             {% else %}
                 <input type="text" id="restaurant_name" name="restaurant_name" value="{{ restaurant_name }}" required readonly>
             {% endif %}
+            
             <label for="menu_item_name">Item Name:</label>
             <input type="text" id="menu_item_name" name="menu_item_name" required>
 
@@ -55,9 +63,12 @@
         </form>
     </div>
 
+    <!-- JavaScript libraries -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    
+    <!-- Script to fade out flash messages after a delay -->
     <script>
         $(document).ready(function() {
             $(".alert-dismissible").fadeTo(2000, 500).slideUp(500, function(){

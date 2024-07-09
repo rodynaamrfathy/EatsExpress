@@ -1,33 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Sets the character encoding for the document -->
     <meta charset="UTF-8">
+    <!-- Sets the viewport to make the website responsive -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Sets the title of the page -->
     <title>View Account</title>
+    <!-- Links to external CSS files for styling the page -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/footer.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/header.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/view_account.css') }}">
 </head>
 <body>
+    <!-- Header section -->
     <header class="header">
-        {% include 'header.html' %}
+        {% include 'header.html' %} <!-- Includes the header.html template -->
     </header>
+    
+    <!-- Main content section -->
     <main class="main">
         <div class="account-container">
-            <h1>Account Details</h1>
+            <h1>Account Details</h1> <!-- Displays the title for the account details section -->
             <div class="account-summary">
+                <!-- Displays the user's first name -->
                 <p><strong>First Name:</strong> {{ user.first_name }}</p>
+                <!-- Displays the user's last name -->
                 <p><strong>Last Name:</strong> {{ user.last_name }}</p>
+                <!-- Displays the user's email -->
                 <p><strong>Email:</strong> {{ user.email }}</p>
+                <!-- Displays the user's phone number -->
                 <p><strong>Phone Number:</strong> {{ user.phone_number }}</p>
+                <!-- Form to log out the user -->
                 <form method="POST" action="{{ url_for('logout') }}" style="display:inline;">
                     <button type="submit" class="logout-button">Logout</button>
-                  </form>
+                </form>
             </div>
         </div>
     </main>
+    
+    <!-- Footer section -->
     <footer class="footer">
-        {% include 'footer.html' %}
+        {% include 'footer.html' %} <!-- Includes the footer.html template -->
     </footer>
 </body>
 </html>

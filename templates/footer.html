@@ -1,8 +1,14 @@
 <div class="footer-logo">
-  <p><span class="text-wrapper">EatsExpress</span> <span class="span">.</span></p>
+  <!-- Logo section in the footer -->
+  <p>
+    <span class="text-wrapper">EatsExpress</span> 
+    <span class="span">.</span>
+  </p>
 </div>
 <div class="footer-content">
+  <!-- Footer content container with multiple columns -->
   <div class="column">
+    <!-- Column for popular cuisines -->
     <div class="text-wrapper-6">Popular Cuisines</div>
     <p class="text-wrapper-5">
       <a href="#" class="footer-link">Italian</a><br />
@@ -12,6 +18,7 @@
     </p>
   </div>
   <div class="column">
+    <!-- Column for popular areas -->
     <div class="text-wrapper-6">Popular Areas</div>
     <p class="text-wrapper-5">
       <a href="#" class="footer-link">Masaken El Rehab</a><br />
@@ -21,6 +28,7 @@
     </p>
   </div>
   <div class="column">
+    <!-- Column for restaurants -->
     <div class="text-wrapper-6">Restaurants</div>
     <p class="text-wrapper-5">
       <a href="#" class="footer-link">Lan Yuan - Maadi</a><br />
@@ -30,18 +38,25 @@
     </p>
   </div>
   <div class="column">
+    <!-- Column for contact information -->
     <div class="text-wrapper-6">Get in Touch</div>
     <div class="get-in-touch">
       <p class="feel-free-to-get-in">
         <span class="text-wrapper-7">Feel free to get in touch with us via email<br /></span>
         <a href="mailto:customersupport@eatsexpress.com" class="text-wrapper-8">customersupport@eatsexpress.com</a>
       </p>
+      <!-- Social media icons -->
       <div class="social">
-        <div class="group"><img class="vector" src="{{ url_for('static', filename='css/assets/footer/vector-2.svg') }}" /></div>
-        <div class="vector-wrapper"><img class="img" src="{{ url_for('static', filename='css/assets/footer/vector.svg') }}" /></div>
-        <div class="img-wrapper"><img class="vector-2" src="{{ url_for('static', filename='css/assets/footer/vector-1.svg') }}" /></div>
+        <div class="group">
+          <img class="vector" src="{{ url_for('static', filename='css/assets/footer/vector-2.svg') }}" alt="Social Icon 1"/>
+        </div>
+        <div class="vector-wrapper">
+          <img class="img" src="{{ url_for('static', filename='css/assets/footer/vector.svg') }}" alt="Social Icon 2"/>
+        </div>
+        <div class="img-wrapper">
+          <img class="vector-2" src="{{ url_for('static', filename='css/assets/footer/vector-1.svg') }}" alt="Social Icon 3"/>
+        </div>
       </div>
     </div>
   </div>
 </div>
-

@@ -1,25 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- Sets the character encoding for the document -->
   <meta charset="UTF-8">
+  <!-- Sets the viewport to make the website responsive -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Links to external CSS files for styling the page -->
   <link rel="stylesheet" href="{{ url_for('static', filename='css/header+loggedin.css') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/footer.css') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/restaurant.css') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/flash_messages.css') }}">
+  <!-- Links to Bootstrap CSS for additional styling -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <!-- Sets the title of the page dynamically based on the restaurant's name -->
   <title>{{ restaurant.name }} - EatsExpress</title>
 </head>
 <body>
+  <!-- Header section -->
   <header class="header">
-    {% include 'header+order.html' %}
+    {% include 'header+order.html' %} <!-- Includes the header+order.html template -->
   </header>
 
+  <!-- Main content section -->
   <main class="main">
     <div class="container mt-3">
+      <!-- Flash messages section -->
       {% with messages = get_flashed_messages(with_categories=true) %}
       {% if messages %}
       <div class="alert alert-dismissible fade show" role="alert">
+        <!-- Loop through each flash message and display it -->
         {% for category, message in messages %}
         <div class="alert alert-{{ category }}">{{ message }}</div>
         {% endfor %}
@@ -30,16 +39,23 @@
       {% endif %}
       {% endwith %}
     </div>
-    
+
+    <!-- Restaurant details and menu items section -->
     <div class="restaurant-container">
+      <!-- Restaurant image -->
       <img src="{{ url_for('static', filename=restaurant.image.split('static/')[1]) }}" alt="Restaurant Image">
+      <!-- Restaurant name -->
       <h1>{{ restaurant.name }}</h1>
+      <!-- Restaurant delivery fee and time -->
       <p>Delivery Fee: ${{ restaurant.delivery_fee }}</p>
       <p>Delivery Time: {{ restaurant.delivery_time }}</p>
+      <!-- Loop through each menu item and display its details -->
       {% for item in menu_items %}
         <a href="{{ url_for('add_item_to_cart', menu_item_id=item.id) }}" class="menu-item">
           <div class="menu-item-content">
+            <!-- Menu item image -->
             <img src="{{ url_for('static', filename=item.image.split('static/')[1]) }}" alt="Menu Item">
+            <!-- Menu item details -->
             <div class="menu-item-details">
               <h2>{{ item.name }}</h2>
               <p>{{ item.description }}</p>
@@ -51,10 +67,12 @@
     </div>
   </main>
 
+  <!-- Footer section -->
   <footer class="footer">
-    {% include 'footer.html' %}
+    {% include 'footer.html' %} <!-- Includes the footer.html template -->
   </footer>
 
+  <!-- JavaScript files for Bootstrap and jQuery functionalities -->
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>

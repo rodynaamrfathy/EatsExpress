@@ -3,33 +3,43 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- Linking to CSS files -->
   <link rel="stylesheet" href="{{ url_for('static', filename='css/header+loggedin.css') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/footer.css') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/flash_messages.css') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/complete_order.css') }}">
+  
+  <!-- Linking to Bootstrap CSS -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  
+  <!-- Title of the page -->
   <title>{{ title }}</title>
 </head>
 <body>
+  <!-- Header section -->
   <header class="header">
-    {% include 'header.html' %}
+    {% include 'header.html' %} <!-- Including header content -->
   </header>
 
+  <!-- Flash messages container -->
   <div class="flash-messages">
     {% with messages = get_flashed_messages(with_categories=true) %}
     {% if messages %}
+    <!-- Flash messages display using Bootstrap alerts -->
     <div class="alert alert-dismissible fade show" role="alert">
       {% for category, message in messages %}
-      <div class="alert alert-{{ category }}">{{ message }}</div>
+      <div class="alert alert-{{ category }}">{{ message }}</div> <!-- Displaying flash messages with respective category -->
       {% endfor %}
       <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
+        <span aria-hidden="true">&times;</span> <!-- Close button for alerts -->
       </button>
     </div>
     {% endif %}
     {% endwith %}
   </div>
 
+  <!-- Main content section -->
   <main class="main" style="flex: 1;">
     <div class="complete-order-container">
       <h1>Order Summary</h1>
@@ -38,18 +48,19 @@
           {% for item in cart_items %}
             <div class="order-item">
               <div class="item-image">
+                <!-- Display item image here if applicable -->
               </div>
               <div class="item-details">
                 <h2>{{ item.name }}</h2>
                 <p>{{ item.description }}</p>
                 {% if item.add_ons %}
                   <p><strong>Add ons:</strong></p>
-                  <p>{{ ', '.join(item.add_ons) }}</p>
+                  <p>{{ ', '.join(item.add_ons) }}</p> <!-- Displaying item add-ons if any -->
                 {% endif %}
               </div>
               <div class="item-quantity">
                 <p>Quantity</p>
-                <span>{{ item.quantity }}</span>
+                <span>{{ item.quantity }}</span> <!-- Displaying item quantity -->
               </div>
             </div>
           {% endfor %}
@@ -59,28 +70,30 @@
           <label for="address">Select Address:</label>
           <select id="address" name="address">
             {% for address in addresses %}
-              <option value="{{ address.id }}">{{ address.full_address }}</option>
+              <option value="{{ address.id }}">{{ address.full_address }}</option> <!-- Dropdown list of delivery addresses -->
             {% endfor %}
           </select>
           <a href="{{ url_for('addaddress') }}">
-            <button type="button" class="add-address-btn">Add New Address</button>
+            <button type="button" class="add-address-btn">Add New Address</button> <!-- Button to add a new delivery address -->
           </a>
         </div>
         <div class="total-price">
-          <h2>Total: ${{ total_price }}</h2>
+          <h2>Total: ${{ total_price }}</h2> <!-- Displaying total price of the order -->
         </div>
         <div class="delivery-time">
-          <h2>Delivery Time: {{ delivery_time }} minutes</h2>
+          <h2>Delivery Time: {{ delivery_time }} minutes</h2> <!-- Displaying estimated delivery time -->
         </div>
-        <button type="submit" class="place-order-btn">Place Order</button>
+        <button type="submit" class="place-order-btn">Place Order</button> <!-- Button to submit the order -->
       </form>
     </div>
   </main>
 
+  <!-- Footer section -->
   <footer class="footer">
-    {% include 'footer.html' %}
+    {% include 'footer.html' %} <!-- Including footer content -->
   </footer>
 
+  <!-- JavaScript libraries -->
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>

@@ -1,23 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8"> <!-- Sets the character encoding for the document -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Sets the viewport to make the website responsive -->
+  
+  <!-- Links to external CSS files for styling the page -->
   <link rel="stylesheet" href="{{ url_for('static', filename='css/header+loggedin.css') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/footer.css') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/viewcart.css') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/flash_messages.css') }}">
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-  <title>{{ title }}</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"> <!-- Links to Bootstrap CSS for additional styling -->
+
+  <title>{{ title }}</title> <!-- Sets the title of the page dynamically -->
 </head>
 <body>
+  <!-- Header section -->
   <header class="header">
-    {% include 'header+order.html' %}
+    {% include 'header+order.html' %} <!-- Includes the header+order.html template -->
   </header>
 
+  <!-- Flash messages section -->
   <div class="flash-messages">
     {% with messages = get_flashed_messages(with_categories=true) %}
     {% if messages %}
+      <!-- Loop through each flash message and display it -->
       {% for category, message in messages %}
       <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
         {{ message }}
@@ -30,31 +36,39 @@
     {% endwith %}
   </div>
 
+  <!-- Main content section -->
   <main class="main">
     <div class="cart-container">
-      <h1>{{ restaurant.name }} - Cart</h1>
+      <h1>{{ restaurant.name }} - Cart</h1> <!-- Displays the restaurant name and "Cart" title -->
       <div class="cart-items">
+        <!-- Loop through each item in the cart and display its details -->
         {% for item in cart_items %}
           <div class="cart-item">
-            <h2>{{ item.name }}</h2>
+            <h2>{{ item.name }}</h2> <!-- Item name -->
             <div class="quantity-container">
               <p>Quantity:</p>
+              <!-- Form to decrease the quantity of the item -->
               <form method="post" action="{{ url_for('update_cart_item', item_id=item.id, action='decrease') }}" style="display: inline;">
                 <button type="submit">-</button>
               </form>
-              <span>{{ item.quantity }}</span>
+              <span>{{ item.quantity }}</span> <!-- Displays the item quantity -->
+              <!-- Form to increase the quantity of the item -->
               <form method="post" action="{{ url_for('update_cart_item', item_id=item.id, action='increase') }}" style="display: inline;">
                 <button type="submit">+</button>
               </form>
             </div>
-            <p>Price: ${{ item.price }}</p>
+            <p>Price: ${{ item.price }}</p> <!-- Item price -->
           </div>
         {% endfor %}
       </div>
+      <!-- Cart summary section -->
       <div class="cart-summary">
+        <!-- Displays the total price of the items in the cart -->
         <h3>Total: ${{ cart_items | sum(attribute='price') }}</h3>
-        <p>Delivery Fee: ${{ restaurant.delivery_fee }}</p>
+        <p>Delivery Fee: ${{ restaurant.delivery_fee }}</p> <!-- Displays the delivery fee -->
+        <!-- Displays the grand total (items total price + delivery fee) -->
         <h3>Grand Total: ${{ cart_items | sum(attribute='price') + restaurant.delivery_fee }}</h3>
+        <!-- Form to proceed with the order -->
         <form action="{{ url_for('completeorder') }}" method="get">
           <button type="submit" class="checkout-btn">Proceed with order</button>
         </form>
@@ -62,10 +76,12 @@
     </div>
   </main>
 
+  <!-- Footer section -->
   <footer class="footer">
-    {% include 'footer.html' %}
+    {% include 'footer.html' %} <!-- Includes the footer.html template -->
   </footer>
 
+  <!-- JavaScript files for Bootstrap and jQuery functionalities -->
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>

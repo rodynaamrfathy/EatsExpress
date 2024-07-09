@@ -1,11 +1,18 @@
 <div class="header">
+  <!-- Navigation bar container -->
   <div class="navigation">
+    <!-- Logo section with link to the home page -->
     <div class="logo">
       <a href="{{ url_for('home') }}">
-        <p class="eats-express"><span class="text-wrapper">EatsExpress</span> <span class="span">.</span></p>
+        <p class="eats-express">
+          <span class="text-wrapper">EatsExpress</span> 
+          <span class="span">.</span>
+        </p>
       </a>
     </div>
+    <!-- Menu links -->
     <div class="menu">
+      <!-- Links to different sections of the page -->
       <a href="#home" class="nav-link text-wrapper-3">Home</a>
       <a href="#Categories" class="nav-link text-wrapper-4">Categories</a>
       <a href="#restaurants" class="nav-link text-wrapper-4">Restaurants</a>
@@ -13,15 +20,23 @@
       <a href="#cuisines" class="nav-link text-wrapper-4">Cuisines</a>
       <a href="#breakfast" class="nav-link text-wrapper-4">Breakfast</a>
     </div>
+    <!-- User information section -->
     <div class="user-info">
+      <!-- Profile icon -->
       <img src="{{ url_for('static', filename='css/assets/profile.png') }}" alt="Profile Icon" class="profile-icon">
+      <!-- User dropdown menu -->
       <div class="user-dropdown">
+        <!-- Greeting message with the user's username -->
         <span class="user-greeting">Hello, {{ user.username }}</span>
+        <!-- Link to view cart with cart icon -->
         <a href="{{ url_for('view_cart') }}">
           <img src="{{ url_for('static', filename='css/assets/cart.png') }}" alt="Cart Icon" class="cart-icon">
         </a>
+        <!-- Dropdown content with user account details -->
         <div class="dropdown-content">
+          <!-- Link to view account details -->
           <a href="{{ url_for('accountdetails') }}">View Account</a>
+          <!-- Displaying user account summary -->
           <div class="account-summary">
             <p><strong>Name:</strong> {{ user.first_name }} {{ user.last_name }}</p>
             <p><strong>Email:</strong> {{ user.email }}</p>

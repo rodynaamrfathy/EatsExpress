@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Choose Action</title>
+    
+    <!-- Linking to CSS files -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/header.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/create_account.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/adminpage.css') }}">
@@ -11,18 +13,22 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 </head>
 <body>
+    <!-- Header section -->
     <header class="header">
-        {% include 'header.html' %}
+        {% include 'header.html' %} <!-- Including header content -->
     </header>
+
+    <!-- Flash messages container -->
     <div class="container mt-3">
         {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
         <div class="flash-messages">
+            <!-- Displaying flash messages -->
             {% for category, message in messages %}
             <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
-                {{ message }}
+                {{ message }} <!-- Flash message content -->
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
+                    <span aria-hidden="true">&times;</span> <!-- Close button -->
                 </button>
             </div>
             {% endfor %}
@@ -30,20 +36,26 @@
         {% endif %}
         {% endwith %}
     </div>
+
+    <!-- Action selection form container -->
     <div class="form-container">
         <h1>Choose Action</h1>
         <div class="action-buttons">
+            <!-- Conditionally showing buttons based on user role -->
             {% if email == "Admin@eatsexpress.com" %}
             <a href="{{ url_for('create_restaurant') }}"><button type="button" class="action-button">Create Restaurant</button></a>
             {% endif %}
             <a href="{{ url_for('add_menu_item') }}"><button type="button" class="action-button">Add Menu Item</button></a>
         </div>
     </div>
+
+    <!-- Orders filter form container -->
     <div class="filter-container">
         <h2>Orders:</h2>
         <form method="GET" action="{{ url_for('adminpage') }}">
             <div class="form-group">
                 <label for="orderFilter">Filter Orders:</label>
+                <!-- Dropdown to filter orders -->
                 <select class="form-control" id="orderFilter" name="status">
                     <option value="all">All (excluding delivered)</option>
                     <option value="delivered">Delivered</option>
@@ -55,6 +67,8 @@
             </div>
         </form>
     </div>
+
+    <!-- Orders list container -->
     <div class="orders">
         {% for order in orders %}
             <div class="order-item">
@@ -64,6 +78,7 @@
                 <p>Delivery Time: {{ order.delivery_time }}</p>
                 <p>Order Created At: {{ order.created_at }}</p>
                 <p>Order Status: {{ order.status }}</p>
+                <!-- Conditionally showing action buttons based on user role -->
                 {% if email == "Admin@eatsexpress.com" %}
                 <form method="POST" action="{{ url_for('cancelorder') }}" style="display:inline-block;">
                     <input type="hidden" name="order_id" value="{{ order.id }}">
@@ -74,6 +89,7 @@
                     <input type="hidden" name="order_id" value="{{ order.id }}">
                     <button type="submit" class="action-button">Confirm Order</button>
                 </form>
+                <!-- Conditionally showing actions for non-admin users -->
                 {% if email != "Admin@eatsexpress.com" %}
                 <form method="POST" action="{{ url_for('orderprepared') }}" style="display:inline-block;">
                     <input type="hidden" name="order_id" value="{{ order.id }}">
@@ -87,6 +103,8 @@
             </div>
         {% endfor %}
     </div>
+
+    <!-- JavaScript libraries -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>

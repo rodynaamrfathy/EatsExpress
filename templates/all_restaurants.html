@@ -3,32 +3,42 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- Linking to CSS files -->
   <link rel="stylesheet" href="{{ url_for('static', filename='css/header+loggedin.css') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/footer.css') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+  
+  <!-- Title of the page -->
   <title>All Restaurants - EatsExpress</title>
 </head>
 <body>
+  <!-- Header section -->
   <header class="header">
-    {% include 'header+order.html' %}
+    {% include 'header+order.html' %} <!-- Including header content -->
   </header>
 
+  <!-- Main content section -->
   <main class="main" style="flex: 1; padding-top: 90px;">
     <div class="items-container">
       {% for restaurant in restaurants %}
+        <!-- Link to restaurant details page -->
         <a href="{{ url_for('restaurant_details', restaurant_id=restaurant.id) }}" class="item" style="margin: 50px;">
           <div class="item-content">
             <div class="item-logo">
+              <!-- Displaying restaurant logo -->
               <img src="{{ url_for('static', filename=restaurant.image.split('static/')[1]) }}" alt="{{ restaurant.name }}">
             </div>
-            <h2>{{ restaurant.name }}</h2>
+            <h2>{{ restaurant.name }}</h2> <!-- Displaying restaurant name -->
             <div class="item-details">
+              <!-- Displaying delivery fee and time -->
               <img src="{{ url_for('static', filename='css/assets/delivery.png') }}" alt="Delivery Icon">
               <span>${{ restaurant.delivery_fee }}</span>
               <img src="{{ url_for('static', filename='css/assets/time.png') }}" alt="Time Icon">
               <span>{{ restaurant.delivery_time }}</span>
             </div>
             <div class="item-tags">
+              <!-- Displaying restaurant tags -->
               {% for tag in restaurant.tags %}
                 <span>{{ tag.name }}</span>
               {% endfor %}
@@ -39,8 +49,9 @@
     </div>
   </main>
 
+  <!-- Footer section -->
   <footer class="footer">
-    {% include 'footer.html' %}
+    {% include 'footer.html' %} <!-- Including footer content -->
   </footer>
 </body>
 </html>

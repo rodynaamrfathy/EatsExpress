@@ -49,7 +49,7 @@
                             {{ user.last_name }}
                         {% endif %}
                     </h1>
-                    <p>Egypt</p>
+                    <p>Egypt</p> <!-- Example location data -->
                 </div>
             </div>
             <div class="account-details">
@@ -76,7 +76,7 @@
                     <p>Delivery Time: {{ order.delivery_time }}</p>
                     <p>Order Created At: {{ order.created_at }}</p>
                     <p>Order Status: {{ order.status }}</p>
-                    {%if order.status != "cancelled" or order.status != "delivered" %}
+                    {% if order.status != "cancelled" and order.status != "delivered" %}
                     <div class="order-actions" style="margin-top: 20px;">
                         <a href="{{ url_for('track_order', order_id=order.id) }}" class="track-order-btn">Track Order</a>
                     </div>                    
@@ -89,6 +89,7 @@
         {% include 'footer.html' %}
     </footer>
 
+    <!-- JavaScript libraries -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>

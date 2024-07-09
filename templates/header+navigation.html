@@ -1,11 +1,18 @@
 <div class="header">
+  <!-- Navigation bar container -->
   <div class="navigation">
+    <!-- Logo section with link to the main page -->
     <div class="logo">
       <a href="{{ url_for('main') }}">
-        <p class="eats-express"><span class="text-wrapper">EatsExpress</span> <span class="span">.</span></p>
+        <p class="eats-express">
+          <span class="text-wrapper">EatsExpress</span> 
+          <span class="span">.</span>
+        </p>
       </a>
     </div>
+    <!-- Menu links -->
     <div class="menu">
+      <!-- Links to different sections of the page -->
       <a href="#home" class="nav-link text-wrapper-3">Home</a>
       <a href="#Categories" class="nav-link text-wrapper-4">Categories</a>
       <a href="#restaurants" class="nav-link text-wrapper-4">Restaurants</a>
@@ -13,6 +20,7 @@
       <a href="#cuisines" class="nav-link text-wrapper-4">Cuisines</a>
       <a href="#breakfast" class="nav-link text-wrapper-4">Breakfast</a>
     </div>
+    <!-- Login button with link to the login page -->
     <a href="{{ url_for('login') }}" class="button">
       <div class="overlap-group">
         <div class="text-wrapper-2">Login</div>

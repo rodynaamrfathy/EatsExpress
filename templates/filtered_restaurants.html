@@ -1,24 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Sets the character encoding for the document -->
     <meta charset="UTF-8">
+    <!-- Sets the viewport to make the website responsive -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Sets the title of the page dynamically -->
     <title>{{ title }}</title>
+    <!-- Links to external CSS files for styling the page -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/footer.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/header.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/flash_messages.css') }}">
+    <!-- Links to Bootstrap CSS for additional styling -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 </head>
 <body>
+    <!-- Header section -->
     <header class="header">
-        {% include 'header.html' %}
+        {% include 'header.html' %} <!-- Includes the header.html template -->
     </header>
     
+    <!-- Flash Messages Container -->
     <div class="flash-messages">
         {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
         <div class="alert alert-dismissible fade show" role="alert">
+            <!-- Loop through each flash message and display it -->
             {% for category, message in messages %}
             <div class="alert alert-{{ category }}">{{ message }}</div>
             {% endfor %}
@@ -30,9 +38,12 @@
         {% endwith %}
     </div>
     
+    <!-- Main content -->
     <main class="main">
+        <!-- Filtered restaurants section -->
         <section id="filtered-restaurants" style="margin-top: 100px;">
             <div class="items-container" style="margin: 50px;">
+                <!-- Loop through each restaurant and display its details -->
                 {% for restaurant in restaurants %}
                 <a href="{{ url_for('restaurant_details', restaurant_id=restaurant.id) }}" class="item">
                     <div class="item-content" style="margin: 50px;">
@@ -56,10 +67,13 @@
             </div>
         </section>
     </main>
+    
+    <!-- Footer section -->
     <footer class="footer">
-        {% include 'footer.html' %}
+        {% include 'footer.html' %} <!-- Includes the footer.html template -->
     </footer>
 
+    <!-- JavaScript files for additional functionalities -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>

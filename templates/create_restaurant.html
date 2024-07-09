@@ -1,23 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- Sets the character encoding for the document -->
   <meta charset="UTF-8">
+  <!-- Sets the viewport to make the website responsive -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Sets the title of the page -->
   <title>Create New Restaurant</title>
+  <!-- Links to external CSS files for styling the page -->
   <link rel="stylesheet" href="{{ url_for('static', filename='css/header.css') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/create_account.css') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/flash_messages.css') }}">
+  <!-- Links to Bootstrap CSS for additional styling -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 </head>
 <body>
+  <!-- Header section -->
   <header class="header">
-    {% include 'header.html' %}
+    {% include 'header.html' %} <!-- Includes the header.html template -->
   </header>
   
+  <!-- Flash Messages Container -->
   <div class="flash-messages">
     {% with messages = get_flashed_messages(with_categories=true) %}
     {% if messages %}
+      <!-- Loop through each flash message and display it -->
       {% for category, message in messages %}
       <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
         {{ message }}
@@ -30,8 +38,10 @@
     {% endwith %}
   </div>
 
+  <!-- Form container for creating a new restaurant -->
   <div class="form-container" style="margin-top: 250px;">
     <h1>Create New Restaurant</h1>
+    <!-- Form to submit new restaurant details -->
     <form method="post" enctype="multipart/form-data">
       <label for="name">Restaurant Name:</label>
       <input type="text" id="name" name="name" required>
@@ -64,11 +74,13 @@
     </form>
   </div>
 
+  <!-- JavaScript files for additional functionalities -->
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
   <script>
     $(document).ready(function() {
+      // Automatically close flash messages after 2 seconds
       $(".alert-dismissible").fadeTo(2000, 500).slideUp(500, function(){
         $(".alert-dismissible").alert('close');
       });
