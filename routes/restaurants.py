@@ -7,6 +7,16 @@ from models.MenuItem import MenuItem
 
 @app.route('/filter_restaurants/<filter_by>/<filter_value>')
 def filter_restaurants(filter_by, filter_value):
+    """
+    Route to filter restaurants based on a given criterion.
+
+    Parameters:
+        filter_by (str): The attribute to filter by (e.g., cuisines, categories, breakfast, beverages).
+        filter_value (str): The value to filter by.
+
+    Returns:
+        Renders the filtered restaurants page with a list of restaurants matching the filter.
+    """
     restaurants = []
     for restaurant in storage.all(Restaurant).values():
         if filter_by == 'cuisines' and filter_value in restaurant.cuisines:
@@ -23,6 +33,15 @@ def filter_restaurants(filter_by, filter_value):
 
 @app.route('/search_restaurants', methods=['GET'])
 def search_restaurants():
+    """
+    Route to search for restaurants based on a query.
+
+    Methods:
+        GET: Processes the search query and retrieves matching restaurants.
+
+    Returns:
+        Renders the search results page with a list of matching restaurants.
+    """
     query = request.args.get('query', '').lower()
     if not query:
         flash('Please enter a search query.', 'warning')
@@ -43,11 +62,26 @@ def search_restaurants():
 
 @app.route('/viewall')
 def viewall():
+    """
+    Route to view all restaurants.
+
+    Returns:
+        Renders the page with a list of all restaurants.
+    """
     restaurants = storage.all(Restaurant).values()
     return render_template('all_restaurants.html', restaurants=restaurants, title="View All Restaurants")
 
 @app.route('/restaurant_details/<restaurant_id>')
 def restaurant_details(restaurant_id):
+    """
+    Route to view details of a specific restaurant.
+
+    Parameters:
+        restaurant_id (str): The ID of the restaurant to view.
+
+    Returns:
+        Renders the restaurant details page with the restaurant and its menu items.
+    """
     restaurant = storage.get(Restaurant, restaurant_id)
     if not restaurant:
         flash('Restaurant not found', 'danger')
@@ -57,9 +91,5 @@ def restaurant_details(restaurant_id):
     
     return render_template('restaurant_details.html', restaurant=restaurant, menu_items=menu_items, title=restaurant.name)
 
-
-@app.route('/item')
-def item():
-    return render_template('add_item_to_cart.html', title="EatsExpress - item")
 
 

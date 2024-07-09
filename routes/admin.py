@@ -11,6 +11,12 @@ from helper_functions import allowed_file, ensure_upload_folder_exists
 
 @app.route('/adminpage')
 def adminpage():
+    """
+    Route to display the admin page.
+
+    Returns:
+        Renders the admin page with order details if the user is an admin, otherwise redirects to login or home.
+    """
     user_id = session.get('user_id')
     if not user_id:
         flash('You need to log in to access this page.', 'danger')
@@ -50,6 +56,16 @@ def adminpage():
 
 @app.route('/create_restaurant', methods=['GET', 'POST'])
 def create_restaurant():
+    """
+    Route to create a new restaurant.
+
+    Methods:
+        GET: Renders the create restaurant page.
+        POST: Processes the form to create a new restaurant.
+
+    Returns:
+        Renders the create restaurant page or redirects based on form submission status.
+    """
     if request.method == 'POST':
         name = request.form['name']
         location = request.form['location']
@@ -101,6 +117,16 @@ def create_restaurant():
 
 @app.route('/add_menu_item', methods=['GET', 'POST'])
 def add_menu_item():
+    """
+    Route to add a new menu item.
+
+    Methods:
+        GET: Renders the add menu item page.
+        POST: Processes the form to add a new menu item.
+
+    Returns:
+        Renders the add menu item page or redirects based on form submission status.
+    """
     user_id = session.get('user_id')
     if not user_id:
         flash('You need to log in to access this page.', 'danger')
@@ -155,6 +181,15 @@ def add_menu_item():
 
 @app.route('/cancelorder', methods=['POST'])
 def cancelorder():
+    """
+    Route to cancel an order.
+
+    Methods:
+        POST: Cancels the specified order.
+
+    Returns:
+        Redirects to the admin page with a success or danger message.
+    """
     order_id = request.form.get('order_id')
     order = storage.get(Order, order_id)
     if order:
@@ -168,6 +203,15 @@ def cancelorder():
 
 @app.route('/confirmorder', methods=['POST'])
 def confirmorder():
+    """
+    Route to confirm an order.
+
+    Methods:
+        POST: Confirms the specified order.
+
+    Returns:
+        Redirects to the admin page with a success or danger message.
+    """
     order_id = request.form.get('order_id')
     order = storage.get(Order, order_id)
     if order:
@@ -181,6 +225,15 @@ def confirmorder():
 
 @app.route('/orderprepared', methods=['POST'])
 def orderprepared():
+    """
+    Route to mark an order as prepared.
+
+    Methods:
+        POST: Marks the specified order as prepared.
+
+    Returns:
+        Redirects to the admin page with a success or danger message.
+    """
     order_id = request.form.get('order_id')
     order = storage.get(Order, order_id)
     if order:
@@ -194,6 +247,15 @@ def orderprepared():
 
 @app.route('/outfordelivery', methods=['POST'])
 def outfordelivery():
+    """
+    Route to mark an order as out for delivery.
+
+    Methods:
+        POST: Marks the specified order as out for delivery.
+
+    Returns:
+        Redirects to the admin page with a success or danger message.
+    """
     order_id = request.form.get('order_id')
     order = storage.get(Order, order_id)
     if order:

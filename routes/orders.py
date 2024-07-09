@@ -12,6 +12,15 @@ from datetime import datetime
 
 @app.route('/track_order/<order_id>')
 def track_order(order_id):
+    """
+    Route to track the status of an order.
+
+    Parameters:
+        order_id (str): The ID of the order to track.
+
+    Returns:
+        Renders the order tracking page or redirects to account details if order not found.
+    """
     order = storage.get(Order, order_id)
     if not order:
         flash('Order not found.', 'danger')
@@ -28,6 +37,16 @@ def track_order(order_id):
 
 @app.route('/completeorder', methods=['GET', 'POST'])
 def completeorder():
+    """
+    Route to complete an order.
+
+    Methods:
+        GET: Renders the complete order page.
+        POST: Processes the order completion.
+
+    Returns:
+        Renders the complete order page or redirects to login/home page based on the session state.
+    """
     if 'user_id' not in session:
         flash('You need to log in to complete your order.', 'danger')
         return redirect(url_for('login'))

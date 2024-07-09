@@ -8,6 +8,12 @@ from models.Address import Address
 
 @app.route('/view_account')
 def view_account():
+    """
+    Route to view the user's account information.
+
+    Returns:
+        Renders the account view page if the user is logged in, otherwise redirects to login.
+    """
     if 'user_id' in session:
         user = storage.get(User, session['user_id'])
         return render_template('viewaccount.html', user=user, title="View Account")
@@ -17,6 +23,12 @@ def view_account():
     
 @app.route('/accountdetails')
 def accountdetails():
+    """
+    Route to view detailed account information and orders.
+
+    Returns:
+        Renders the account details page with user and order information if the user is logged in, otherwise redirects to login.
+    """
     if 'user_id' in session:
         user = storage.get(User, session['user_id'])
         
@@ -54,6 +66,15 @@ def accountdetails():
 
 @app.route('/logout', methods=['POST'])
 def logout():
+    """
+    Route to log out the user.
+
+    Methods:
+        POST: Logs out the user and clears the session.
+
+    Returns:
+        Redirects to the main page with a success message.
+    """
     session.pop('user_id', None)
     session.pop('username', None)
     session.pop('email', None)
@@ -62,6 +83,15 @@ def logout():
 
 @app.route('/delete_account', methods=['POST'])
 def delete_account():
+    """
+    Route to delete the user's account.
+
+    Methods:
+        POST: Deletes the user's account and clears the session.
+
+    Returns:
+        Redirects to the main page with a success message or login page if not logged in.
+    """
     if 'user_id' in session:
         user = storage.get(User, session['user_id'])
         if user:
@@ -78,6 +108,12 @@ def delete_account():
 
 @app.context_processor
 def inject_user():
+    """
+    Context processor to inject user information into templates.
+
+    Returns:
+        A dictionary with the user object if logged in, otherwise None.
+    """
     user_id = session.get('user_id')
     if user_id:
         user = storage.get(User, user_id)
@@ -87,7 +123,16 @@ def inject_user():
 
 @app.route('/addaddress', methods=['GET', 'POST'])
 def addaddress():
+    """
+    Route to add a new address for the user.
 
+    Methods:
+        GET: Renders the add address page.
+        POST: Processes the form to add a new address.
+
+    Returns:
+        Redirects to the cart view page with a success message or login page if not logged in.
+    """
     if 'user_id' not in session:
         flash('You must be logged in to add an address.', 'danger')
         return redirect(url_for('login'))

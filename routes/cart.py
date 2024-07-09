@@ -10,6 +10,19 @@ from models.Restaurant import Restaurant
 
 @app.route('/add_item_to_cart/<menu_item_id>', methods=['GET', 'POST'])
 def add_item_to_cart(menu_item_id):
+    """
+    Route to add an item to the user's cart.
+
+    Parameters:
+        menu_item_id (str): The ID of the menu item to add to the cart.
+
+    Methods:
+        GET: Renders the add item to cart page.
+        POST: Processes the form to add an item to the cart.
+
+    Returns:
+        Renders the add item to cart page, confirms deletion of existing cart, or redirects based on form submission status.
+    """
     if 'user_id' in session:
         user = storage.get(User, session['user_id'])
         menu_item = storage.get(MenuItem, menu_item_id)
@@ -57,6 +70,12 @@ def add_item_to_cart(menu_item_id):
 
 @app.route('/view_cart')
 def view_cart():
+    """
+    Route to view the user's cart.
+
+    Returns:
+        Renders the cart view page if the user is logged in and the cart has items, otherwise redirects to home or login.
+    """
     if 'user_id' in session:
         user = storage.get(User, session['user_id'])
         carts = storage.all(Cart).values()
@@ -74,6 +93,19 @@ def view_cart():
 
 @app.route('/update_cart_item/<item_id>/<action>', methods=['POST'])
 def update_cart_item(item_id, action):
+    """
+    Route to update the quantity of an item in the cart.
+
+    Parameters:
+        item_id (str): The ID of the item to update.
+        action (str): The action to perform (increase or decrease).
+
+    Methods:
+        POST: Processes the form to update the item quantity.
+
+    Returns:
+        Redirects to the cart view page or displays an error message.
+    """
     if 'user_id' in session:
         user = storage.get(User, session['user_id'])
         cart = next((c for c in storage.all(Cart).values() if c.user_id == user.id), None)

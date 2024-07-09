@@ -7,6 +7,16 @@ from models.User import User
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    """
+    Route for user login.
+
+    Methods:
+        GET: Renders the login page.
+        POST: Processes the login form.
+
+    Returns:
+        Renders the login page or redirects to the home/admin page based on user credentials.
+    """
     if request.method == 'POST':
         login_id = request.form['login_id']
         password = request.form['password']
@@ -34,6 +44,16 @@ def login():
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
+    """
+    Route for user registration.
+
+    Methods:
+        GET: Renders the registration page.
+        POST: Processes the registration form.
+
+    Returns:
+        Renders the registration page or redirects to the login page based on form submission status.
+    """
     if request.method == 'POST':
         first_name = request.form['firstname']
         last_name = request.form['lastname']
