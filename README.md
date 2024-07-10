@@ -22,7 +22,7 @@
 ## Introduction
 EatsExpress is an online food ordering and delivery service that connects users with local restaurants in Egypt. Users can browse various cuisines, place orders, and have their favorite meals delivered right to their doorstep.
 
-[Deployed Site](http://rodyna.pythonanywhere.com)
+[Deployed Site](https://moyasser.pythonanywhere.com/)
 
 ### Our LinkedIn Accounts
 [Rodyna Amr's LinkedIn Profile](https://www.linkedin.com/in/rodyna-amr-22027012cs/) | [Mohammed Yasser's LinkedIn Profile](https://www.linkedin.com/in/mohamed-yasser-42b16a282/) | [Mohammed Essam's LinkedIn Profile](https://www.linkedin.com/in/mohamed-essam-742553279/)
